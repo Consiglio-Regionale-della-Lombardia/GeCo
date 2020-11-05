@@ -1,0 +1,376 @@
+﻿<%@ Master Language="C#" 
+           AutoEventWireup="true" 
+           CodeFile="MasterPage.master.cs" 
+           Inherits="MasterPage"
+%>
+
+<%@ Register Src="~/LoggedUserPanel.ascx" TagName="LoggedUserPanel" TagPrefix="lup" %>
+
+<%--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+                    "http://www.w3.org/TR/html4/loose.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Gestione Consiglieri</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <meta content="no-cache" http-equiv="Cache-Control" />
+    <meta content="no-cache" http-equiv="Pragma" />
+    <meta content="0" http-equiv="Expires" />
+    <link href="css/theme.css" rel="stylesheet" type="text/css" />
+    <link href="css/tabs.css" rel="stylesheet" type="text/css" media="screen" />
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/sddm.js"></script>
+    <script type="text/javascript" src="../js/modal_popup.js"></script>
+</head>
+
+<body>
+<form id="form1" runat="server">
+<!-- 
+    definizione pagina: 
+    altezza=712px; larghezza=1000px
+width="1000px"
+  -->
+
+    
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+<!--testata-->
+<tr>
+    <td valign="top" style="width: 224px; height: 100px; text-align: center;" class="testata" colspan="2">
+	    <asp:Image ID="Image1" 
+	               runat="server" 
+	               ImageUrl="loghi/Logo_CRL.gif" />
+    </td>
+</tr>
+
+<!--barra login-->
+<% if (loggedin.Equals("1") && ActiveDirectory.IsEnabled) { %>
+<tr>
+    <td valign="top" class="testata" colspan="2" style="height:22px;">
+        <lup:LoggedUserPanel runat="server" ID="panel_loggeruser" />	    
+    </td>
+</tr>
+<% } %>
+
+<!--barra verde-->
+<tr>
+    <% if (mode != "popup") { %>
+        <td colspan="2" id="barra_verde" style="text-align: left;">
+	    <% if (loggedin.Equals("1")) { %>
+	        <div style="position: relative;">
+	            <% if (role == 5) { %>
+	              <% 
+			      if(logged_categoria_organo == (int)Constants.CategoriaOrgano.UfficioPresidenza)
+                  { %>
+	            	<a href='../persona/persona.aspx'>
+	                    Consiglieri
+	                </a>  
+	                -
+	                <a href="../organi/dettaglio.aspx?id=<%= logged_organo %>">
+	                    Composizione UDP
+	                </a> 
+                 <% } 
+			         else if(logged_categoria_organo == (int)Constants.CategoriaOrgano.GiuntaElezioni)
+                  { %> 
+					<a href="../organi/dettaglio.aspx?id=<%= logged_organo %>">
+						Composizione Commissione
+					</a>
+                    -                 
+ 	                <a href="../persona/persona.aspx">
+	                    Consiglieri
+	                </a> 
+	                -
+	                <a href="../persona/persona_assessori.aspx" visible="true">
+	                    Assessori
+	                </a>                                     	                                                      	                                                       	    
+	            	 <% }
+                  else
+                  { %>
+	                <a href="../organi/dettaglio.aspx?id=<%= logged_organo %>">
+	                    Composizione Commissione
+	                </a> 
+	                <% } %>
+	                - 	                
+	            <% } else if (role == 4) { %>
+	                <a href="../persona/persona_commissione.aspx">
+	                    Composizione organi Consiliari
+	                </a>
+	                -
+	            <% } else if (role == 7) { %>
+	            
+				<% } else if (role == 8) { %>
+	                <a href="../persona/persona.aspx">
+	                    Consiglieri
+	                </a> 
+	                -
+	            <% } else { %>
+	                <a href="../persona/persona.aspx">
+	                    Consiglieri
+	                </a> 
+	                -
+	                <a href="../persona/persona_assessori.aspx" visible="true">
+	                    Assessori
+	                </a>
+	                - 
+	                <%--<a href="javascript:;" onmouseover="mopen('menu_prova')" onmouseout="mclosetime()" >
+	                    Menu Prova
+	                </a>
+	                ---%>
+	            <% } %> 
+        	    
+	            <%if (role < 4) { %>
+	                <a href="../gruppi_politici/gestisciGruppiPolitici.aspx">
+	                    Gruppi Politici
+	                </a> 
+	                -
+	                <a href="../legislature/gestisciLegislature.aspx">
+	                    Legislature
+	                </a> 
+	                - 
+	                <a href="../missioni/gestisciMissioni.aspx">
+	                    Missioni
+	                </a> 
+	                -
+	                <a href="../organi/gestisciOrgani.aspx">
+	                    Organi
+	                </a> 
+	                -
+                	<a href="../cariche/gestisciCariche.aspx" >
+		                Cariche
+		            </a>
+                    -
+	            <% } %> 
+        	    
+	            <% if (role == 4) { %>
+                    <a href="../organi/gestisciOrgani.aspx">
+                        Organi
+                    </a> 
+                    -
+                <% } %>
+                
+                <% if (role == 7) { %> 
+                
+				<% } else if (role == 8) { %>
+					<a href="../missioni/gestisciMissioni.aspx">
+	                    Missioni
+	                </a> 
+	                -
+                <% } else { %>
+	                <a href="../sedute/gestisciSedute.aspx">
+	                    Sedute
+	                </a> 
+	                -
+	            <% } %> 
+        	    
+	            <% if (role == 2) { %>
+                    <%--<a href="../sedute/riepilogo_UOPrerogative_ufficio_presidenza.aspx">--%>
+                        <a href="../sedute/riepilogoCR.aspx">
+	                    Riepilogo Mensile
+	                </a> 
+	                -
+	            <% } else if (role == 4) { %>
+                    <a href="../sedute/riepilogo.aspx">
+	                    Riepilogo Mensile
+	                </a> 
+	                -
+                <% } else if (role == 5) { %>
+	                <a href="../sedute/riepilogoCR.aspx">
+	                    Riepilogo Mensile
+	                </a> 
+	                -
+	            <% } else if (role == 6) { %>
+	                <a href="../sedute/riepilogo_Consiglio.aspx">
+	                    Riepilogo Mensile
+	                </a>
+	                -
+	            <% } %>
+                
+                <% if (role < 4) { %>
+	                <a href="../stampe/elenco_stampe_tutte.aspx" >
+	                    Report
+	                </a>
+	                -
+	            <% } else if (role == 4) { %>
+	                <a href="../stampe/elenco_stampe_comm.aspx" >
+	                    Report
+	                </a>
+	                -
+	            <% } else if (role == 5) { %>
+	                <a href="../stampe/elenco_stampe_comm.aspx" >
+	                    Report
+	                </a>
+	                -
+	            <% } else if (role == 6) { %>
+	                <a href="../stampe/elenco_stampe_segrcons.aspx" >
+	                    Report
+	                </a>
+	                -
+	            <% } %>
+        	    
+	            <% if (
+						(role == 1) || 
+						(role == 2) || 
+						(
+							(role == 5) && 
+										(
+										logged_categoria_organo == (int) Constants.CategoriaOrgano.GiuntaElezioni
+										)
+						)
+					  )
+                { %>
+	                <a href="../schede_incarichi/incarichi_extra_istituzionali.aspx" >
+	                    Inc. Extra-Ist.
+	                </a>
+	                -
+	            <% } %>
+        	    
+	            <% if (role == 1) { %>
+	                <a href="javascript:;" onmouseover="mopen('menu1')" onmouseout="mclosetime()">
+	                    Varie
+	                </a>
+	                - 
+	            <%-- Nella definizione tolgo la definizione onclick="toggle_visibility('menu1') --%>
+                    
+                    <% if (ActiveDirectory.IsEnabled) { %>
+	                    <a href="../utenti/gestisciRuoli.aspx">
+	                        Admin
+	                    </a>
+                    <% } else { %>
+	                    <a href="../utenti/gestisciUtenti.aspx">
+	                        Admin
+	                    </a>
+                    <% } %>
+	                -
+	            <%
+                }
+	            %>
+	            
+                <% if (!ActiveDirectory.IsEnabled) { %>
+                    <a href="../index.aspx?logout=true" >
+                        Esci
+                    </a>
+                <% } %>
+           	    
+	            <%-- Nel div tolgo la definizione onclick="toggle_visibility('menu1') --%>
+	            <div id="menu1"	
+	   	             style="left:760px; width:auto;"         
+	                 onmouseover="mcancelclosetime()"
+	                 onmouseout="mclosetime()" >
+        	         		         
+		            <a href="../cariche/gestisciCariche.aspx" >
+		                Cariche
+		            </a>
+        			
+		            <br />
+        						    
+		            <a href="../titolistudio/gestisciTitoliStudio.aspx" >
+		                Titoli di Studio
+		            </a>
+        			
+		            <br />
+        						    
+		            <a href="../delibere/gestisciTipiDelibere.aspx" >
+		                Tipi Delibere
+		            </a>
+        			
+		            <br />
+        						    
+		            <a href="../causefine/gestisciCauseFine.aspx" >
+		                Cause Fine
+		            </a>
+        			
+		            <br />
+        						    
+		            <a href="../incontri/gestisciTipiSedute.aspx" >
+		                Tipi Sedute
+		            </a>
+        			
+		            <br />
+        			
+		            <a href="../persona/gestisciEliminazionePersona.aspx" >
+		                Elimina Persone
+		            </a>
+	            </div>
+	            
+	            <%-- Nel div tolgo la definizione onclick="toggle_visibility('menu1') --%>
+	            <div id="menu_prova"	
+	   	             style="left:100px; width:auto;"         
+	                 onmouseover="mcancelclosetime()"
+	                 onmouseout="mclosetime()" >
+        	         		         
+		            <a href="../cariche/gestisciCariche.aspx" >
+		                Prova su cariche
+		            </a>
+	            </div>
+	        </div>
+	    <% } %>
+        </td>
+    <% }  %>
+</tr>
+
+<!--contenuti-->
+<tr>    
+    <td class="contenuti" style="height: 500px;">
+	    <div>
+	        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+	        </asp:ContentPlaceHolder>
+	    </div>
+    </td>
+</tr>
+
+<!--footer-->
+<tr>
+    <td colspan="2" class="footer">
+	    &nbsp;
+    </td>
+</tr>
+</table>
+</form>
+    
+<%-- Mod anti-sfarfallio dei modalpopup by http://lionsden.co.il/codeden/?p=3 --%>
+<script type="text/javascript"> 
+    function pageLoad(sender, args)
+    {
+       //An array of the behavior IDs of each modal popup
+       var modalPopups = ['ModalPopup1', 'ModalPopup2', 'ModalPopup3'];
+
+       AddHiddenEventToPopups(modalPopups);
+    }
+
+    function AddHiddenEventToPopups(modalPopups)
+    {
+       //step through the popups
+       for (var i=0; i < modalPopups.length; i++)
+       {
+          //find the current popup
+          var popUp = $find(modalPopups[i]);
+
+          //check it exists so the script won't fail
+          if (popUp)
+          {
+	         //Add the function below as the event
+	         popUp.add_hidden(HidePopupPanel);
+          }
+       }
+    }
+
+    function HidePopupPanel(source, args)
+    {
+       //find the panel associated with the extender
+       objPanel = document.getElementById(source._PopupControlID);
+
+       //check the panel exists
+       if (objPanel)
+       {
+          //set the display attribute, so it remains hidden on postback
+          objPanel.style.display= 'none';
+       }
+    }
+</script>
+
+</body>
+</html>

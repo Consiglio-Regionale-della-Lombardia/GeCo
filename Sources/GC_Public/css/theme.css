@@ -1,0 +1,345 @@
+/* CSS Document */
+body
+{
+	/*width: 1000px;*/
+	background-color: #ffffff;
+	font-family: tahoma;
+	font-size: 83%;
+	text-align: left;
+	color: #000000;
+	vertical-align: bottom;
+	margin: auto;
+}
+
+a
+{
+	color: #2f6999;
+	text-decoration: none;
+	text-align: right;
+}
+
+a:visited
+{
+	color: #2f6999;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: #2f6999;
+	text-decoration: underline;
+}
+
+img
+{
+	border: 0px;
+}
+
+/* FE grafico */
+.testata
+{
+	background-color: #006600;
+	vertical-align: middle;
+	height: 110px;
+}
+
+#barra_verde
+{
+	background-color: #006600;
+	height: 25px;
+	padding-left: 20px;
+}
+
+#barra_verde a
+{
+	color: #FFF;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.contenuti
+{
+	background-color: #FFF;
+	border-left: 1px solid #3f912f;
+	border-right: 1px solid #3f912f;
+	vertical-align: top;
+}
+
+.footer
+{
+	background-color: #3f912f;
+	height: 10px;
+}
+
+.button
+{
+	width: 100px;
+}
+
+.singleborder
+{
+	border: 1px solid #999;
+}
+
+.modalBackground 
+{
+	background-color: #000;
+	filter: alpha(opacity=5);
+	opacity: 0.5;
+}
+
+.pannello_ricerca
+{
+    background-color: #F0F0F0; 
+    padding: 10px; 
+    background-image: url(../img/angolino_sx.gif);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+}
+
+/* DIV dei contenuti nelle pagine */
+#content
+{
+	padding: 10px;
+}
+
+h3, h2
+{
+	font-size: 1.2em;
+	color: #1C5E55;
+	margin-left: 10px;
+	margin-top: 0px;
+	margin-bottom: 3px;
+}
+
+h2
+{
+	font-size: 1.4em;
+	padding: 8px;
+}
+
+/* MENU 1 */
+#menu1
+{
+	width: 200px;
+	position: absolute;
+	background-color: #FFFFFF;
+	border: 1px solid #00A653;
+	padding: 5px 10px;
+	left: 430px;
+	top: 22px;
+	z-index: 10;
+	line-height: 1.5em;
+	visibility: hidden;
+}
+
+#menu1 a
+{
+	color: #2f6999;
+}
+
+#menu1 hr
+{
+	border: 0px solid #00A653;
+	background-color: #00A653;
+}
+
+/* MENU PROVA */
+#menu_prova
+{
+	width: 200px;
+	position: absolute;
+	background-color: #FFFFFF;
+	border: 1px solid #00A653;
+	padding: 5px 10px;
+	left: 20px;
+	top: 22px;
+	z-index: 10;
+	line-height: 1.5em;
+	visibility: hidden;
+}
+
+#menu_prova a
+{
+	color: #2f6999;
+}
+
+#menu_prova hr
+{
+	border: 0px solid #00A653;
+	background-color: #00A653;
+}
+
+
+/* Calendari ajax */
+div.ajax__calendar_days table tr td
+{
+    padding: 0px;
+    border: 0px;
+}
+div.ajax__calendar_months table tr td
+{
+    padding: 0px;
+    border: 0px;
+}
+div.ajax__calendar_years table tr td
+{
+    padding: 0px;
+    border: 0px;
+}
+
+
+/* Tabella Risultati Ricerca */
+
+table.tab_gen, textarea.tab_gen
+{
+    font-family: Verdana;
+    font-size: 10px;
+    border: 2px solid #006600;
+    border-collapse: collapse;
+    width: 100%;
+}
+table.tab_gen th
+{
+    background-color: #99cc99;
+    border: 1px solid #EEE;
+    font-weight: bold;
+    color: #006600;
+    text-align: center;
+    padding: 8px;
+}
+table.tab_gen th a
+{
+    color: #006600;
+    text-decoration: underline;
+}
+table.tab_gen tr
+{
+    background-color: #FFF;
+}
+table.tab_gen tr.inactive
+{
+    background-color: #F6F6F6;
+    color: #999999;
+}
+table.tab_gen td
+{
+    border: 1px solid #EEE;
+    padding: 4px;
+}
+table.tab_gen tr.presente
+{
+    background-color: #ccffcc;
+}
+table.tab_gen tr.entro45min
+{
+    background-color: #ffffcc;
+}
+table.tab_gen tr.assente
+{
+    background-color: #ffcccc;
+}
+
+/* Tabella Risultati Ricerca (versione slim) */
+
+table.tab_gen_s
+{
+    font-family: Verdana;
+    font-size: 10px;
+    border: 2px solid #006600;
+    border-collapse: collapse;
+    width: 100%;
+}
+table.tab_gen_s th
+{
+    background-color: #99cc99;
+    border: 1px solid #EEE;
+    font-weight: bold;
+    color: #006600;
+    text-align: center;
+    padding: 4px;
+}
+table.tab_gen_s th a
+{
+    color: #006600;
+    text-decoration: underline;
+}
+table.tab_gen_s tr
+{
+    background-color: #FFF;
+}
+table.tab_gen_s tr.inactive
+{
+    background-color: #F6F6F6;
+    color: #999999;
+}
+table.tab_gen_s td
+{
+    border: 1px solid #EEE;
+    padding: 4px;
+}
+
+
+/* Tabella Dettagli */
+
+.tab_det
+{
+    font-family: Verdana;
+    font-size: 10px;
+    border: 2px solid #006600;
+    border-collapse: collapse;
+    width: 100%;
+}
+.tab_det td
+{
+    border: 1px solid #EEE;
+    padding: 4px;
+}
+
+
+.allegatiContainer {
+    margin-top:16px;
+}
+
+.warning {
+    color:#FF0000;
+    margin:6px;
+}
+
+.calcolo_toggle_0 {
+    
+}
+
+.calcolo_0 {
+    display:none;
+}
+
+.hidden {
+    display:none;
+}
+
+
+
+.linkButton, .linkButton:hover, .linkButton:visited {
+    background-color: #FFFFFF;
+    color: #006600;
+    text-decoration: none;
+}
+
+.linkButtonU, .linkButtonU:hover, .linkButtonU:visited {
+    background-color: #FFFFFF;
+    color: #006600;
+    text-decoration: underline;
+    font-weight:bold;
+}
+
+.linkButtonInv, .linkButtonInv:hover, .linkButtonInv:visited {
+    background-color: #006600;
+    color: #FFFFFF;
+    text-decoration: none;
+    margin: 1px;
+    padding: 0px 2px;
+}
+
+
+

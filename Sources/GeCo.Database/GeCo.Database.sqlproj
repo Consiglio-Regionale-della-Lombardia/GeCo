@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>GeCo.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{8708781c-e44b-47c1-9f1b-6cf3a0bff514}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>GeCo.Database</RootNamespace>
+    <AssemblyName>GeCo.Database</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Latin1_General_CI_AI</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Old" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SqlSchemaCompare.scmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\join_persona_residenza.sql" />
+    <Build Include="dbo\Tables\join_persona_assessorati.sql" />
+    <Build Include="dbo\Tables\join_persona_gruppi_politici.sql" />
+    <Build Include="dbo\Tables\join_gruppi_politici_legislature.sql" />
+    <Build Include="dbo\Tables\persona.sql" />
+    <Build Include="dbo\Tables\organi.sql" />
+    <Build Include="dbo\Tables\tbl_titoli_studio.sql" />
+    <Build Include="dbo\Tables\join_persona_organo_carica.sql" />
+    <Build Include="dbo\Tables\join_persona_titoli_studio.sql" />
+    <Build Include="dbo\Tables\missioni.sql" />
+    <Build Include="dbo\Tables\scheda.sql" />
+    <Build Include="dbo\Tables\join_persona_recapiti.sql" />
+    <Build Include="dbo\Tables\legislature.sql" />
+    <Build Include="dbo\Tables\tipo_organo.sql" />
+    <Build Include="dbo\Tables\incarico.sql" />
+    <Build Include="dbo\Tables\join_persona_missioni.sql" />
+    <Build Include="dbo\Tables\correzione_diaria.sql" />
+    <Build Include="dbo\Tables\tbl_tipi_sessione.sql" />
+    <Build Include="dbo\Tables\utenti.sql" />
+    <Build Include="dbo\Tables\gruppi_politici.sql" />
+    <Build Include="dbo\Tables\tbl_delibere.sql" />
+    <Build Include="dbo\Tables\allegati_riepilogo.sql" />
+    <Build Include="dbo\Tables\allegati_seduta.sql" />
+    <Build Include="dbo\Tables\join_persona_aspettative.sql" />
+    <Build Include="dbo\Tables\certificati.sql" />
+    <Build Include="dbo\Tables\tbl_comuni.sql" />
+    <Build Include="dbo\Tables\tbl_modifiche.sql" />
+    <Build Include="dbo\Tables\join_persona_trasparenza.sql" />
+    <Build Include="dbo\Tables\tbl_recapiti.sql" />
+    <Build Include="dbo\Tables\tbl_anni.sql" />
+    <Build Include="dbo\Tables\join_persona_pratiche.sql" />
+    <Build Include="dbo\Tables\join_persona_sostituzioni.sql" />
+    <Build Include="dbo\Tables\gruppi_politici_storia.sql" />
+    <Build Include="dbo\Tables\join_persona_varie.sql" />
+    <Build Include="dbo\Tables\tbl_partecipazioni.sql" />
+    <Build Include="dbo\Tables\tbl_incontri.sql" />
+    <Build Include="dbo\Tables\join_cariche_organi.sql" />
+    <Build Include="dbo\Tables\join_persona_trasparenza_incarichi.sql" />
+    <Build Include="dbo\Tables\join_persona_sospensioni.sql" />
+    <Build Include="dbo\Tables\tipo_doc_trasparenza.sql" />
+    <Build Include="dbo\Tables\tbl_ruoli.sql" />
+    <Build Include="dbo\Tables\cariche.sql" />
+    <Build Include="dbo\Tables\tipo_commissione_priorita.sql" />
+    <Build Include="dbo\Tables\join_persona_organo_carica_priorita.sql" />
+    <Build Include="dbo\Tables\tbl_cause_fine.sql" />
+    <Build Include="dbo\Tables\join_persona_sedute.sql" />
+    <Build Include="dbo\Tables\sedute.sql" />
+    <Build Include="dbo\Tables\join_persona_risultati_elettorali.sql" />
+    <Build Include="dbo\Views\gruppo.sql" />
+    <Build Include="dbo\Views\consigliere.sql" />
+    <Build Include="dbo\Views\assessorato.sql" />
+    <Build Include="dbo\Views\commissione.sql" />
+    <Build Include="dbo\Views\jpoc.sql" />
+    <Build Include="dbo\Views\join_persona_gruppi_politici_incarica_view.sql" />
+    <Build Include="dbo\Views\join_persona_gruppi_politici_view.sql" />
+    <Build Include="dbo\Views\join_persona_organo_carica_nonincarica_view.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Views\join_persona_organo_carica_view.sql" />
+    <Build Include="dbo\Views\vw_join_persona_organo_carica.sql" />
+    <Build Include="dbo\Functions\get_tipo_commissione_priorita_desc.sql" />
+    <Build Include="dbo\Functions\get_ha_sostituito.sql" />
+    <Build Include="dbo\Functions\get_gruppi_politici_from_persona.sql" />
+    <Build Include="dbo\Functions\get_legislature_from_persona.sql" />
+    <Build Include="dbo\Functions\is_compatible_legislatura_anno.sql" />
+    <Build Include="dbo\Functions\get_tipo_commissione_priorita.sql" />
+    <Build Include="dbo\Functions\get_tipo_commissione_priorita_oggi.sql" />
+    <Build Include="dbo\Functions\get_nota_trasparenza.sql" />
+    <Build Include="dbo\Functions\split.sql" />
+    <Build Include="dbo\Stored Procedures\getAnagraficaGruppiPolitici.sql" />
+    <Build Include="dbo\Stored Procedures\getAnagraficaMissioni.sql" />
+    <Build Include="dbo\Tables\tbl_categoria_organo.sql" />
+    <Build Include="Scripts\Old\db_20151027.sql" />
+    <Build Include="Scripts\Old\db_20151110.sql" />
+    <Build Include="Scripts\Old\db_20151117.sql" />
+    <Build Include="Scripts\Old\db_20151118.sql" />
+    <Build Include="Scripts\Old\db_20151125.sql" />
+    <Build Include="Scripts\Old\db_20151216.rilascio.sql" />
+    <Build Include="Scripts\Old\db_20160104.sql" />
+    <Build Include="Scripts\Old\db_20160118.sql" />
+    <Build Include="Scripts\Old\get_ha_sostituito.sql" />
+    <Build Include="Scripts\Old\get_legislature_from_persona.sql" />
+    <Build Include="Scripts\Old\get_tipo_commissione_priorita_desc.sql" />
+    <Build Include="Scripts\Old\trigger_upsert_sedute.sql" />
+    <Build Include="Scripts\Old\Update_2018-11_UrlSchedaConsigliere.sql" />
+    <Build Include="Scripts\Old\Update_2019-11_IncExtraCostituzionali_e_TipiRecapito.sql" />
+    <Build Include="dbo\Stored Procedures\spGetConsiglieri.sql" />
+    <Build Include="dbo\Functions\fnGetComuneDescrizione.sql" />
+    <Build Include="dbo\Tables\tbl_tipo_carica.sql" />
+    <Build Include="dbo\Functions\fnIsAfterDUP.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPersoneForRiepilogo.sql" />
+    <Build Include="dbo\Functions\fnGetPersonePerRiepilogo.sql" />
+    <Build Include="dbo\Tables\tbl_dup.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPresenzePersona_Dup106.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPresenzePersona.sql" />
+    <Build Include="dbo\Functions\fnGetPersoneByLegislaturaDataSeduta.sql" />
+    <Build Include="dbo\Functions\fnGetDupByDate.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPresenzePersona_Dup53.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPresenzePersona_OldVersion.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_OldVersion_Base.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_OldVersion_AssessoriNC.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP106_Base.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP106_AssessoriNC.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP106_Base_Sostituti.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP106_Base_Persone.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP106_Base_Dynamic.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP53_Base.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP53_AssessoriNC.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP53_Base_Persone.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP53_Base_Dynamic.sql" />
+    <Build Include="dbo\Functions\fnGetPresenzePersona_DUP53_Base_Sostituti.sql" />
+    <Build Include="dbo\Stored Procedures\spGetDettaglioCalcoloPresAssPersona.sql" />
+    <Build Include="dbo\Stored Procedures\spGetDettaglioCalcoloPresAssPersona_OldVersion.sql" />
+    <Build Include="dbo\Stored Procedures\spGetDettaglioCalcoloPresAssPersona_DUP106.sql" />
+    <Build Include="dbo\Stored Procedures\spGetDettaglioCalcoloPresAssPersona_DUP53.sql" />
+    <Build Include="Scripts\Database.Creation.sql" />
+    <Build Include="Scripts\Database.Populate.Tables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\Script.PreDeployment.Version.20200801.sql" />
+  </ItemGroup>
+</Project>

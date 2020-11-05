@@ -1,0 +1,1 @@
+alter table correzione_diaria add corr_frazione varchar(50) null;

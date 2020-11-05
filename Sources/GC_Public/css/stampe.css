@@ -1,0 +1,27 @@
+﻿body 
+{
+    font-family: Arial;
+    font-size: 12px;
+}
+
+h1
+{
+    margin-left: 100px;
+}
+
+table.details
+{
+    width: 50%;
+}
+
+table.details td
+{
+    border: 1px solid #CCC;
+}
+
+.details_header
+{
+    width: 200px;
+    font-weight: bold;
+    text-align: right;
+}

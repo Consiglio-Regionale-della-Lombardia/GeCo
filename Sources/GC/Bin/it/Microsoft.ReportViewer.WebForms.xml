@@ -1,0 +1,1376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+	<assembly>
+		<name>Microsoft.ReportViewer.WebForms</name>
+	</assembly>
+	<members>
+		<member name="N:Microsoft.Reporting.WebForms">
+			<summary>Lo spazio dei nomi <see cref="N:Microsoft.Reporting.WebForms" /> contiene metodi e proprietà per il controllo del server Web di ReportViewer.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.AspNetSessionExpiredException">
+			<summary>Si verifica quando la sessione ASP.NET è scaduta.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.BackEventArgs">
+			<summary>Recupera i dati per l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.Back" />.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.BackEventArgs.#ctor(Microsoft.Reporting.WebForms.Report)">
+			<summary>Costruisce un oggetto BackEventArgs.</summary>
+			<param name="parentReport">Report padre del report drill-through.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.BackEventArgs.ParentReport">
+			<summary>Recupera il report padre del report drill-through.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.LocalReport" /> (se il controllo ReportViewer è in modalità di elaborazione locale) oppure oggetto <see cref="T:Microsoft.Reporting.WebForms.ServerReport" /> (se il controllo ReportViewer è in modalità di elaborazione remota) contenente il report padre del report drill-through.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.BackEventHandler">
+			<summary>Rappresenta il metodo che gestirà l'evento <see cref="T:Microsoft.Reporting.WebForms.Back" /> di <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" />.</summary>
+			<param name="sender">Oggetto che ha generato l'evento.</param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.BackEventArgs" /> contenente gli argomenti dell'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.BookmarkNavigationEventArgs">
+			<summary>Recupera i dati per l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.BookmarkNavigation" />.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.BookmarkNavigationEventArgs.#ctor(System.String)">
+			<summary>Costruisce un oggetto BookmarkNavigationEventArgs.</summary>
+			<param name="bookmarkId">Stringa di identificazione del segnalibro.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.BookmarkNavigationEventArgs.BookmarkId">
+			<summary>Recupera la stringa di identificazione del segnalibro.</summary>
+			<returns>Oggetto stringa di sola lettura.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.BookmarkNavigationEventHandler">
+			<summary>Rappresenta il metodo che gestirà l'evento <see cref="T:Microsoft.Reporting.WebForms.BookmarkNavigation" /> di <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" />.</summary>
+			<param name="sender">Oggetto che ha generato l'evento.</param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.BookmarkNavigationEventArgs" /> contenente gli argomenti dell'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ContentDisposition">
+			<summary>Indica la modalità di presentazione del contenuto del report.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ContentDisposition.AlwaysAttachment">
+			<summary>Indica che il contenuto viene sempre incluso come allegato, indipendentemente dal formato.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ContentDisposition.AlwaysInline">
+			<summary>Indica che il contenuto viene incorporato, indipendentemente dal formato.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ContentDisposition.OnlyHtmlInline">
+			<summary>Indica che il contenuto in formato HTML viene incorporato, mentre tutto il contenuto di altro tipo viene incluso come allegato.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.CreateStreamCallback">
+			<summary>Restituisce al controllo ReportViewer un flusso per il rendering. </summary>
+			<returns>Oggetto Stream in cui il controllo ReportViewer può scrivere dati.</returns>
+			<param name="name">Nome del flusso.</param>
+			<param name="extension">Estensione da utilizzare se viene creato un flusso di file.</param>
+			<param name="encoding">Valore di enumeratore Encoding che specifica la codifica dei caratteri del flusso. Il valore può essere null se il flusso non contiene caratteri.</param>
+			<param name="mimeType">Stringa contenente il tipo MIME del flusso.</param>
+			<param name="willSeek">Valore Boolean che indica se il flusso deve supportare la ricerca. Se ha valore false, il flusso sarà forward-only e verrà inviato al client in blocchi durante la creazione. Se ha valore true, è possibile scrivere nel flusso in qualsiasi ordine.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.DataSourceCredentials">
+			<summary>Rappresenta le credenziali per le origini dei dati.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.DataSourceCredentials.#ctor">
+			<summary>Costruisce un oggetto DataSourceCredentials.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DataSourceCredentials.Name">
+			<summary>Recupera o imposta il nome utente che l'origine dei dati deve utilizzare per la connessione a un server di report.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DataSourceCredentials.Password">
+			<summary>Recupera o imposta la password che l'origine dei dati deve utilizzare per la connessione al server di report.</summary>
+			<returns>Stringa contenente la password.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DataSourceCredentials.UserId">
+			<summary>Recupera o imposta l'ID utente che l'origine dei dati deve utilizzare per la connessione al server di report.</summary>
+			<returns>Stringa contenente l'ID utente.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.DocumentMapNavigationEventArgs">
+			<summary>Recupera i dati per l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.DocumentMapNavigation" />.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.DocumentMapNavigationEventArgs.#ctor(System.String)">
+			<summary>Costruisce un oggetto DocumentMapNavigationEventArgs.</summary>
+			<param name="docMapID">Valore stringa contenente l'ID del nodo della mappa documento.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DocumentMapNavigationEventArgs.DocumentMapId">
+			<summary>Recupera l'identificatore univoco del nodo selezionato della mappa documento.</summary>
+			<returns>Valore stringa di sola lettura contenente l'ID del nodo della mappa documento.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.DocumentMapNavigationEventHandler">
+			<summary>Rappresenta il metodo che gestirà l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.DocumentMapNavigation" /> di <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" />.</summary>
+			<param name="sender">Oggetto che genera l'evento.</param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.DocumentMapNavigationEventArgs" /> contenente gli argomenti dell'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.DocumentMapNode">
+			<summary>Rappresenta un singolo nodo della mappa documento.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DocumentMapNode.Children">
+			<summary>Recupera un insieme di nodi figlio della mappa documento.</summary>
+			<returns>Matrice di sola lettura di oggetti <see cref="T:Microsoft.Reporting.WebForms.DocumentMapNode" />.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DocumentMapNode.Id">
+			<summary>Recupera l'identificatore univoco del nodo della mappa documento.</summary>
+			<returns>Valore stringa di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DocumentMapNode.Label">
+			<summary>Recupera l'etichetta associata al nodo della mappa documento.</summary>
+			<returns>Valore stringa di sola lettura.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.DrillthroughEventArgs">
+			<summary>Recupera i dati per l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.Drillthrough" />.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.DrillthroughEventArgs.#ctor(System.String,Microsoft.Reporting.WebForms.Report)">
+			<summary>Costruisce un oggetto DrillthroughEventArgs.</summary>
+			<param name="reportPath">Percorso del report drill-through.</param>
+			<param name="targetReport">Report di destinazione dell'azione drill-through.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DrillthroughEventArgs.Report">
+			<summary>Recupera il report di destinazione dell'azione drill-through.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.LocalReport" /> o <see cref="T:Microsoft.Reporting.WebForms.ServerReport" /> di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.DrillthroughEventArgs.ReportPath">
+			<summary>Recupera il percorso del report drill-through.</summary>
+			<returns>Valore stringa di sola lettura.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.DrillthroughEventHandler">
+			<summary>Rappresenta il metodo che gestirà l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.Drillthrough" /> di <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" />.</summary>
+			<param name="sender">Oggetto che ha generato l'evento.</param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.DrillthroughEventArgs" /> contenente i dati dell'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.InvalidConfigFileTypeException">
+			<summary>Si verifica quando un oggetto specificato mediante una voce nel file Web.config risulta mancante o non valido.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.InvalidTemporaryStorageStreamException">
+			<summary>Si verifica se un flusso temporaneo non supporta la ricerca, la lettura o la scrittura.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.IReportServerConnection">
+			<summary>Specifica le informazioni per la connessione al server di report quando il controllo Web Forms ReportViewer viene utilizzato con lo stato delle sessioni disattivato.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportServerConnection.ReportServerUrl">
+			<summary>Restituisce l'URL del server di report.</summary>
+			<returns>Oggetto Uri contenente l'URL del server di report.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportServerConnection.Timeout">
+			<summary>Recupera il numero di millisecondi che devono trascorrere prima di stabilire la comunicazione con il server.</summary>
+			<returns>Valore integer contenente il numero di millisecondi che devono trascorrere prima di stabilire la comunicazione con il server.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.IReportServerConnection2">
+			<summary>Specifica le informazioni per la connessione al server di report quando il controllo Web Form di ReportViewer viene utilizzato con lo stato delle sessioni disattivato.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportServerConnection2.Cookies">
+			<summary>Recupera un insieme di cookie personalizzati da inviare al server di report.</summary>
+			<returns>Insieme di oggetti <see cref="T:System.Net.Cookie" /> contenenti i cookie personalizzati.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportServerConnection2.Headers">
+			<summary>Recupera un insieme di intestazioni personalizzate da inviare al server di report.</summary>
+			<returns>Insieme di oggetti string contenenti i valori delle intestazioni personalizzate.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.IReportServerCredentials">
+			<summary>Consente alle applicazioni di fornire le credenziali per la connessione a un server di report Reporting Services.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.IReportServerCredentials.GetFormsCredentials(System.Net.Cookie@,System.String@,System.String@,System.String@)">
+			<summary>Specifica le informazioni che saranno utilizzate per la connessione al server del report configurato per l'autenticazione basata su form.</summary>
+			<returns>true se deve essere utilizzata l'autenticazione basata su form; in caso contrario, false.</returns>
+			<param name="authCookie">[out] Cookie di autenticazione del server del report.</param>
+			<param name="userName">[out] Nome dell'utente.</param>
+			<param name="password">[out] Password dell'utente.</param>
+			<param name="authority">[out] Autorità da utilizzare per l'autenticazione dell'utente, ad esempio un dominio Microsoft Windows.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportServerCredentials.ImpersonationUser">
+			<summary>Recupera o imposta l'oggetto <see cref="T:System.Security.Principal.WindowsIdentity" /> dell'utente da rappresentare quando il controllo <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" /> si connette a un server di report.</summary>
+			<returns>Oggetto <see cref="T:System.Security.Principal.WindowsIdentity" /> che specifica l'utente da rappresentare.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportServerCredentials.NetworkCredentials">
+			<summary>Recupera o imposta le credenziali di rete utilizzate per l'autenticazione con il server di report.</summary>
+			<returns>Implementazione di <see cref="T:System.Net.ICredentials" /> contenente le informazioni sulle credenziali per la connessione a un server di report.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.IReportViewerMessages">
+			<summary>Consente alle applicazioni di implementare messaggi dell'interfaccia utente personalizzati.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.BackButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Indietro.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ChangeCredentialsText">
+			<summary>Testo per il pulsante Modifica credenziali.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ChangeCredentialsToolTip">
+			<summary>Testo della descrizione comando per il pulsante Modifica credenziali.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.CurrentPageTextBoxToolTip">
+			<summary>Testo della descrizione comando per la casella di testo Pagina corrente.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.DocumentMap">
+			<summary>Testo del titolo per il pannello Mappa documento.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.DocumentMapButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Mappa documento.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ExportButtonText">
+			<summary>Testo per il pulsante Esporta.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ExportButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Esporta.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ExportFormatsToolTip">
+			<summary>Testo della descrizione comando per l'elenco a discesa Formati di esportazione.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.FalseValueText">
+			<summary>Testo per un valore false.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.FindButtonText">
+			<summary>Testo per un pulsante Trova.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.FindButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Trova.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.FindNextButtonText">
+			<summary>Testo per il pulsante Trova successivo.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.FindNextButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Trova successivo.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.FirstPageButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Prima pagina.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.InvalidPageNumber">
+			<summary>Testo del messaggio relativo al numero di pagina non valido.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.LastPageButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Ultima pagina.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.NextPageButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Pagina successiva.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.NoMoreMatches">
+			<summary>Testo del messaggio relativo all'impossibilità di trovare altre corrispondenze.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.NullCheckBoxText">
+			<summary>Testo per la casella di controllo Null.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.NullValueText">
+			<summary>Testo per un valore null.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.PageOf">
+			<summary>Testo del messaggio relativo all'impaginazione.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ParameterAreaButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Area parametri.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.PasswordPrompt">
+			<summary>Testo del messaggio di richiesta della password.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.PreviousPageButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Pagina precedente.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.PrintButtonToolTip">
+			<summary>Testo per il pulsante Stampa.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ProgressText">
+			<summary>Testo del messaggio di stato visualizzato durante l'elaborazione di un report.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.RefreshButtonToolTip">
+			<summary>Testo della descrizione comando per il pulsante Aggiorna.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.SearchTextBoxToolTip">
+			<summary>Testo della descrizione comando per la casella di testo Cerca.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.SelectAll">
+			<summary>Testo per la voce Seleziona tutto in un elenco a discesa multivalore.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.SelectAValue">
+			<summary>Testo del messaggio di richiesta Selezionare un valore.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.SelectFormat">
+			<summary>Testo del messaggio di richiesta di selezione del formato.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.TextNotFound">
+			<summary>Testo del messaggio relativo all'impossibilità di trovare il testo.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.TodayIs">
+			<summary>Testo per il messaggio 'Oggi è…' nel controllo calendario.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.TrueValueText">
+			<summary>Testo per un valore true.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.UserNamePrompt">
+			<summary>Testo del messaggio di richiesta del nome utente.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ViewReportButtonText">
+			<summary>Testo per il pulsante Visualizza report.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ZoomControlToolTip">
+			<summary>Testo della descrizione comando per il controllo Zoom.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ZoomToPageWidth">
+			<summary>Testo per l'opzione Adatta a larghezza pagina.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages.ZoomToWholePage">
+			<summary>Testo per l'elemento Adatta a pagina intera.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.IReportViewerMessages2">
+			<summary>Definisce metodi e proprietà per l'implementazione di messaggi dell'interfaccia utente personalizzati.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.IReportViewerMessages2.CredentialMissingUserNameError(System.String)">
+			<summary>Restituisce il testo di errore da visualizzare quando non è stato specificato il nome utente per le credenziali dell'origine dei dati.</summary>
+			<returns>Restituisce un valore String contenente il testo di errore da visualizzare quando non è stato specificato il nome utente per le credenziali dell'origine dei dati.</returns>
+			<param name="dataSourcePrompt">Valore del messaggio di richiesta che identifica l'origine dei dati con valore mancante.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.IReportViewerMessages2.GetLocalizedNameForRenderingExtension(System.String)">
+			<summary>Restituisce un nome localizzato per il formato di esportazione corrente.</summary>
+			<returns>Restituisce un valore String contenente il nome localizzato del formato di esportazione corrente.</returns>
+			<param name="format">Nome del formato di esportazione corrente (ad esempio, EXCEL, PDF).</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.IReportViewerMessages2.ParameterMissingSelectionError(System.String)">
+			<summary>Restituisce il testo di errore da visualizzare quando non è stata eseguita alcuna selezione per un parametro di report multivalore.</summary>
+			<returns>Restituisce un valore String contenente il testo di errore da visualizzare quando non è stata eseguita alcuna selezione per un parametro di report multivalore.</returns>
+			<param name="parameterPrompt">Valore del messaggio di richiesta che identifica il parametro del report privo di specifica.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.IReportViewerMessages2.ParameterMissingValueError(System.String)">
+			<summary>Restituisce il testo di errore da visualizzare quando non è stato specificato il valore di un parametro del report.</summary>
+			<returns>Restituisce un valore String contenente il testo di errore da visualizzare quando non è stato specificato il valore di un parametro del report.</returns>
+			<param name="parameterPrompt">Valore del messaggio di richiesta che identifica il parametro del report privo di specifica.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages2.ClientNoScript">
+			<summary>Recupera il testo da visualizzare quando nel browser del client è disattivata la creazione di script.</summary>
+			<returns>Valore String contenente il testo da visualizzare quando nel browser del client è disattivata la creazione di script.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages2.ClientPrintControlLoadFailed">
+			<summary>Recupera il testo da visualizzare se si verifica un errore durante il caricamento del controllo di stampa da parte del client.</summary>
+			<returns>Valore String contenente il testo da visualizzare se si verifica un errore durante il caricamento del controllo di stampa da parte del client.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.IReportViewerMessages2.ParameterDropDownToolTip">
+			<summary>Recupera il testo di descrizione comandi da visualizzare quando il puntatore viene posizionato sulla freccia verso il basso dell'elenco a discesa di un parametro multivalore.</summary>
+			<returns>Valore String contenente il testo di descrizione comandi da visualizzare quando il puntatore viene posizionato sulla freccia verso il basso dell'elenco a discesa di un parametro multivalore.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ITemporaryStorage">
+			<summary>Restituisce una posizione personalizzata di archiviazione per i dati temporanei.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ITemporaryStorage.CreateTemporaryStream">
+			<summary>Restituisce un flusso per l'archiviazione dei dati temporanei.</summary>
+			<returns>Oggetto Stream da utilizzare per l'archiviazione dei dati temporanei.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.LocalProcessingException">
+			<summary>Rappresenta gli errori che si verificano durante la visualizzazione di un report elaborato a livello locale.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.LocalReport">
+			<summary>Rappresenta un report di cui vengono eseguiti l'elaborazione e il rendering a livello locale senza connettersi a un server di report.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.#ctor">
+			<summary>Inizializza un'istanza nuova della classe <see cref="T:Microsoft.Reporting.WebForms.LocalReport" />.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.LocalReport.SubreportProcessing">
+			<summary>Viene generato durante l'elaborazione di un sottoreport.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.AddTrustedCodeModuleInCurrentAppDomain(System.String)">
+			<summary>Aggiunge l'assembly specificato all'elenco di assembly attendibili per l'esecuzione nell'oggetto <see cref="T:System.AppDomain" /> corrente.</summary>
+			<param name="assemblyName">Nome dell'assembly da aggiungere. </param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.Dispose">
+			<summary>Rilascia tutte le risorse utilizzate dall'oggetto <see cref="T:Microsoft.Reporting.WebForms.LocalReport" />.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.ExecuteReportInCurrentAppDomain(System.Security.Policy.Evidence)">
+			<summary>Determina l'esecuzione delle estensioni per l'elaborazione e delle espressioni del report nell'oggetto <see cref="T:System.AppDomain" /> corrente.</summary>
+			<param name="reportEvidence">Oggetto <see cref="P:System.AppDomain.Evidence" /> contenente le informazioni di protezione relative al report. </param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.ExecuteReportInSandboxAppDomain">
+			<summary>Determina l'esecuzione delle espressioni e delle estensioni per l'elaborazione in un dominio applicazione con autorizzazioni limitate.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.GetDataSourceNames">
+			<summary>Restituisce i nomi di tutte le origini dei dati utilizzate nel report locale.</summary>
+			<returns>Matrice di oggetti String contenente l'elenco dei nomi delle origini dei dati.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.GetDefaultPageSettings">
+			<summary>Recupera le impostazioni di pagina predefinite specificate nel report locale.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportPageSettings" /> contenente le impostazioni di pagina predefinite per il report locale.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.GetParameters">
+			<summary>Restituisce le proprietà dei parametri di report per il report. </summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WinForms.ReportParameterInfoCollection" /> contenente una matrice di oggetti <see cref="T:Microsoft.Reporting.WinForms.ReportParameterInfo" />.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.GetTotalPages">
+			<summary>Restituisce il numero totale di pagine logiche del report.</summary>
+			<returns>Valore integer contenente il numero totale di pagine logiche del report.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.ListRenderingExtensions">
+			<summary>Restituisce tutte le estensioni per il rendering disponibili per il report locale.</summary>
+			<returns>Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.RenderingExtension" />.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.LoadReportDefinition(System.IO.TextReader)">
+			<summary>Carica una definizione del report dal file system locale utilizzando un oggetto <see cref="T:System.IO.TextReader" />.</summary>
+			<param name="report">Classe <see cref="T:System.IO.TextReader" /> utilizzabile per la lettura del file RDL (Report Definition Language) per il report.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.LoadSubreportDefinition(System.String,System.IO.Stream)">
+			<summary>Carica una definizione del sottoreport utilizzando un oggetto <see cref="T:System.IO.Stream" />.</summary>
+			<param name="reportName">Percorso e nome di file della definizione del sottoreport.</param>
+			<param name="report">Classe <see cref="T:System.IO.Stream" /> utilizzabile per la lettura del file RDL (Report Definition Language) per il sottoreport.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.LoadSubreportDefinition(System.String,System.IO.TextReader)">
+			<summary>Carica una definizione del sottoreport utilizzando un oggetto <see cref="T:System.IO.TextReader" />.</summary>
+			<param name="reportName">Percorso e nome di file della definizione del sottoreport.</param>
+			<param name="report">Oggetto <see cref="T:System.IO.TextReader" /> che conterrà le istruzioni RDL (Report Definition Language) per il sottoreport.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.Refresh">
+			<summary>Determina l'esecuzione del rendering del report locale con i dati più recenti.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.Render(System.String,System.String,Microsoft.Reporting.WebForms.CreateStreamCallback,Microsoft.Reporting.WebForms.Warning[]@)">
+			<summary>Elabora il report e ne esegue il rendering nel formato specificato utilizzando il flusso restituito da una funzione di richiamata.</summary>
+			<param name="format">Formato in cui eseguire il rendering del report. Questo argomento esegue il mapping a un'estensione per il rendering. In questa versione è supportato solo il formato Excel. </param>
+			<param name="deviceInfo">Stringa XML che include il contenuto specifico del dispositivo necessario per l'estensione per il rendering specificata nel parametro relativo al formato. Per ulteriori informazioni sulle impostazioni relative alle informazioni sul dispositivo per specifici formati di output, vedere "Device Information Settings" (informazioni in lingua inglese) nella documentazione in linea di SQL Server.</param>
+			<param name="createStream">Funzione di delegato <see cref="T:Microsoft.Reporting.WebForms.CreateStreamCallback" /> da utilizzare per l'implementazione di un oggetto <see cref="T:System.IO.Stream" /> per il rendering.</param>
+			<param name="warnings">[out] Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.Warning" /> che descrive gli avvisi generati durante l'elaborazione del report.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.Render(System.String,System.String,System.String@,System.String@,System.String@,System.String[]@,Microsoft.Reporting.WebForms.Warning[]@)">
+			<summary>Elabora il report e ne esegue il rendering nel formato specificato.</summary>
+			<returns>Matrice <see cref="T:System.Byte" /> del report nel formato specificato.</returns>
+			<param name="format">Formato in cui eseguire il rendering del report. Questo argomento esegue il mapping a un'estensione per il rendering. I formati supportati sono Microsoft Office Excel, PDF e Image.</param>
+			<param name="deviceInfo">Stringa XML che include il contenuto specifico del dispositivo necessario per l'estensione per il rendering specificata nel parametro relativo al formato. Per ulteriori informazioni sulle impostazioni relative alle informazioni sul dispositivo per specifici formati di output, vedere "Device Information Settings" (informazioni in lingua inglese) nella documentazione in linea di SQL Server.</param>
+			<param name="mimeType">[out] Tipo MIME del report visualizzabile.</param>
+			<param name="encoding">[out] Codifica utilizzata per il rendering del contenuto del report.</param>
+			<param name="fileNameExtension">[out] Estensione utilizzata per il file di output.</param>
+			<param name="streams">[out] Identificatori di flusso, che è possibile utilizzare per eseguire il rendering delle risorse esterne, ad esempio immagini, associate al report.</param>
+			<param name="warnings">[out] Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.Warning" /> che descrive gli avvisi generati durante l'elaborazione del report.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.LocalReport.SetParameters(System.Collections.Generic.IEnumerable{Microsoft.Reporting.WebForms.ReportParameter})">
+			<summary>Imposta le proprietà dei parametri di report per il report locale.</summary>
+			<param name="parameters">Matrice di oggetti <see cref="T:Microsoft.Reporting.WinForms.ReportParameter" /> contenente l'elenco delle proprietà dei parametri di report.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.LocalReport.DataSources">
+			<summary>Recupera un insieme di origini dei dati utilizzate dal report.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceCollection" /> di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.LocalReport.EnableExternalImages">
+			<summary>Indica se è possibile eseguire il rendering di un report che include immagini esterne.</summary>
+			<returns>Valore Boolean. Il valore true indica che è possibile eseguire il rendering di un report locale che include immagini esterne. Il valore predefinito è false.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.LocalReport.EnableHyperlinks">
+			<summary>Indica se è possibile eseguire il rendering di un report che contiene azioni collegamento ipertestuale.</summary>
+			<returns>Valore Boolean. Il valore true indica che è possibile eseguire il rendering di un report che contiene azioni collegamento ipertestuale. Il valore predefinito è false.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.LocalReport.OriginalParametersToDrillthrough">
+			<summary>Restituisce i parametri passati da un report padre a un report drill-through.</summary>
+			<returns>Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportParameter" /> in un insieme IList, che rappresenta i parametri passati dai report padre al report drill-through, oppure insieme vuoto, se il report non è di tipo drill-through.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.LocalReport.ReportEmbeddedResource">
+			<summary>Recupera o imposta il nome della risorsa incorporata del report.</summary>
+			<returns>Stringa contenente il nome della risorsa incorporata.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.LocalReport.ReportPath">
+			<summary>Recupera o imposta il percorso del report locale nel file system locale.</summary>
+			<returns>Valore String.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.MissingDataSourceCredentialsException">
+			<summary>Rappresenta un'eccezione che si verifica quando non sono state specificate le credenziali per un'origine dei dati utilizzata da un report.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.MissingDataSourceException">
+			<summary>Rappresenta l'errore che si verifica se un'origine dei dati prevista dal report non è stata specificata.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.MissingEndpointException">
+			<summary>Rappresenta l'errore che si verifica quando non è possibile accedere all'endpoint SOAP utilizzato dal controllo ReportViewer.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.MissingParameterException">
+			<summary>Rappresenta l'eccezione che si verifica se un parametro previsto dal report non è stato specificato.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.MissingReportServerConnectionInformationException">
+			<summary>Si verifica quando lo stato delle sessioni è disattivato e un oggetto che implementa l'interfaccia <see cref="T:Microsoft.Reporting.WebForms.IReportServerConnection" /> non è stato specificato mediante il file Web.config.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.MissingReportSourceException">
+			<summary>Rappresenta l'eccezione che si verifica se non è stata specificata alcuna origine del report.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.PageNavigationEventArgs">
+			<summary>Recupera i dati per un evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.PageNavigation" />.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.PageNavigationEventArgs.#ctor(System.Int32)">
+			<summary>Costruisce un nuovo oggetto PageNavigationEventArgs.</summary>
+			<param name="newPage">Valore integer contenente il numero della nuova pagina.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.PageNavigationEventArgs.NewPage">
+			<summary>Recupera il numero della pagina risultante dall'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.PageNavigation" />.</summary>
+			<returns>Valore integer contenente il numero della nuova pagina.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.PageNavigationEventHandler">
+			<summary>Rappresenta il metodo che gestirà l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.PageNavigation" /> di <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" />.</summary>
+			<param name="sender">Oggetto che ha generato l'evento.</param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.PageNavigationEventArgs" /> contenente gli argomenti per l'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ParameterDataType">
+			<summary>Specifica il tipo di dati di un parametro.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterDataType.Boolean">
+			<summary>Tipo di dati Boolean che rappresenta una condizione true o false.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterDataType.DateTime">
+			<summary>Tipo di dati DateTime che rappresenta la data e l'ora.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterDataType.Float">
+			<summary>Tipo di dati Float che rappresenta un valore decimale a virgola mobile.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterDataType.Integer">
+			<summary>Tipo di dati Integer.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterDataType.String">
+			<summary>Tipo di dati String che rappresenta una matrice di caratteri.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ParameterState">
+			<summary>Specifica lo stato di un parametro.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterState.DynamicValuesUnavailable">
+			<summary>I valori dei parametri non sono disponibili. Questo stato indica che non sono stati restituiti valori basati su query validi in seguito alla query.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterState.HasOutstandingDependencies">
+			<summary>Nel parametro sono presenti dipendenze in sospeso. Questa situazione si verifica in genere quando i valori validi o il valore predefinito di un parametro sono basati su query e sono presenti dipendenze che non sono state inviate al metodo <see cref="M:Microsoft.Reporting.WebForms.Report.GetParameters" />.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterState.HasValidValue">
+			<summary>Esiste già un valore valido per il parametro.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ParameterState.MissingValidValue">
+			<summary>Non esiste un valore valido per il parametro.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ProcessingMode">
+			<summary>Consente di specificare la modalità di elaborazione del controllo ReportViewer.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ProcessingMode.Local">
+			<summary>Specifica che l'elaborazione e il rendering del report verranno eseguiti utilizzando il motore di gestione dei report disponibile nel controllo ReportViewer.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ProcessingMode.Remote">
+			<summary>Specifica la modalità di elaborazione remota in un server di report Reporting Services. </summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.RenderingExtension">
+			<summary>Incapsula un'estensione per il rendering da utilizzare con il report di ReportViewer.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.RenderingExtension.LocalizedName">
+			<summary>Recupera il nome visualizzato localizzato dell'estensione per il rendering.</summary>
+			<returns>Valore String di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.RenderingExtension.Name">
+			<summary>Recupera il nome dell'estensione per il rendering.</summary>
+			<returns>Valore String di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.RenderingExtension.Visible">
+			<summary>Indica se l'estensione per il rendering è visibile nell'interfaccia utente.</summary>
+			<returns>Valore Boolean.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.Report">
+			<summary>Contiene i metodi e le proprietà che è possibile applicare sia ai report locali che ai report del server.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.GetDefaultPageSettings">
+			<summary>Recupera le impostazioni di pagina predefinite specificate nel report.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportPageSettings" /> contenente le impostazioni di pagina predefinite per il report locale.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.GetDocumentMap">
+			<summary>Restituisce la rappresentazione della mappa documento per il report locale.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.DocumentMapNode" /> contenente il nodo di livello principale della gerarchia della mappa documento per il report.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.GetParameters">
+			<summary>Restituisce le proprietà dei parametri di report per il report. </summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfoCollection" /> contenente una matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfo" />.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.GetTotalPages">
+			<summary>Restituisce il numero totale di pagine logiche del report.</summary>
+			<returns>Valore integer contenente il numero totale di pagine logiche del report.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.ListRenderingExtensions">
+			<summary>Restituisce tutte le estensioni per il rendering disponibili per il report locale.</summary>
+			<returns>Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.RenderingExtension" />.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.LoadReportDefinition(System.IO.Stream)">
+			<summary>Carica una definizione del report dal file system locale utilizzando un oggetto <see cref="T:System.IO.Stream" />.</summary>
+			<param name="report">Classe <see cref="T:System.IO.Stream" /> utilizzabile per la lettura del file RDL (Report Definition Language) per il report.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.LoadReportDefinition(System.IO.TextReader)">
+			<summary>Carica una definizione del report dal file system locale utilizzando un oggetto <see cref="T:System.IO.TextReader" />.</summary>
+			<param name="report">Classe <see cref="T:System.IO.TextReader" /> utilizzabile per la lettura del file RDL (Report Definition Language) per il report.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.Refresh">
+			<summary>Determina l'esecuzione del rendering del report con i dati più recenti.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.Render(System.String,System.String,System.String@,System.String@,System.String@,System.String[]@,Microsoft.Reporting.WebForms.Warning[]@)">
+			<summary>Elabora il report e ne esegue il rendering nel formato specificato.</summary>
+			<returns>Matrice <see cref="T:System.Byte" /> del report nel formato specificato.</returns>
+			<param name="format">Formato in cui eseguire il rendering del report. Questo argomento esegue il mapping a un'estensione per il rendering. I formati supportati sono XML, NULL, CSV, IMAGE, PDF, HTML4.0, HTML3.2, MHTML, Excel e HTMLOWC. </param>
+			<param name="deviceInfo">Stringa XML che include il contenuto specifico del dispositivo necessario per l'estensione per il rendering specificata nel parametro relativo al formato. Per ulteriori informazioni sulle impostazioni relative alle informazioni sul dispositivo per specifici formati di output, vedere "Device Information Settings" (informazioni in lingua inglese) nella documentazione relativa a SQL Server 2005 Reporting Services.</param>
+			<param name="mimeType">[out] Tipo MIME del report visualizzabile.</param>
+			<param name="encoding">[out] Codifica utilizzata per il rendering del contenuto del report.</param>
+			<param name="fileNameExtension">[out] Estensione utilizzata per il file di output.</param>
+			<param name="streams">[out] Identificatori di flusso, che è possibile utilizzare per eseguire il rendering delle risorse esterne, ad esempio immagini, associate al report.</param>
+			<param name="warnings">[out] Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.Warning" /> che descrive gli avvisi generati durante l'elaborazione del report.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.Report.SetParameters(System.Collections.Generic.IEnumerable{Microsoft.Reporting.WebForms.ReportParameter})">
+			<summary>Imposta le proprietà dei parametri di report per il report.</summary>
+			<param name="parameters">Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportParameter" /> contenente l'elenco delle proprietà dei parametri di report.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.Report.DisplayName">
+			<summary>Recupera o imposta il nome visualizzato del report.</summary>
+			<returns>Valore string contenente il nome visualizzato del report.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.Report.IsDrillthroughReport">
+			<summary>Indica se il report è di tipo drill-through.</summary>
+			<returns>Valore Boolean.Il valore true indica che il report è di tipo drill-through.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportDataSource">
+			<summary>Rappresenta un'origine dei dati per un report.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportDataSource.#ctor">
+			<summary>Crea un'origine dei dati vuota.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportDataSource.#ctor(System.String)">
+			<summary>Crea un'origine dei dati denominata.</summary>
+			<param name="name">Nome dell'origine dei dati.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportDataSource.#ctor(System.String,System.Object)">
+			<summary>Crea un'origine dei dati denominata con un valore.</summary>
+			<param name="name">Nome dell'origine dei dati.</param>
+			<param name="dataSourceValue">Valore per l'origine dei dati.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportDataSource.#ctor(System.String,System.String)">
+			<summary>Crea un'origine dei dati denominata con un ID dell'origine dei dati.</summary>
+			<param name="name">Nome dell'origine dei dati.</param>
+			<param name="dataSourceId">ID dell'origine dei dati.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportDataSource.DataMember">
+			<summary>Specifica il nome dell'elenco di dati per l'associazione.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportDataSource.DataSourceId">
+			<summary>Recupera o imposta l'ID dell'origine dei dati.</summary>
+			<returns>Valore stringa.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportDataSource.Name">
+			<summary>Recupera o imposta il nome dell'origine dei dati del report.</summary>
+			<returns>Valore String contenente il nome dell'origine dei dati.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportDataSource.Value">
+			<summary>Recupera o imposta l'istanza dell'origine dei dati del report.</summary>
+			<returns>Valore Object contenente un'istanza dell'origine dei dati del report.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportDataSourceCollection">
+			<summary>Contiene un insieme di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportDataSource" />.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportDataSourceCollection.Item(System.String)">
+			<summary>Restituisce un'origine dei dati del report con un nome specificato dall'insieme.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportDataSource" />.</returns>
+			<param name="name">Nome dell'origine dei dati del report da recuperare dall'insieme.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportDataSourceInfo">
+			<summary>Rappresenta le informazioni su un'origine dei dati del report.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportDataSourceInfo.Name">
+			<summary>Recupera il nome dell'origine dei dati del report.</summary>
+			<returns>Valore String contenente il nome dell'origine dei dati del report.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportDataSourceInfo.Prompt">
+			<summary>Recupera un messaggio di richiesta per l'origine dei dati.</summary>
+			<returns>Valore String contenente un messaggio di richiesta per l'origine dei dati.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportDataSourceInfoCollection">
+			<summary>Rappresenta un insieme di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceInfo" />.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportDataSourceInfoCollection.Item(System.String)">
+			<summary>Restituisce un oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceInfo" /> specifico dall'insieme.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceInfo" />.</returns>
+			<param name="name">Nome dell'oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceInfo" /> da restituire.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportErrorEventArgs">
+			<summary>Recupera i dati per l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.ReportError" />.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportErrorEventArgs.Exception">
+			<summary>Restituisce un oggetto Exception contenente le informazioni sull'errore del report.</summary>
+			<returns>Oggetto Exception contenente le informazioni sull'errore del report.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportErrorEventArgs.Handled">
+			<summary>Indica se l'errore è stato gestito dall'applicazione host.</summary>
+			<returns>Valore Boolean che indica se l'errore è stato gestito dall'applicazione host. Il valore predefinito è false.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportErrorEventHandler">
+			<summary>Rappresenta il metodo che gestirà un evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.ReportError" />.</summary>
+			<param name="sender">Oggetto che ha generato l'evento. </param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportErrorEventArgs" /> contenente le informazioni sull'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportPageSettings">
+			<summary>Rappresenta le impostazioni di pagina per un report.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportPageSettings.Margins">
+			<summary>Rappresenta i margini per una pagina del report. Di sola lettura.</summary>
+			<returns>Oggetto Margins di sola lettura contenente le informazioni sui margini della pagina del report.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportPageSettings.PaperSize">
+			<summary>Rappresenta le impostazioni del formato della carta per una pagina del report. Di sola lettura.</summary>
+			<returns>Oggetto PaperSize di sola lettura contenente le informazioni sulle dimensioni di pagina del report.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportParameter">
+			<summary>Rappresenta un parametro per un report.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportParameter.#ctor">
+			<summary>Crea un'istanza di un nuovo ReportParameter.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportParameter.#ctor(System.String)">
+			<summary>Crea un'istanza di un nuovo ReportParameter con un nome.</summary>
+			<param name="name">Nome del parametro.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportParameter.#ctor(System.String,System.String)">
+			<summary>Crea un'istanza di un nuovo ReportParameter con un nome e un valore.</summary>
+			<param name="name">Nome del parametro.</param>
+			<param name="value">Valore del parametro.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportParameter.#ctor(System.String,System.String[])">
+			<summary>Crea un'istanza di un nuovo ReportParameter multivalore con un nome.</summary>
+			<param name="name">Nome del parametro.</param>
+			<param name="values">Valori del parametro.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportParameter.#ctor(System.String,System.String,System.Boolean)">
+			<summary>Crea un'istanza di un nuovo ReportParameter con un nome, un valore e un flag di visibilità.</summary>
+			<param name="name">Nome del parametro.</param>
+			<param name="value">Valore del parametro.</param>
+			<param name="visible">Determina se il parametro verrà visualizzato nell'interfaccia utente.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportParameter.#ctor(System.String,System.String[],System.Boolean)">
+			<summary>Crea un'istanza di un nuovo ReportParameter con un nome, valori multipli e un flag di visibilità.</summary>
+			<param name="name">Nome del parametro.</param>
+			<param name="values">Valori del parametro.</param>
+			<param name="visible">Determina se il parametro verrà visualizzato nell'interfaccia utente.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameter.Name">
+			<summary>Recupera o imposta il nome del parametro.</summary>
+			<returns>Valore String.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameter.Values">
+			<summary>Recupera un insieme di oggetti String contenenti uno o più valori per il parametro.</summary>
+			<returns>Oggetto StringCollection.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameter.Visible">
+			<summary>Determina se è possibile visualizzare il parametro nell'interfaccia utente.</summary>
+			<returns>Valore Boolean.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportParameterInfo">
+			<summary>Incapsula le informazioni sui parametri del report.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.AllowBlank">
+			<summary>Indica se una stringa vuota è un valore valido per il parametro. Di sola lettura.</summary>
+			<returns>Valore Boolean.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.AreDefaultValuesQueryBased">
+			<summary>Indica se i valori predefiniti del parametro sono basati su una query. Di sola lettura.</summary>
+			<returns>Valore Boolean.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.AreValidValuesQueryBased">
+			<summary>Indica se i valori validi del parametro sono basati su una query. Di sola lettura.</summary>
+			<returns>Valore Boolean di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.DataType">
+			<summary>Recupera il tipo di dati del parametro. Di sola lettura.</summary>
+			<returns>Valore <see cref="T:Microsoft.Reporting.WebForms.ParameterDataType" /> di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.Dependencies">
+			<summary>Recupera un elenco di parametri i cui valori vengono utilizzati per recuperare ulteriori valori dei parametri in una query. Di sola lettura.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfoCollection" /> di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.Dependents">
+			<summary>Elenco di parametri che utilizzano il valore di questo parametro come parametri nelle query per recuperare <see cref="P:Microsoft.Reporting.WebForms.ReportParameterInfo.ValidValues" /> e/o <see cref="F:Microsoft.SqlServer.ReportingServices.ReportParameter.DefaultValues" />.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfoCollection" /> di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.ErrorMessage">
+			<summary>Recupera il messaggio di errore restituito in caso di errore di convalida del parametro. Di sola lettura.</summary>
+			<returns>Valore string di sola lettura contenente il testo del messaggio di errore.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.IsQueryParameter">
+			<summary>Indica se il parametro viene utilizzato in una query per l'origine dei dati esterna. Di sola lettura.</summary>
+			<returns>Valore Boolean di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.MultiValue">
+			<summary>Indica se il parametro può essere multivalore. Di sola lettura.</summary>
+			<returns>Valore Boolean di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.Name">
+			<summary>Recupera il nome del parametro. Di sola lettura.</summary>
+			<returns>Valore string contenente il nome del parametro.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.Nullable">
+			<summary>Indica se il valore del parametro può essere null.Di sola lettura.</summary>
+			<returns>Valore Boolean di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.Prompt">
+			<summary>Testo mediante cui viene richiesto all'utente di specificare i valori del parametro.</summary>
+			<returns>Valore string contenente il testo del messaggio di richiesta.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.PromptUser">
+			<summary>Indica se all'utente viene richiesto di specificare il valore del parametro.</summary>
+			<returns>Valore booleano di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.State">
+			<summary>Descrive lo stato del parametro. Di sola lettura.</summary>
+			<returns>Valore <see cref="T:Microsoft.Reporting.WebForms.ParameterState" /> di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.ValidValues">
+			<summary>Recupera i valori validi disponibili per il parametro. Di sola lettura.</summary>
+			<returns>Matrice di sola lettura di oggetti <see cref="T:Microsoft.Reporting.WebForms.ValidValue" />.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.Values">
+			<summary>Recupera i valori per il parametro.</summary>
+			<returns>Elenco di sola lettura di valori string.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfo.Visible">
+			<summary>Determina se è possibile visualizzare il parametro nell'interfaccia utente.</summary>
+			<returns>Valore Boolean.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportParameterInfoCollection">
+			<summary>Insieme di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfo" />.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportParameterInfoCollection.Item(System.String)">
+			<summary>Restituisce un elemento denominato dall'insieme ReportParameterInfoCollection.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfo" /> recuperato dall'insieme.</returns>
+			<param name="name">Nome dell'elemento da recuperare.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportSecurityException">
+			<summary>Rappresenta l'errore che si verifica quando un report contiene una violazione di protezione.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportServerException">
+			<summary>Rappresenta gli errori che si verificano durante la visualizzazione di un report del server.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportServerException.ErrorCode">
+			<summary>Restituisce il codice di errore dall'eccezione.</summary>
+			<returns>Valore string contenente il codice di errore restituito dall'eccezione.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportViewer">
+			<summary>Incapsula le proprietà e i metodi utilizzati per il controllo ReportViewer.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportViewer.#ctor">
+			<summary>Inizializza un'istanza nuova della classe <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" />.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.Back">
+			<summary>Viene generato quando un utente torna da un report drill-through al report padre.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.BookmarkNavigation">
+			<summary>Viene generato quando un utente passa a un segnalibro nel report.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.DocumentMapNavigation">
+			<summary>Viene generato quando si seleziona un nodo della mappa documento.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.Drillthrough">
+			<summary>Viene generato quando si seleziona un elemento drill-through.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.PageNavigation">
+			<summary>Viene generato quando un utente passa a un'altra pagina del report.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.ReportError">
+			<summary>Viene generato quando viene individuato un errore nel report.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.ReportRefresh">
+			<summary>Viene generato quando si aggiorna il report.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.Search">
+			<summary>Viene generato quando si fa clic sul pulsante Trova o Trova successivo.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.Sort">
+			<summary>Viene generato quando l'utente esegue l'ordinamento dei dati del report.</summary>
+		</member>
+		<member name="E:Microsoft.Reporting.WebForms.ReportViewer.Toggle">
+			<summary>Viene generato quando l'utente attiva o disattiva la visualizzazione di un elemento nel report.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportViewer.JumpToBookmark(System.String)">
+			<summary>Sposta lo stato attivo del report al segnalibro specificato.</summary>
+			<param name="bookmarkId">ID del segnalibro.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportViewer.JumpToDocumentMapId(System.String)">
+			<summary>Sposta lo stato attivo della mappa documento al nodo specificato.</summary>
+			<param name="documentMapId">ID del nodo della mappa documento.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportViewer.PerformBack">
+			<summary>Riporta il controllo ReportViewer da un report drill-through al report padre.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportViewer.Reset">
+			<summary>Ripristina i valori predefiniti del controllo.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.AsyncRendering">
+			<summary>Recupera o imposta un valore che indica se il controllo ReportViewer esegue il rendering dei report in modo asincrono.</summary>
+			<returns>true se il controllo <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" /> esegue il rendering dei report in modo asincrono; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.BackColor">
+			<summary>Recupera o imposta il colore di sfondo dell'area del report del controllo.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore di sfondo dell'area del report del controllo.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.CurrentPage">
+			<summary>Recupera o imposta la pagina corrente del report attivo del controllo ReportViewer.</summary>
+			<returns>Valore integer contenente la pagina corrente del report.Il valore predefinito è 0.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.DocumentMapCollapsed">
+			<summary>Recupera o imposta lo stato di compressione della mappa documento.</summary>
+			<returns>true se la mappa documento è compressa; in caso contrario, false. Il valore predefinito è false.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.DocumentMapWidth">
+			<summary>Recupera o imposta la larghezza della mappa documento.</summary>
+			<returns>Valore <see cref="T:System.Web.UI.WebControls.Unit" /> contenente la larghezza della mappa documento in pixel. Il valore predefinito è 40.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ExportContentDisposition">
+			<summary>Recupera o imposta un valore che indica se il contenuto deve essere incorporato o incluso come allegato.</summary>
+			<returns>Valore di enumerazione <see cref="T:Microsoft.Reporting.WebForms.ContentDisposition" /> che indica la modalità di presentazione del contenuto.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.HyperlinkTarget">
+			<summary>Recupera o imposta la finestra o il frame di destinazione per il contenuto della pagina Web restituito quando si fa clic su un collegamento ipertestuale nel report.</summary>
+			<returns>Valore String.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.InternalBorderColor">
+			<summary>Recupera o imposta il colore del bordo interno del controllo.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore del bordo interno del controllo.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.InternalBorderStyle">
+			<summary>Recupera o imposta lo stile del bordo interno del controllo.</summary>
+			<returns>Valore <see cref="T:System.Web.UI.WebControls.BorderStyle" /> che indica lo stile del bordo interno del controllo.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.InternalBorderWidth">
+			<summary>Recupera o imposta lo spessore del bordo interno del controllo.</summary>
+			<returns>Valore <see cref="T:System.Web.UI.WebControls.Unit" /> contenente lo spessore del bordo interno del controllo.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.LinkActiveColor">
+			<summary>Recupera o imposta il colore del collegamento attivo nel controllo.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore del collegamento attivo.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.LinkActiveHoverColor">
+			<summary>Recupera o imposta il colore del collegamento attivo nel controllo al passaggio del puntatore del mouse.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore del collegamento attivo al passaggio del mouse.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.LinkDisabledColor">
+			<summary>Recupera o imposta il colore di un collegamento disattivato nel controllo.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore del collegamento disattivato.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.LocalReport">
+			<summary>Recupera l'istanza della classe <see cref="T:Microsoft.Reporting.WebForms.Report" /> utilizzata quando <see cref="P:Microsoft.Reporting.WebForms.ReportViewer.ProcessingMode" /> per il controllo <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" /> è impostato su <see cref="F:Microsoft.Reporting.WebForms.ProcessingMode.Local" />.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.LocalReport" /> contenente il report locale nel controllo ReportViewer.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ProcessingMode">
+			<summary>Recupera o imposta la modalità di elaborazione del controllo ReportViewer.</summary>
+			<returns>Valore di enumeratore <see cref="T:Microsoft.Reporting.WebForms.ProcessingMode" /> corrispondente a Local o Remote. Il valore predefinito è Local.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.PromptAreaCollapsed">
+			<summary>Recupera o imposta lo stato di compressione dell'area dei messaggi di richiesta.</summary>
+			<returns>true se l'area dei messaggi di richiesta è compressa; in caso contrario, false. Il valore predefinito è false.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ServerReport">
+			<summary>Recupera l'istanza della classe <see cref="T:Microsoft.Reporting.WebForms.Report" /> utilizzata quando <see cref="P:Microsoft.Reporting.WebForms.ReportViewer.ProcessingMode" /> per il controllo <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" /> è impostato su <see cref="F:Microsoft.Reporting.WebForms.ProcessingMode.Remote" />.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ServerReport" /> contenente il report del server nel controllo ReportViewer.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowBackButton">
+			<summary>Recupera o imposta un valore che indica se il pulsante Indietro è visibile nella barra degli strumenti.</summary>
+			<returns>true se il pulsante Indietro è visibile nella barra degli strumenti; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowCredentialPrompts">
+			<summary>Recupera o imposta un valore che indica se visualizzare un messaggio di richiesta per le credenziali utente.</summary>
+			<returns>true se all'utente è mostrato un messaggio di richiesta delle credenziali; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowDocumentMapButton">
+			<summary>Recupera o imposta un valore che indica se il pulsante Mappa documento è visibile nella barra degli strumenti.</summary>
+			<returns>true se il pulsante Mappa documento è visibile nella barra degli strumenti; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowExportControls">
+			<summary>Recupera o imposta un valore che indica se il controllo Esporta è visibile nella barra degli strumenti.</summary>
+			<returns>true se il controllo Esporta è visibile nella barra degli strumenti; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowFindControls">
+			<summary>Recupera o imposta un valore che indica se la casella di testo Trova è visibile nella barra degli strumenti.</summary>
+			<returns>true se la casella di testo Trova è visibile nella barra degli strumenti; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowPageNavigationControls">
+			<summary>Recupera o imposta un valore che indica se i controlli per lo spostamento tra le pagine sono visibili nella barra degli strumenti.</summary>
+			<returns>true se i controlli per lo spostamento tra le pagine sono visibili nella barra degli strumenti; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowParameterPrompts">
+			<summary>Recupera o imposta un valore che indica se i messaggi di richiesta dei parametri sono visualizzati.</summary>
+			<returns>true se i messaggi di richiesta dei parametri sono visualizzati; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowPrintButton">
+			<summary>Recupera o imposta un valore che indica se il pulsante Stampa è visibile nella barra degli strumenti.</summary>
+			<returns>true se il pulsante Stampa è visibile nella barra degli strumenti; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowPromptAreaButton">
+			<summary>Recupera o imposta un valore che indica se il pulsante Area dei messaggi di richiesta è visibile nella barra degli strumenti.</summary>
+			<returns>true se il pulsante Area dei messaggi di richiesta è visibile nella barra degli strumenti; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowRefreshButton">
+			<summary>Recupera o imposta un valore che indica se il pulsante Aggiorna è visibile nella barra degli strumenti.</summary>
+			<returns>true se il pulsante Aggiorna è visibile nella barra degli strumenti; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowReportBody">
+			<summary>Recupera o imposta un valore che indica se il corpo del report è visibile nel controllo.</summary>
+			<returns>true se il corpo del report è visibile nel controllo; in caso contrario, false. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowToolBar">
+			<summary>Recupera o imposta un valore che indica se la barra degli strumenti è visibile nel controllo.</summary>
+			<returns>Valore Boolean. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ShowZoomControl">
+			<summary>Recupera o imposta un valore che indica se la casella di testo Zoom è visibile.</summary>
+			<returns>Valore Boolean. Il valore predefinito è true.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.SizeToReportContent">
+			<summary>Recupera o imposta un valore che indica se il controllo ReportViewer viene ridimensionato automaticamente in base al contenuto del report.</summary>
+			<returns>Valore Boolean. Un valore true indica che il controllo viene ridimensionato automaticamente in base al contenuto del report. Il valore predefinito è false.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ToolBarItemBorderColor">
+			<summary>Recupera o imposta il colore del bordo di un elemento sulla barra degli strumenti.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore di un elemento della barra degli strumenti.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ToolBarItemBorderStyle">
+			<summary>Recupera o imposta lo stile del bordo di un elemento della barra degli strumenti.</summary>
+			<returns>Valore <see cref="T:System.Web.UI.WebControls.BorderStyle" /> contenente lo stile del bordo di un elemento della barra degli strumenti.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ToolBarItemBorderWidth">
+			<summary>Recupera o imposta lo spessore del bordo dell'elemento della barra degli strumenti.</summary>
+			<returns>Valore <see cref="T:System.Web.UI.WebControls.Unit" /> contenente lo spessore del bordo dell'elemento della barra degli strumenti. </returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ToolBarItemHoverBackColor">
+			<summary>Recupera o imposta il colore di sfondo dell'elemento della barra degli strumenti al passaggio del puntatore del mouse.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore di sfondo dell'elemento della barra degli strumenti al passaggio del mouse.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ToolBarItemPressedBorderColor">
+			<summary>Recupera o imposta il colore di un elemento della barra degli strumenti durante la selezione.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore dell'elemento della barra degli strumenti durante la selezione.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ToolBarItemPressedBorderStyle">
+			<summary>Recupera o imposta lo stile del bordo dell'elemento della barra degli strumenti durante la selezione.</summary>
+			<returns>Valore <see cref="T:System.Web.UI.WebControls.BorderStyle" /> contenente lo stile del bordo dell'elemento della barra degli strumenti durante la selezione.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ToolBarItemPressedBorderWidth">
+			<summary>Recupera o imposta lo spessore del bordo di un elemento della barra degli strumenti durante la selezione.</summary>
+			<returns>Valore <see cref="T:System.Web.UI.WebControls.Unit" /> contenente lo spessore del bordo dell'elemento della barra degli strumenti durante la selezione.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ToolBarItemPressedHoverBackColor">
+			<summary>Recupera o imposta il colore di sfondo dell'elemento della barra degli strumenti al passaggio del puntatore del mouse.</summary>
+			<returns>Valore <see cref="T:System.Drawing.Color" /> che indica il colore di sfondo dell'elemento della barra degli strumenti al passaggio del mouse.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.WaitMessageFont">
+			<summary>Recupera il tipo di carattere per il messaggio visualizzato durante l'esecuzione del report.</summary>
+			<returns>Oggetto <see cref="T:System.Web.UI.WebControls.FontInfo" /> contenente il tipo di carattere. Il tipo di carattere predefinito è Verdana a 14 punti.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ZoomMode">
+			<summary>Recupera o imposta la modalità di zoom del controllo.</summary>
+			<returns>Valore di enumeratore <see cref="P:Microsoft.Reporting.WebForms.ReportViewer.ZoomMode" /> che indica la modalità di zoom del controllo. Il valore predefinito è 100%.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ReportViewer.ZoomPercent">
+			<summary>Recupera o imposta la percentuale di zoom da utilizzare durante la visualizzazione del report.</summary>
+			<returns>Valore integer contenente la percentuale di zoom.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportViewerCookieCollection">
+			<summary>Rappresenta un insieme di oggetti <see cref="T:System.Net.Cookie" />.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportViewerException">
+			<summary>Rappresenta gli errori che si verificano durante la visualizzazione di un report.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportViewerException.#ctor(System.String)">
+			<summary>Questo costruttore supporta l'infrastruttura .NET Framework e non deve essere utilizzato direttamente dal codice.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ReportViewerException.#ctor(System.String,System.Exception)">
+			<summary>Questo costruttore supporta l'infrastruttura .NET Framework e non deve essere utilizzato direttamente dal codice.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportViewerHandlerNotRegisteredException">
+			<summary>Si verifica quando il file Web.config non include una voce relativa al gestore HTTP.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ReportViewerHeaderCollection">
+			<summary>Rappresenta un insieme di stringhe contenenti intestazioni personalizzate.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SearchEventArgs">
+			<summary>Recupera i dati per un evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.Search" /> nel controllo ReportViewer.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.SearchEventArgs.#ctor(System.String,System.Int32,System.Boolean)">
+			<summary>Costruisce un nuovo oggetto SearchEventArgs.</summary>
+			<param name="searchString">Stringa di ricerca.</param>
+			<param name="startPage">Pagina in cui iniziare la ricerca.</param>
+			<param name="isFindNext">Indica che l'evento viene generato in seguito all'esecuzione di un comando Trova successivo.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SearchEventArgs.IsFindNext">
+			<summary>Indica che l'evento viene generato in seguito all'esecuzione di un comando Trova successivo.</summary>
+			<returns>Valore Boolean. Il valore true indica che l'evento è stato generato dall'esecuzione del comando Trova successivo.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SearchEventArgs.SearchString">
+			<summary>Restituisce la stringa utilizzata per la ricerca.</summary>
+			<returns>Valore string contenente la stringa di ricerca.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SearchEventArgs.StartPage">
+			<summary>Restituisce il numero della pagina in cui iniziare la ricerca.</summary>
+			<returns>Valore integer contenente il numero della pagina in cui iniziare la ricerca.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SearchEventHandler">
+			<summary>Rappresenta il metodo che gestirà un evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.Search" />.</summary>
+			<param name="sender">Oggetto che ha generato l'evento.</param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportErrorEventArgs" /> contenente le informazioni sull'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ServerReport">
+			<summary>Rappresenta un report la cui elaborazione e il cui rendering vengono eseguiti nel server di report.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.GetDataSources">
+			<summary>Recupera le informazioni sulle origini dei dati utilizzate per un report.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceInfoCollection" /> contenente oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceInfo" />.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.GetDataSources(System.Boolean@)">
+			<summary>Recupera le informazioni sulle origini dei dati utilizzate per un report. Ad esempio, indica se sono state specificate tutte le credenziali necessarie per tali origini dei dati.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceInfoCollection" /> contenente oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportDataSourceInfo" />.</returns>
+			<param name="allCredentialsSet">[out] Indica se sono state specificate tutte le credenziali necessarie per le origini dei dati utilizzate dal report del server.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.GetDefaultPageSettings">
+			<summary>Recupera le impostazioni di pagina predefinite specificate nel report locale.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportPageSettings" /> contenente le impostazioni di pagina predefinite per il report locale.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.GetExecutionId">
+			<summary>Restituisce l'ID esecuzione corrente oppure Null (Nothing in Visual Basic), se l'ID non è disponibile.</summary>
+			<returns>Valore string contenente l'ID esecuzione.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.GetParameters">
+			<summary>Restituisce le proprietà dei parametri di report per il report.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfoCollection" /> contenente una matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfo" />.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.GetServerVersion">
+			<summary>Restituisce la versione del server di report.</summary>
+			<returns>Valore string contenente le informazioni sulla versione del server.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.GetTotalPages">
+			<summary>Recupera il numero totale di pagine logiche per il report del server.</summary>
+			<returns>Valore integer contenente il numero totale di pagine logiche del report.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.IsQueryExecutionAllowed">
+			<summary>Indica se il report è in grado di eseguire query.</summary>
+			<returns>Valore Boolean che indica se il report è in grado di eseguire query.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.ListRenderingExtensions">
+			<summary>Restituisce tutte le estensioni per il rendering disponibili per il report del server.</summary>
+			<returns>Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.RenderingExtension" />.</returns>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.LoadReportDefinition(System.IO.TextReader)">
+			<summary>Carica la definizione del report dal server di report utilizzando un oggetto <see cref="T:System.IO.TextReader" />.</summary>
+			<param name="report">Classe <see cref="T:System.IO.TextReader" /> utilizzabile per la lettura del file RDL (Report Definition Language) per il report.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.Refresh">
+			<summary>Determina l'esecuzione del rendering del report con i dati più recenti.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.Render(System.String,System.String,System.Collections.Specialized.NameValueCollection,System.String@,System.String@)">
+			<summary>Esegue il rendering del report con i parametri di accesso URL facoltativi.</summary>
+			<returns><see cref="T:System.IO.Stream" /> contenente il report visualizzabile.</returns>
+			<param name="format">Formato in cui eseguire il rendering del report. Questo argomento esegue il mapping a un'estensione per il rendering. I formati supportati sono Microsoft Office Excel, PDF e Image.</param>
+			<param name="deviceInfo">Stringa XML che include il contenuto specifico del dispositivo necessario per l'estensione per il rendering specificata nel parametro format. Per ulteriori informazioni sulle impostazioni relative alle informazioni sul dispositivo per specifici formati di output, vedere "Device Information Settings" (informazioni in lingua inglese) nella documentazione in linea di SQL Server.</param>
+			<param name="urlAccessParameters">Parametri di accesso URL da passare al server di report. Per ulteriori informazioni, vedere la documentazione relativa all'accesso URL nella documentazione in linea di SQL Server.È possibile impostare questo parametro su Null.</param>
+			<param name="mimeType">[out] Tipo MIME del report visualizzabile.</param>
+			<param name="fileNameExtension">[out] Estensione utilizzata per il file di output.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.Render(System.String,System.String,System.Collections.Specialized.NameValueCollection,System.IO.Stream,System.String@,System.String@)">
+			<summary>Esegue il rendering del report con i parametri di accesso URL facoltativi.</summary>
+			<param name="format">Formato in cui eseguire il rendering del report. Questo argomento esegue il mapping a un'estensione per il rendering. I formati supportati sono Microsoft Office Excel, PDF e Image.</param>
+			<param name="deviceInfo">Stringa XML che include il contenuto specifico del dispositivo necessario per l'estensione per il rendering specificata nel parametro relativo al formato. Per ulteriori informazioni sulle impostazioni relative alle informazioni sul dispositivo per specifici formati di output, vedere "Device Information Settings" (informazioni in lingua inglese) nella documentazione in linea di SQL Server.</param>
+			<param name="urlAccessParameters">Parametri di accesso URL da passare al server di report. Per ulteriori informazioni, vedere la documentazione relativa all'accesso URL nella documentazione in linea di SQL Server.È possibile impostare questo parametro su Null.</param>
+			<param name="reportStream">Flusso in cui verrà scritto il report visualizzabile.</param>
+			<param name="mimeType">[out] Tipo MIME del report visualizzabile.</param>
+			<param name="fileNameExtension">[out] Estensione utilizzata per il file di output.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.Render(System.String,System.String,System.String@,System.String@,System.String@,System.String[]@,Microsoft.Reporting.WebForms.Warning[]@)">
+			<summary>Elabora il report e ne esegue il rendering nel formato specificato.</summary>
+			<returns>Matrice <see cref="T:System.Byte" /> del report nel formato specificato.</returns>
+			<param name="format">Formato in cui eseguire il rendering del report. Questo argomento esegue il mapping a un'estensione per il rendering. I formati supportati sono Microsoft Office Excel, PDF e Image.</param>
+			<param name="deviceInfo">Stringa XML che include il contenuto specifico del dispositivo necessario per l'estensione per il rendering specificata nel parametro format. Per ulteriori informazioni sulle impostazioni relative alle informazioni sul dispositivo per specifici formati di output, vedere "Device Information Settings" (informazioni in lingua inglese) nella documentazione in linea di SQL Server.</param>
+			<param name="mimeType">[out] Tipo MIME del report visualizzabile.</param>
+			<param name="encoding">[out] Codifica utilizzata per il rendering del contenuto del report.</param>
+			<param name="fileNameExtension">[out] Estensione utilizzata per il file di output.</param>
+			<param name="streams">[out] Identificatori di flusso, che è possibile utilizzare per eseguire il rendering delle risorse esterne, ad esempio immagini, associate al report.</param>
+			<param name="warnings">[out] Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.Warning" /> che descrive gli avvisi generati durante l'elaborazione del report.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.RenderStream(System.String,System.String,System.String,System.String@,System.String@)">
+			<summary>Restituisce un flusso secondario associato a un report elaborato.</summary>
+			<returns>Matrice <see cref="T:System.Byte" /> del flusso nel formato specificato. Per ulteriori informazioni su questo tipo di dati, vedere l'argomento relativo alla struttura Byte nella documentazione di .NET Framework.</returns>
+			<param name="format">Formato in cui eseguire il rendering del flusso. Questo argomento esegue il mapping a un'estensione per il rendering. I formati supportati sono XML, NULL, CSV, IMAGE, PDF, HTML4.0, HTML3.2, MHTML, Excel e HTMLOWC.</param>
+			<param name="streamId">Identificatore di flusso.</param>
+			<param name="deviceInfo">Stringa XML che include il contenuto specifico del dispositivo necessario per l'estensione per il rendering specificata nel parametro format. Per ulteriori informazioni sulle impostazioni relative alle informazioni sul dispositivo per specifici formati di output, vedere "Device Information Settings" (informazioni in lingua inglese) nella documentazione in linea di SQL Server.</param>
+			<param name="mimeType">Tipo MIME del flusso.</param>
+			<param name="encoding"> Nome della classe di codifica Microsoft .NET Framework.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.SetDataSourceCredentials(Microsoft.Reporting.WebForms.DataSourceCredentials[])">
+			<summary>Imposta le credenziali per l'origine dei dati per il report.</summary>
+			<param name="credentials">Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.Credentials" />.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.SetExecutionId(System.String)">
+			<summary>Inizializza un report del server utilizzando un'esecuzione specifica di tale report nel server. </summary>
+			<param name="executionId">Valore String contenente l'ID esecuzione da utilizzare.</param>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.ServerReport.SetParameters(System.Collections.Generic.IEnumerable{Microsoft.Reporting.WebForms.ReportParameter})">
+			<summary>Imposta le proprietà dei parametri di report per il report.</summary>
+			<param name="parameters">Matrice di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportParameter" /> contenente l'elenco delle proprietà dei parametri di report.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ServerReport.Cookies">
+			<summary>Recupera un insieme di oggetti <see cref="T:System.Net.Cookie" />.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportViewerCookieCollection" /> contenente un insieme di oggetti <see cref="T:System.Net.Cookie" />.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ServerReport.Headers">
+			<summary>Recupera un insieme di stringhe contenenti intestazioni personalizzate.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportViewerHeaderCollection" /> contenente un insieme di intestazioni personalizzate.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ServerReport.HistoryId">
+			<summary>Recupera o imposta l'identificatore univoco dello snapshot utilizzato per il report del server.</summary>
+			<returns>Valore string contenente <see cref="P:Microsoft.Reporting.WebForms.ServerReport.HistoryId" />.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ServerReport.ReportPath">
+			<summary>Recupera o imposta il percorso del report nel server.</summary>
+			<returns>Valore string.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ServerReport.ReportServerCredentials">
+			<summary>Recupera o imposta le credenziali da utilizzare con il server di report.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportServerCredentials" /> contenente le credenziali da utilizzare con il server di report.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ServerReport.ReportServerUrl">
+			<summary>Recupera o imposta l'URL per il server di report.</summary>
+			<returns>Oggetto <see cref="T:System.Uri" /> contenente l'URL per il server di report.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ServerReport.Timeout">
+			<summary>Recupera o imposta il numero di millisecondi che devono trascorrere prima di stabilire la comunicazione con il server.</summary>
+			<returns>Valore integer contenente il timeout del server, in millisecondi.Il valore predefinito è 600.000 millisecondi.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SessionDisabledException">
+			<summary>Si verifica quando la sessione ASP.NET viene disattivata.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.Severity">
+			<summary>Specifica la gravità di un avviso.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.Severity.Error">
+			<summary>Il livello di gravità dell'avviso è Error.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.Severity.Warning">
+			<summary>Il livello di gravità dell'avviso è Warning.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SoapVersionMismatchException">
+			<summary>Rappresenta l'eccezione che si verifica quando la versione del server di report non è compatibile con il controllo del report.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SortEventArgs">
+			<summary>Recupera i dati per l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.Sort" />.</summary>
+		</member>
+		<member name="M:Microsoft.Reporting.WebForms.SortEventArgs.#ctor(System.String,Microsoft.Reporting.WebForms.SortOrder,System.Boolean)">
+			<summary>Costruisce un nuovo oggetto SortEventArgs.</summary>
+			<param name="sortId">ID dell'azione di ordinamento.</param>
+			<param name="sortDirection">Valore di enumerazione <see cref="T:Microsoft.Reporting.WebForms.SortOrder" /> che indica la direzione dell'ordinamento. Il valore predefinito è none.</param>
+			<param name="clearSort">Valore Boolean che indica se tutti gli altri ordinamenti esistenti devono essere cancellati. Il valore predefinito è false.</param>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SortEventArgs.ClearSort">
+			<summary>Indica se tutti gli altri ordinamenti esistenti devono essere cancellati. </summary>
+			<returns>Valore Boolean che indica se tutti gli altri ordinamenti esistenti devono essere cancellati. Il valore predefinito è false.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SortEventArgs.SortDirection">
+			<summary>Recupera un valore di enumerazione che indica la direzione dell'ordinamento. </summary>
+			<returns>Valore di enumerazione <see cref="T:Microsoft.Reporting.WebForms.SortOrder" /> che indica la direzione dell'ordinamento. </returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SortEventArgs.SortId">
+			<summary>Recupera l'identificatore univoco dell'azione di ordinamento.</summary>
+			<returns>Valore string contenente l'ID dell'azione di ordinamento.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SortEventHandler">
+			<summary>Rappresenta il metodo che gestirà l'evento <see cref="E:Microsoft.Reporting.WebForms.ReportViewer.Sort" /> di <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" />.</summary>
+			<param name="sender">Oggetto che genera l'evento.</param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.SortEventArgs" /> contenente le informazioni sull'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SortOrder">
+			<summary>Indica la direzione di un'operazione di ordinamento.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.SortOrder.Ascending">
+			<summary>Indica l'ordinamento crescente.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.SortOrder.Descending">
+			<summary>Indica l'ordinamento decrescente.</summary>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SubreportProcessingEventArgs">
+			<summary>Recupera i dati per l'evento <see cref="E:Microsoft.Reporting.WebForms.LocalReport.SubreportProcessing" />.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SubreportProcessingEventArgs.DataSourceNames">
+			<summary>Recupera l'elenco dei nomi delle origini dei dati per il sottoreport.</summary>
+			<returns>Elenco di oggetti string contenenti i nomi delle origini dei dati per il sottoreport.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SubreportProcessingEventArgs.DataSources">
+			<summary>Restituisce un insieme di origini dei dati per il sottoreport.</summary>
+			<returns>Insieme di oggetti <see cref="T:Microsoft.Reporting.WebForms.ReportDataSource" />.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SubreportProcessingEventArgs.Parameters">
+			<summary>Recupera un insieme di parametri per il sottoreport.</summary>
+			<returns>Oggetto <see cref="T:Microsoft.Reporting.WebForms.ReportParameterInfoCollection" /> contenente le informazioni sui parametri del sottoreport.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.SubreportProcessingEventArgs.ReportPath">
+			<summary>Restituisce il nome del sottoreport.</summary>
+			<returns>Valore stringa contenente il nome del sottoreport.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.SubreportProcessingEventHandler">
+			<summary>Rappresenta il metodo che gestirà l'evento <see cref="E:Microsoft.Reporting.WebForms.LocalReport.SubreportProcessing" /> di <see cref="T:Microsoft.Reporting.WebForms.ReportViewer" />.</summary>
+			<param name="sender">Oggetto che ha generato l'evento.</param>
+			<param name="e">Oggetto <see cref="T:Microsoft.Reporting.WebForms.SubreportProcessingEventArgs" /> contenente le informazioni sull'evento.</param>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ValidValue">
+			<summary>Rappresenta un possibile valore valido per un parametro.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ValidValue.Label">
+			<summary>Recupera un'etichetta per il valore valido.</summary>
+			<returns>Oggetto string di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.ValidValue.Value">
+			<summary>Recupera un valore valido.</summary>
+			<returns>Oggetto string di sola lettura.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.Warning">
+			<summary>Rappresenta un elenco di errori o avvisi restituiti durante il rendering o l'elaborazione di un report.</summary>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.Warning.Code">
+			<summary>Recupera il codice di errore assegnato all'avviso. Di sola lettura.</summary>
+			<returns>Valore stringa di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.Warning.Message">
+			<summary>Recupera un messaggio che descrive l'errore o l'avviso. Di sola lettura.</summary>
+			<returns>Valore stringa di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.Warning.ObjectName">
+			<summary>Recupera il nome dell'oggetto nella definizione del report che ha determinato la generazione dell'avviso. Di sola lettura.</summary>
+			<returns>Valore stringa di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.Warning.ObjectType">
+			<summary>Recupera il tipo di oggetto nella definizione del report che ha causato l'errore o l'avviso. Di sola lettura.</summary>
+			<returns>Valore stringa di sola lettura.</returns>
+		</member>
+		<member name="P:Microsoft.Reporting.WebForms.Warning.Severity">
+			<summary>Recupera il tipo di gravità dell'errore o dell'avviso. Di sola lettura.</summary>
+			<returns>Valore stringa di sola lettura.</returns>
+		</member>
+		<member name="T:Microsoft.Reporting.WebForms.ZoomMode">
+			<summary>Specifica la modalità di zoom per il controllo ReportViewer.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ZoomMode.FullPage">
+			<summary>Imposta la modalità di zoom sulla pagina intera.</summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ZoomMode.PageWidth">
+			<summary>Imposta la modalità di zoom sulla larghezza di pagina. </summary>
+		</member>
+		<member name="F:Microsoft.Reporting.WebForms.ZoomMode.Percent">
+			<summary>Imposta la modalità di zoom su una percentuale. </summary>
+		</member>
+	</members>
+</doc>

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0"?>
+<configuration>
+  <appSettings>
+    <!-- 
+    ************************************************************
+        PARAMETRI PER AMMINISTRAZIONE TRASPARENTE
+    ************************************************************ 
+    -->
+    <!-- Percorso della cartella di salvataggio dichiarazioni dei redditi  -->
+    <add key="AMM_TRASP_PATH_DICHREDDITI" value="/filesAllegatiAmmTrasp"/>
+    <!-- URL Dichiarazione redditi e situazione patrimoniale (salvati nella cartella sopra) 
+         Variabili:
+              {DICHREDDITI_FILENAME} : nome del file con estensione 
+    -->
+    <add key="AMM_TRASP_URL_DICHREDDITI" value="[URL CORRETTO]/{DICHREDDITI_FILENAME}"/>
+    <add key="AMM_TRASP_URL_DICHREDDITI_TEST" value="../Allegati/{DICHREDDITI_FILENAME}"/>
+    <!-- URL Atto di proclamazione          
+         Variabili: NESSUNA, LINK FISSO             
+    -->
+    <add key="AMM_TRASP_URL_ATTOPROCLAMAZIONE" value="[URL CORRETTO]e"/>
+    <!-- URL Atto di proclamazione per assessori          
+         Variabili: NESSUNA, LINK FISSO             
+    -->
+    <add key="AMM_TRASP_URL_A_ATTOPROCLAMAZIONE" value="[URL CORRETTO]"/>
+    <!-- URL Curriculum del consigliere
+         Variabili:
+              {ID_CONSIGLIERE} : id del consigliere in GeCo
+    -->
+    <add key="AMM_TRASP_URL_CURRICULUM" value="[URL CORRETTO]"/>
+    <!-- URL Curriculum assessori
+         Variabili: NESSUNA, LINK FISSO  
+    -->
+    <add key="AMM_TRASP_URL_A_CURRICULUM" value="[URL CORRETTO]"/>
+    <!-- URL Spese per viaggi di servizio e missioni         
+         Variabili: NESSUNA, LINK FISSO             
+    -->
+    <add key="AMM_TRASP_URL_SPESEVIAGGI" value="[URL CORRETTO]"/>
+    <!-- URL Spese per viaggi di servizio e missioni per assessori       
+         Variabili: NESSUNA, LINK FISSO             
+    -->
+    <add key="AMM_TRASP_URL_A_SPESEVIAGGI" value="[URL CORRETTO]"/>
+    <!-- URL Altri cariche/incarichi
+         Variabili:
+              {ID_CONSIGLIERE} : id del consigliere in GeCo
+         *** PER ORA E' UGUALE ALL'URL DEL CURRICULUM     
+    -->
+    <add key="AMM_TRASP_URL_A_ALTRECARICHE" value="[URL CORRETTO]"/>
+    <add key="AMM_TRASP_URL_ALTRECARICHE" value="[URL CORRETTO]/{ID_CONSIGLIERE}"/>
+    <!-- URL Dichiarazione spese elettorali        
+         Variabili: NESSUNA, LINK FISSO             
+    -->
+    <add key="AMM_TRASP_URL_SPESEELETTORALI" value="[URL CORRETTO]"/>
+    <add key="AMM_TRASP_URL_TOTALE_COMPENSO" value="[URL CORRETTO]"/>
+    <!-- ***** FINE PARAMETRI PER AMMINISTRAZIONE TRASPARENTE ***** -->
+    <add key="TIPO_DOC_TRASPARENZA_ATTO_PROCLAMAZIONE" value="1"/>
+    <add key="TIPO_DOC_TRASPARENZA_SPESE_ELETTORALI" value="2"/>
+    <add key="TIPO_DOC_TRASPARENZA_IRPEF_CARICA_INIZIO" value="3"/>
+    <add key="TIPO_DOC_TRASPARENZA_PATRIMONIALE" value="4"/>
+    <add key="TIPO_DOC_TRASPARENZA_PATRIMONIALE_MANCATO_CONSENSO" value="5"/>
+    <add key="TIPO_DOC_TRASPARENZA_IRPEF_CARICA_FINE" value="6"/>
+    <add key="TIPO_DOC_TRASPARENZA_ALTRE_CARICHE" value="8"/>
+    <add key="SUMMARY_CONSIGLIERI" value="La tabella riporta per ciascun consigliere i dati relativi al curriculum vitae, alle cariche e funzioni ricoperte, ai compensi percepiti, alla situazione reddituale e patrimoniale propria e dei congiunti secondo quanto previsto dall’art. 14 del d.lgs. 33/2013"/>
+    <add key="SUMMARY_ASSESSORI" value="La tabella riporta per ciascun assessore o sottosegretario non consigliere i dati relativi al curriculum vitae, alle cariche e funzioni ricoperte, ai compensi percepiti, alla situazione reddituale e patrimoniale propria e dei congiunti secondo quanto previsto dall’art. 14 del d.lgs. 33/2013"/>
+    <!-- ID PERSONE CHE PUR ESSENDO CONSIGLIERI DEVONO AVERE NELLA COLONNA SPESE VIAGGI DEL TABELLONE IL LINK PREVISTO PER GLI ASSESSORI (ES. PRESIDENTE DELLA REGIONE)
+         Inserire id numerici separati da virgola (,)
+    -->
+    <add key="AMM_TRASP_SET_IDPERSONA_URL_A_SPESEVIAGGI" value="450,389"/>
+  </appSettings>
+  <connectionStrings>
+      <!-- Stringa connessione NPO Dev -->
+	  <add name="GestioneConsiglieriConnectionString" connectionString="Data Source=[SERVER];Initial Catalog=GestioneConsiglieri;User ID=GestioneConsiglieriUser;Password=[PASSWORD]" providerName="System.Data.SqlClient"/>
+  </connectionStrings>
+  <system.web>
+    <httpRuntime maxRequestLength="102400"/>
+    <!-- 
+      Impostare compilation debug="true" per inserire i 
+      simboli di debug nella pagina compilata. Poiché tale
+      operazione ha effetto sulle prestazioni, impostare questo valore su true 
+      solo durante lo sviluppo.
+    -->
+    <roleManager enabled="true"/>
+    <compilation debug="true" targetFramework="4.0">
+      <assemblies>
+        <add assembly="PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+        <add assembly="System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+        <add assembly="System.Web.Extensions.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+        <add assembly="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+      </assemblies>
+      <buildProviders>
+        <add extension=".rdlc" type="Microsoft.Reporting.RdlBuildProvider, Microsoft.ReportViewer.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+      </buildProviders>
+    </compilation>
+    <!--
+      La sezione <authentication> consente di configurare 
+      la modalità di autenticazione della sicurezza utilizzata da 
+      ASP.NET per identificare un utente in ingresso. 
+    -->
+    <authentication mode="Forms"/>
+    <!--
+      La sezione <customErrors> consente di configurare 
+      l'operazione da eseguire in caso di errore non gestito 
+      durante l'esecuzione di una richiesta. In particolare, 
+      consente agli sviluppatori di configurare le pagine di errore HTML 
+      in modo che vengano visualizzate al posto dell'analisi dello stack dell'errore.
+
+      <customErrors mode="RemoteOnly" defaultRedirect="GenericErrorPage.htm">
+          <error statusCode="403" redirect="NoAccess.htm" />
+          <error statusCode="404" redirect="FileNotFound.htm" />
+      </customErrors>
+    -->
+    <identity impersonate="true"/>
+    <pages maintainScrollPositionOnPostBack="true" controlRenderingCompatibilityVersion="3.5" clientIDMode="AutoID"/>
+    <httpHandlers>
+      <add path="Reserved.ReportViewerWebControl.axd" verb="*" type="Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" validate="false"/>
+    </httpHandlers>
+  </system.web>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false"/>
+  </system.webServer>
+</configuration>

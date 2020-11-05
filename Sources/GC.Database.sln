@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GeCo.Database", "GeCo.Database\GeCo.Database.sqlproj", "{8708781C-E44B-47C1-9F1B-6CF3A0BFF514}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8708781C-E44B-47C1-9F1B-6CF3A0BFF514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8708781C-E44B-47C1-9F1B-6CF3A0BFF514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8708781C-E44B-47C1-9F1B-6CF3A0BFF514}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8708781C-E44B-47C1-9F1B-6CF3A0BFF514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8708781C-E44B-47C1-9F1B-6CF3A0BFF514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8708781C-E44B-47C1-9F1B-6CF3A0BFF514}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C477AB72-F678-4EAA-B79D-0B1466A10C81}
+	EndGlobalSection
+EndGlobal
