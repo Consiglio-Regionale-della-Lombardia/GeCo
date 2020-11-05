@@ -79,7 +79,7 @@ public partial class incarichi_extra_istituzionali : System.Web.UI.Page
     const int n_info_incarico = 7; //4;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

@@ -45,6 +45,9 @@ public partial class report_segrcons_presenze_legislature_gruppo : System.Web.UI
 
     #endregion
 
+    /// <summary>
+    /// Query caricamento dati persone con riepilogo partecipazioni a sedute
+    /// </summary>
     string select_template = @"SELECT COALESCE(LTRIM(RTRIM(jpgpiv.nome_gruppo)), 'NESSUN GRUPPO') AS nome_gruppo, 
 pp.cognome, pp.nome,
 
@@ -186,7 +189,7 @@ and pp.deleted = 0 ";
     string[] columns_names;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

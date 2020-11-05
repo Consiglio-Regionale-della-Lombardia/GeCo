@@ -48,6 +48,9 @@ public partial class gruppi_politici_gruppi_politici : System.Web.UI.Page
                                FROM persona 
                                WHERE id_persona = ";
 
+    /// <summary>
+    /// Caricamento gruppi politici per persona
+    /// </summary>
     string query_select = @"SELECT ll.id_legislatura, 
 			                                         ll.num_legislatura, 
 			                                         gg.id_gruppo, 
@@ -82,7 +85,7 @@ public partial class gruppi_politici_gruppi_politici : System.Web.UI.Page
 
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura tabelle
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

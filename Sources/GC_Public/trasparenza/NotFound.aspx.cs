@@ -25,7 +25,7 @@ public partial class trasparenza_NotFound : System.Web.UI.Page
     public string Message { get; set; }
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

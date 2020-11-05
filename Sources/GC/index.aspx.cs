@@ -51,7 +51,7 @@ public partial class _Default : System.Web.UI.Page
                                 ORDER BY ll.durata_legislatura_da DESC";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e verifica login
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

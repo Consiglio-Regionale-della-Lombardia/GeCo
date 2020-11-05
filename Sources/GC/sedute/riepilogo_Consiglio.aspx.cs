@@ -109,7 +109,7 @@ public partial class riepilogo_Consiglio : System.Web.UI.Page
                                             OR ((jpoc.data_inizio <= '@date') AND (jpoc.data_fine IS NULL))) ";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

@@ -36,6 +36,9 @@ public partial class persona_persona_commissione : System.Web.UI.Page
     string[] filters = new string[4];
     bool landscape = false;
 
+    /// <summary>
+    /// Query ricerca persone con cariche ricpoerte
+    /// </summary>
     string select_template = @"SELECT DISTINCT COALESCE(ll.id_legislatura, 0) AS id_legislatura, 
 				                               COALESCE(ll.num_legislatura, 'N/A') AS num_legislatura,
                                                pp.id_persona, 
@@ -66,7 +69,7 @@ public partial class persona_persona_commissione : System.Web.UI.Page
                                  AND oo.vis_serv_comm = 1";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

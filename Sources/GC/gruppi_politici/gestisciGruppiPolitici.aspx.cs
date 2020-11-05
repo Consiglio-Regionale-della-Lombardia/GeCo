@@ -35,6 +35,9 @@ public partial class gestisciGruppiPolitici : System.Web.UI.Page
     string legislatura_corrente;
     public int role;
 
+    /// <summary>
+    /// Caricamento gruppi politici
+    /// </summary>
     string select_template = @"SELECT DISTINCT gg.id_gruppo, 
                                                gg.codice_gruppo, 
                                                LTRIM(RTRIM(gg.nome_gruppo)) AS nome_gruppo, 
@@ -86,7 +89,7 @@ public partial class gestisciGruppiPolitici : System.Web.UI.Page
     bool landscape = false;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

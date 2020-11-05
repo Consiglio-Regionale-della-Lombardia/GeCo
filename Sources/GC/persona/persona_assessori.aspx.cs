@@ -40,7 +40,7 @@ public partial class persona_assessori : System.Web.UI.Page
     bool landscape = false;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

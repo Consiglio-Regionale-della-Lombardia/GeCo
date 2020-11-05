@@ -55,7 +55,7 @@ public partial class report_aspettative : System.Web.UI.Page
     //string query_order = @"ORDER BY pp.cognome, pp.nome, jpa.data_inizio";
     string query_order = "";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

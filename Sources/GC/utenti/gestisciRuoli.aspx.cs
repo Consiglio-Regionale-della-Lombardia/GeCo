@@ -42,7 +42,7 @@ public partial class utenti_gestisciRuoli : System.Web.UI.Page
     string legislatura_corrente;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

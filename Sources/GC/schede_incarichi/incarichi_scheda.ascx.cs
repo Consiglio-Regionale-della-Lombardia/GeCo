@@ -26,7 +26,7 @@ using System.Web.UI.WebControls;
 
 
 /// <summary>
-/// Dichiarazione evento schedaChanged per modifica scheda
+/// Dichiarazione evento scheda modificata
 /// </summary>
 /// <param name="sender">Oggetto che ha generato l'evento</param>
 /// <param name="id_scheda">Id della scheda modificata</param>
@@ -93,7 +93,7 @@ public partial class incarichi_scheda : System.Web.UI.UserControl
     public event schedaChanged_event SchedaAdded;
     public event schedaChanged_event SchedaDeleted;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

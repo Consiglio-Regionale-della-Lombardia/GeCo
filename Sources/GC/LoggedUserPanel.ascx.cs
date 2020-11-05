@@ -47,7 +47,7 @@ public partial class LoggedUserPanel : System.Web.UI.UserControl
     }
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Nessuna azione necessaria in questo caso
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

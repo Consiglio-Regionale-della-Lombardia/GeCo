@@ -40,7 +40,7 @@ public partial class legislature_componenti : System.Web.UI.Page
 
     string query_order = " ORDER BY pp.cognome, pp.nome";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

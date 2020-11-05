@@ -44,7 +44,7 @@ public partial class legislature_gestisciLegislature : System.Web.UI.Page
     string order_by = " ORDER BY ll.durata_legislatura_da DESC";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

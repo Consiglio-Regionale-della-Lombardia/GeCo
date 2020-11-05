@@ -33,7 +33,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
     protected string mode = "";
 
     /// <summary>
-    /// Gestione Evento OnInit
+    /// Evento inizializzazione pagina - check accesso utente Active Directory
     /// </summary>
     /// <param name="e">Argomenti</param>
     protected override void OnInit(EventArgs e)
@@ -54,7 +54,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
     }
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

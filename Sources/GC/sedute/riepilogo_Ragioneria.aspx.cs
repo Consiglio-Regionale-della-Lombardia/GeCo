@@ -54,6 +54,9 @@ public partial class sedute_riepilogo_ragioneria : System.Web.UI.Page
                                                  AND MONTH(data_seduta) = @mese
                                                  AND YEAR(data_seduta) = @anno ";
 
+    /// <summary>
+    /// Query principale per caricamento persone con riepilogo assenze
+    /// </summary>
     string query_persone = @"SELECT DISTINCT pp.id_persona, 
                                              pp.cognome + ' ' + pp.nome AS nome_completo,
                                              ((SELECT COUNT(jps1.id_seduta)
@@ -136,7 +139,7 @@ public partial class sedute_riepilogo_ragioneria : System.Web.UI.Page
 
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

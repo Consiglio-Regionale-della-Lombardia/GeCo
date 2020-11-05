@@ -35,7 +35,7 @@ public partial class risultati_elettorali_risultati_elettorali : System.Web.UI.P
     string cond_leg = " AND jj.id_legislatura = @id_leg";
     string order_by = " ORDER BY jj.data_elezione DESC";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

@@ -39,12 +39,9 @@ public partial class report_segrcons_presenze_legislature : System.Web.UI.Page
     string[] filters = new string[8];
     bool landscape;
 
-    #region OLD
-
-
-    #endregion
-
-
+    /// <summary>
+    /// Query caricamento dati persone  per riepilogo partecipazioni a sedute
+    /// </summary>
     string select_template = @"SELECT pp.id_persona, pp.cognome, pp.nome,
 
 (select COUNT(*) from 
@@ -175,7 +172,7 @@ and pp.deleted = 0 ";
 
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

@@ -27,7 +27,7 @@ using System.Web.UI;
 public partial class trasparenza_Download : System.Web.UI.Page
 {
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e creazione PDF da scaricare
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

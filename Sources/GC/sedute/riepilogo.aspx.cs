@@ -339,7 +339,7 @@ public partial class sedute_riepilogo : System.Web.UI.Page
     public Constants.Dup idDup = Constants.Dup.Nessuno;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

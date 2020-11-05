@@ -83,10 +83,9 @@ public partial class cariche_gestisciCariche : System.Web.UI.Page
                                        "else '€ ' + convert(varchar, [indennita_fine_mandato], 1) " +
                                        "end as indennita_fine_mandato_desc " +
                                   "FROM cariche";
-    //"ORDER BY tipologia, ordine, nome_carica";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura tabelle
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -94,11 +93,6 @@ public partial class cariche_gestisciCariche : System.Web.UI.Page
     {
         if (Page.IsPostBack == false)
         {
-            //string query = SqlDataSource1.SelectCommand;
-
-            //query += " order by tipologia, ordine, nome_carica";
-
-            //SqlDataSource1.SelectCommand = query;
             ListView1.DataBind();
         }
     }

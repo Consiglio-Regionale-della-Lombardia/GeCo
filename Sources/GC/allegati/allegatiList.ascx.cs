@@ -34,7 +34,7 @@ public partial class allegati_allegatiList : System.Web.UI.UserControl
     public int riepilogo_mese = 0;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura tabelle
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

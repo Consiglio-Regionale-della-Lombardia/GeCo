@@ -28,7 +28,7 @@ public partial class incarichi_scheda_edit : System.Web.UI.UserControl
 
     public bool isEdit = true;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

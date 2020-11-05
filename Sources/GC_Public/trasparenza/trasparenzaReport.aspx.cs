@@ -34,28 +34,28 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
     #region COSTANTI
 
     /// <summary>
-    /// MODE_CONSIGLIERI
+    /// Modalità tabellone consiglieri
     /// </summary>
     const string MODE_CONSIGLIERI = "C";
 
     /// <summary>
-    /// MODE_ASSESSORI
+    /// Modalità tabellone assessori
     /// </summary>
     const string MODE_ASSESSORI = "A";
 
     /// <summary>
-    /// TEMPLATE_CELL_PDF
+    /// Template html cella con download PDF
     /// </summary>
     const string TEMPLATE_CELL_PDF = "<a href='#URL#' target='_blank' title='Scarica il PDF'>#TEXT#</a>";
 
     /// <summary>
-    /// TEMPLATE_CELL_LINK
+    /// Template html cella con link a URL
     /// </summary>
     const string TEMPLATE_CELL_LINK = "<a href='#URL#' target='_blank' title='Visualizza la pagina'>#TEXT#</a>";
 
 
     /// <summary>
-    /// YEAR_MIN
+    /// Anno minimo da considerare
     /// </summary>
     const int YEAR_MIN = 2013;
 
@@ -68,7 +68,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura tabelle
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -103,7 +103,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 
 
     /// <summary>
-    /// Gestione Evento SelectedIndexChanged dell'oggetto DropDownListLegislatura
+    /// Aggiornamento dati su cambio legislatura selezionata da parte dell'utente
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -117,7 +117,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
     }
 
     /// <summary>
-    /// Gestione Evento DataBound dell'oggetto DropDownListLegislatura
+    /// Aggiornamento dati su caricamento dai legislature
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -132,7 +132,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 
 
     /// <summary>
-    /// Gestione Evento Click dell'oggetto ButtonRic
+    /// Esecuzione ricerca su click pulsante Applica
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -201,7 +201,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
     }
 
     /// <summary>
-    /// Metodo per l'Estrazione dati
+    /// Esecuzione ricerca dati trasparenza
     /// </summary>
     protected void EseguiRicerca()
     {
@@ -242,7 +242,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
     private int idCurrent = 0;
 
     /// <summary>
-    /// Gestione Evento RowDataBound dell'oggetto GridViewTrasparenza
+    /// Elaborazione dati di ciascuna riga del tabellone in fase di binding 
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -532,7 +532,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
     }
 
     /// <summary>
-    /// Gestione Evento Click dell'oggetto LinkButtonExcel
+    /// Esportazione tabellone in Excel
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -553,7 +553,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
     }
 
     /// <summary>
-    /// Metodo generzione URL Documento
+    /// Metodo generazione URL Documento
     /// </summary>
     /// <param name="id">id di riferimento</param>
     /// <param name="anno">anno di riferimento</param>
@@ -711,17 +711,17 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
     {
 
         /// <summary>
-        /// CFG_PARAMS_PREFIX
+        /// Prefisso parametri di configurazione trasparenza
         /// </summary>
         const string CFG_PARAMS_PREFIX = "AMM_TRASP_";
 
         /// <summary>
-        /// URl_DICH_REDDITI_2013
+        /// Url dichiarazione redditi 2013
         /// </summary>
         public const string URl_DICH_REDDITI_2013 = "http://www.consiglio.regione.lombardia.it/dichiarazioni-dei-redditi-e-patrimoniali-precedenti";
 
         /// <summary>
-        /// URl_DICH_REDDITI_2014
+        /// Url dichiarazione redditi 2014
         /// </summary>
         public const string URl_DICH_REDDITI_2014 = "http://www.consiglio.regione.lombardia.it/dichiarazioni-sulla-situazione-reddituale";
 
@@ -731,7 +731,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
         #region QUERY_REPORT_CONSIGLIERI
 
         /// <summary>
-        /// QUERY_REPORT_CONSIGLIERI_PRIMA_2016
+        /// Query recupero dati per report consiglieri prima del 2016
         /// </summary>
         const string QUERY_REPORT_CONSIGLIERI_PRIMA_2016 = @"
                                                 select * from
@@ -936,7 +936,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 
 
         /// <summary>
-        /// QUERY_REPORT_CONSIGLIERI
+        /// Query recupero dati per report consiglieri dopo il 2016
         /// </summary>
         const string QUERY_REPORT_CONSIGLIERI = @"
                                                 select * from
@@ -1173,7 +1173,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
         #region QUERY_REPORT_ASSESSORI
 
         /// <summary>
-        /// QUERY_REPORT_ASSESSORI_PRIMA_2016
+        /// Query recupero dati per report assessori prima del 2016
         /// </summary>
         const string QUERY_REPORT_ASSESSORI_PRIMA_2016 = @"select 
                                                 pp.id_persona as ID_persona
@@ -1283,7 +1283,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                             order by pp.cognome, pp.nome, jpoc.data_inizio";
 
         /// <summary>
-        /// QUERY_REPORT_ASSESSORI
+        /// Query recupero dati per report assessori dopo il 2016
         /// </summary>
         const string QUERY_REPORT_ASSESSORI = @"select 
                                                 pp.id_persona as ID_persona
@@ -1531,7 +1531,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 
 
         /// <summary>
-        /// Metodo per esportazione dati
+        /// Metodo generale per esportazione dati
         /// </summary>
         /// <param name="dataInizio">Data inizio</param>
         /// <param name="dataFine">Data fine</param>
@@ -1751,7 +1751,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
         }
 
         /// <summary>
-        /// Metodo per generazione Parametri di configurazione
+        /// Metodo per recupero Parametri di configurazione
         /// </summary>
         /// <returns>Dictionary parametri</returns>
         private static Dictionary<string, string> GetConfigParams()

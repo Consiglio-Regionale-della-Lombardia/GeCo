@@ -36,7 +36,7 @@ public partial class incarichi_extra_istituzionali_consigliere : System.Web.UI.P
     public string nome_organo, legislatura_corrente;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -59,15 +59,6 @@ public partial class incarichi_extra_istituzionali_consigliere : System.Web.UI.P
 
         Page.CheckIdPersona(Session.Contents["id_persona"] as string);
 
-        //if (role == 4)
-        //{
-        //    btn_new_scheda.Visible = false;
-        //}
-        //else
-        //{
-        //    btn_new_scheda.Visible = true;
-        //}
-
         if (!Page.IsPostBack)
         {
             Session.Remove("selected_id_legislatura");
@@ -89,7 +80,6 @@ public partial class incarichi_extra_istituzionali_consigliere : System.Web.UI.P
             {
                 Session.Contents.Add("selected_id_legislatura", ddl_search_legislatura.SelectedValue);
                 Session.Contents.Add("selected_text_legislatura", ddl_search_legislatura.SelectedItem.Text);
-                //selected_text_legislatura = "";
             }
         }
 

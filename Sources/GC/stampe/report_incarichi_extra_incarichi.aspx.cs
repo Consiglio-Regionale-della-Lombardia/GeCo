@@ -69,7 +69,7 @@ public partial class report_incarichi_extra_incarichi : System.Web.UI.Page
 
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

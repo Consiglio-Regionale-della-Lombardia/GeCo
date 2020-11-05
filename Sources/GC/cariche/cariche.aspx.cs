@@ -81,8 +81,7 @@ public partial class cariche_cariche : System.Web.UI.Page
                             AND id_persona = @id";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
-    /// Inizializzazione variabili di sessione e caricamento dati cariche
+    /// Evento per il caricamento della pagina - Inizializzazione variabili di sessione e caricamento dati cariche
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

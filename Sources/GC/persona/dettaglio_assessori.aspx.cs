@@ -42,6 +42,10 @@ public partial class dettaglio_assessori : System.Web.UI.Page
     string formato = "";
     string legislatura_corrente;
 
+
+    /// <summary>
+    /// Query recupero dati anagrafici assessori
+    /// </summary>
     string select_info_tessera = @"SELECT pp.cognome,
 	                                      pp.nome,
 	                                      COALESCE(tc_nascita.comune + ' (' + tc_nascita.provincia + ')', 'N/A') AS luogo_nascita,
@@ -75,7 +79,7 @@ public partial class dettaglio_assessori : System.Web.UI.Page
                                      AND ll.id_legislatura = @id_leg";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati, composizione queries e caricamento struttura
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

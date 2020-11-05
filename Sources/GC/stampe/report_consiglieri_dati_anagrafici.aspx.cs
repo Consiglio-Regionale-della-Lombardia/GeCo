@@ -36,6 +36,10 @@ public partial class report_consiglieri_dati_anagrafici : System.Web.UI.Page
     string[] filters = new string[10];
     bool landscape;
 
+
+    /// <summary>
+    /// Query caricamento dati anagrafici persone
+    /// </summary>
     string query1 = @"SELECT DISTINCT pp.id_persona
                                      ,pp.cognome
                                      ,pp.nome
@@ -78,7 +82,7 @@ public partial class report_consiglieri_dati_anagrafici : System.Web.UI.Page
     string query_order = "";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

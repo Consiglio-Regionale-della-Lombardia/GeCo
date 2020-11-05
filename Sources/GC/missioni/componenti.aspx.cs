@@ -43,7 +43,7 @@ public partial class missioni_componenti : System.Web.UI.Page
 
     string query_mission_name = "SELECT oggetto FROM missioni WHERE id_missione = ";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

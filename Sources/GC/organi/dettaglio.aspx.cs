@@ -38,7 +38,7 @@ public partial class organi_dettaglio : System.Web.UI.Page
     public int id_legislatura;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

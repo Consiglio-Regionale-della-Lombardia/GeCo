@@ -23,7 +23,7 @@ using System;
 public partial class organi_composizione : System.Web.UI.Page
 {
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - In questo caso non è necessario eseguire alcuna operazione
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

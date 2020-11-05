@@ -41,7 +41,7 @@ public partial class legislature_gruppi_politici : System.Web.UI.Page
     string query1_order = " ORDER BY nome_gruppo ASC, jgpl.data_inizio DESC";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

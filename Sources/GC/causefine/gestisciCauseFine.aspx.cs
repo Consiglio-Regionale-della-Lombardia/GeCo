@@ -25,7 +25,7 @@ using System.Web.UI.WebControls;
 public partial class causefine_gestisciCauseFine : System.Web.UI.Page
 {
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Nessuna azione necessaria in questo caso
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

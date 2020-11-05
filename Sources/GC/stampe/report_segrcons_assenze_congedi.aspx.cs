@@ -37,6 +37,9 @@ public partial class report_segrcons_assenze_congedi : System.Web.UI.Page
     string[] filters = new string[8];
     bool landscape;
 
+    /// <summary>
+    /// Query caricamento dati persone con dettagli partecipazioni alle sedute 
+    /// </summary>
     string select_template = @"SELECT COALESCE(LTRIM(RTRIM(jpgpiv.nome_gruppo)), 'NESSUN GRUPPO') AS nome_gruppo,
                                       pp.cognome, 
                                       pp.nome,
@@ -79,7 +82,7 @@ public partial class report_segrcons_assenze_congedi : System.Web.UI.Page
     string select_order = @" ORDER BY CONVERT(varchar, ss.data_seduta, 103), pp.cognome, pp.nome, nome_gruppo";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

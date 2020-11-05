@@ -62,7 +62,7 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
                                    AND YEAR(data_seduta) = @anno";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

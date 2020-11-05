@@ -52,7 +52,7 @@ public partial class presenze_assessori : System.Web.UI.Page
                                WHERE id_persona = ";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

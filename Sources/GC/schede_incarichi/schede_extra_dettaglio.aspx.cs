@@ -68,7 +68,7 @@ public partial class schede_extra_dettaglio : System.Web.UI.Page
                                              AND ii.id_persona = @id_persona
                                              AND ii.data_inizio <= sc.data";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

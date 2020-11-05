@@ -39,6 +39,9 @@ public partial class report_segrcons_presenze_sedute : System.Web.UI.Page
     string[] filters = new string[10];
     bool landscape;
 
+    /// <summary>
+    /// Query caricamento dati persone con partecipazioni a sedute
+    /// </summary>
     string select_template = @"SELECT SUBSTRING(CONVERT(varchar, data_seduta, 106), 4, 10), 
 	                                  CONVERT(varchar, data_seduta, 3), 
 	                                  pp.cognome + ' ' + pp.nome, 
@@ -76,7 +79,7 @@ public partial class report_segrcons_presenze_sedute : System.Web.UI.Page
     string[] columns_names;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

@@ -28,7 +28,7 @@ public partial class utenti_gestisciUtenti : System.Web.UI.Page
     public int role;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e verifica autorizzazioni
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

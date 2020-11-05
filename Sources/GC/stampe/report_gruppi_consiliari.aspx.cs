@@ -35,6 +35,9 @@ public partial class report_gruppi_consiliari : System.Web.UI.Page
     string[] filters = new string[8];
     bool landscape = false;
 
+    /// <summary>
+    /// Query caricamento dati gruppi politici
+    /// </summary>
     string query1 = @"SELECT DISTINCT gg.id_gruppo,
                                       LTRIM(RTRIM(gg.nome_gruppo)) AS nome_gruppo,
                                       cc.nome_carica,
@@ -60,7 +63,7 @@ public partial class report_gruppi_consiliari : System.Web.UI.Page
 
     string id_group = "";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

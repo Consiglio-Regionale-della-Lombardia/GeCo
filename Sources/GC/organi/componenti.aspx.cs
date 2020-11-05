@@ -54,6 +54,10 @@ public partial class organi_componenti : System.Web.UI.Page
     bool no_first_col = false;
     bool landscape = false;
 
+
+    /// <summary>
+    /// Query caricamento organi
+    /// </summary>
     string query_organo_info = @"SELECT oo.nome_organo, 
                                         ll.id_legislatura,
                                         ll.num_legislatura,
@@ -63,6 +67,9 @@ public partial class organi_componenti : System.Web.UI.Page
                                     ON oo.id_legislatura = ll.id_legislatura
                                  WHERE oo.id_organo = ";
 
+    /// <summary>
+    /// Query caricamento dati persona con cariche ricoperte e priorità
+    /// </summary>
     string select_grid_template = @"SELECT pp.id_persona,
                                            pp.nome, 
                                            pp.cognome, 
@@ -95,7 +102,7 @@ public partial class organi_componenti : System.Web.UI.Page
     string order_by = " ORDER BY cc.ordine, pp.cognome, pp.nome";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura tabelle
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

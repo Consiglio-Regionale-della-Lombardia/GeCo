@@ -48,6 +48,9 @@ public partial class riepilogo_UOPrerogative_ufficio_presidenza : System.Web.UI.
                                    AND MONTH(data_seduta) = @mese
                                    AND YEAR(data_seduta) = @anno";
 
+    /// <summary>
+    /// Query recupero dati di partecipazione a sedure per ogni persona
+    /// </summary>
     string select_template = @"SELECT pp.cognome + ' ' + pp.nome AS componente,
                                       CASE 
                                         WHEN SUM(CASE tp.id_partecipazione
@@ -110,7 +113,7 @@ group by pp.id_persona, poc.id_organo, poc.id_legislatura, poc.deleted, poc.data
     string select_order = @" ORDER BY pp.cognome, pp.nome";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

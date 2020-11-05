@@ -38,6 +38,9 @@ public partial class report_consiglieri_dati_elettorali : System.Web.UI.Page
     string[] filters = new string[6];
     bool landscape;
 
+    /// <summary>
+    /// Query caricamento dati elettorali persone 
+    /// </summary>
     string query1 = @"SELECT DISTINCT pp.id_persona,
                                       pp.cognome,
                                       pp.nome,
@@ -79,7 +82,7 @@ public partial class report_consiglieri_dati_elettorali : System.Web.UI.Page
     string[] columns_names2;
     string[] columns_names3;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

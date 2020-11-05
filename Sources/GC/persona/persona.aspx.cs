@@ -41,7 +41,7 @@ public partial class persona : System.Web.UI.Page
     bool landscape = false;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -82,7 +82,6 @@ public partial class persona : System.Web.UI.Page
                viene preso locked1=1, mentre per ragioneria locked2=1
              
              */
-            //Response.Redirect("../sedute/riepilogo_Ragioneria.aspx?mode=normal");
             Response.Redirect("../sedute/riepilogo_UOPrerogative.aspx?mode=normal");
 
         }

@@ -64,7 +64,7 @@ public partial class stampe_sedute_durate : System.Web.UI.Page
     string order_by = @" ORDER BY ss.data_seduta ASC";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e applicazione filtri
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

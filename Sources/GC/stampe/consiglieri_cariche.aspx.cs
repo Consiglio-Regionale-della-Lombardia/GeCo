@@ -35,7 +35,7 @@ public partial class stampe_consiglieri_cariche : System.Web.UI.Page
 
     string id_pers;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

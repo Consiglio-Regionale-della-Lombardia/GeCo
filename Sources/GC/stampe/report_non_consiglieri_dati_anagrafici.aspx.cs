@@ -37,6 +37,9 @@ public partial class report_non_consiglieri_dati_anagrafici : System.Web.UI.Page
     bool landscape;
     bool[] criteriOrdinamento = new bool[4];
 
+    /// <summary>
+    /// Query caricamento dati anagrafici persone
+    /// </summary>
     string query1 = @"SELECT DISTINCT pp.id_persona
                                      ,pp.cognome
                                      ,pp.nome
@@ -69,7 +72,7 @@ public partial class report_non_consiglieri_dati_anagrafici : System.Web.UI.Page
 
     string query_where = @" AND (jpoc.data_fine IS NULL)";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

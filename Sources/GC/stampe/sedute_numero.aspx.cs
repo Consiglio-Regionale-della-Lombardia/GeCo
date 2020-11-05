@@ -58,7 +58,7 @@ public partial class stampe_sedute_numero : System.Web.UI.Page
     string group_by = " GROUP BY ii.tipo_incontro";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e filtri
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

@@ -36,6 +36,9 @@ public partial class report_consiglieri_cariche_ricoperte : System.Web.UI.Page
     string[] filters = new string[12];
     bool landscape;
 
+    /// <summary>
+    /// Query caricamento dati persone con cariche ricoperte
+    /// </summary>
     string query1 = @"SELECT DISTINCT pp.id_persona 
                                      ,pp.cognome
 	                                 ,pp.nome
@@ -115,7 +118,7 @@ public partial class report_consiglieri_cariche_ricoperte : System.Web.UI.Page
     string query_where = "";
     string query_order = "";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

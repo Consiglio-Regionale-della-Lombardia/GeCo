@@ -65,6 +65,9 @@ public partial class stampe_sedute_pres_eff : System.Web.UI.Page
     const string col02_name = "TOTALE SEDUTE";
     const string col03_name = "PRESENZE EFFETTIVE";
 
+    /// <summary>
+    /// Query caricamento totali partecipazioni delle persone alle sedute
+    /// </summary>
     string select_template = @"SELECT DISTINCT oo.id_organo
                                               ,'LEGISLATURA ' + ll.num_legislatura + ' - '  + UPPER(LTRIM(RTRIM(oo.nome_organo))) AS nome_organo
                                               ,pp.cognome + ' ' + pp.nome AS nome_completo
@@ -123,7 +126,7 @@ public partial class stampe_sedute_pres_eff : System.Web.UI.Page
     string[] columns_names;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

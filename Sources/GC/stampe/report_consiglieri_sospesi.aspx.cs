@@ -37,135 +37,11 @@ public partial class report_consiglieri_sospesi : System.Web.UI.Page
     string[] filters = new string[2];
     bool landscape;
 
-    #region QUERY_OLD
-
-    string select_template_OLD = @"SELECT DISTINCT jps.id_rec, 
-			                                   pp.cognome,
-			                                   pp.nome,
-                                               pp.cognome + ' ' + pp.nome AS nome_completo,
-                                               COALESCE(CONVERT(varchar, jpoc.data_proclamazione, 103), 'N/A') AS data_procl,
-                                               COALESCE(CONVERT(varchar, td.tipo_delibera), 'N/A') AS tipo_delib_procl,
-                                               COALESCE(jpoc.delibera_proclamazione, 'N/A') AS numero_pratica_procl,
-                                               COALESCE(CONVERT(varchar, YEAR(jpoc.data_delibera_proclamazione)), 'N/A') AS anno_delib_procl,
-                                               COALESCE(jpoc.circoscrizione, 'N/A') AS circoscrizione,  	   
-                                               COALESCE(CONVERT(varchar, jps.data_inizio, 103), 'N/A') AS data_sosp,
-                                               COALESCE(CONVERT(varchar, td2.tipo_delibera), 'N/A') AS tipo_delib_sosp,
-                                               COALESCE(jps.numero_delibera, 'N/A') AS numero_delib_sosp,
-                                               COALESCE(CONVERT(varchar, YEAR(jps.data_delibera)), 'N/A') AS anno_delib_sosp,
-                                               COALESCE((SELECT gg.nome_gruppo
-                                                         FROM join_persona_gruppi_politici AS jpgp
-                                                         INNER JOIN gruppi_politici AS gg
-                                                           ON jpgp.id_gruppo = gg.id_gruppo
-                                                         WHERE jpgp.id_persona = pp.id_persona
-                                                           AND jpgp.deleted = 0
-                                                           AND gg.deleted = 0
-                                                           AND jpgp.id_legislatura = ll.id_legislatura
-                                                           AND jps.data_inizio >= jpgp.data_inizio
-                                                           AND jps.data_inizio <= COALESCE(jpgp.data_fine, CONVERT(datetime, '30001231'))), 'NESSUN GRUPPO ASSOCIATO') AS nome_gruppo,
-                                               pp2.cognome + ' ' + pp2.nome AS nome_completo_sost,
-                                               COALESCE(CONVERT(varchar, jpoc2.data_proclamazione, 103), 'N/A') AS data_procl_sost,
-                                               COALESCE(CONVERT(varchar, td3.tipo_delibera), 'N/A') AS tipo_delib_procl_sost,
-                                               COALESCE(jpoc2.delibera_proclamazione, 'N/A') AS numero_pratica_procl_sost,
-                                               COALESCE(CONVERT(varchar, YEAR(jpoc2.data_delibera_proclamazione)), 'N/A') AS anno_delib_procl_sost,
-                                               COALESCE(jpoc2.circoscrizione, 'N/A') AS circoscrizione_sost, 
-                                               COALESCE((SELECT gg.nome_gruppo
-                                                         FROM join_persona_gruppi_politici AS jpgp
-                                                         INNER JOIN gruppi_politici AS gg
-                                                           ON jpgp.id_gruppo = gg.id_gruppo
-                                                         WHERE jpgp.id_persona = pp2.id_persona
-                                                           AND jpgp.deleted = 0
-                                                           AND gg.deleted = 0
-                                                           AND jpgp.id_legislatura = ll.id_legislatura
-                                                           AND jps.data_inizio >= jpgp.data_inizio
-                                                           AND jps.data_inizio <= COALESCE(jpgp.data_fine, CONVERT(datetime, '30001231'))), 'NESSUN GRUPPO ASSOCIATO') AS nome_gruppo_sost
-                                FROM persona AS pp
-                                INNER JOIN join_persona_sospensioni AS jps
-                                 ON pp.id_persona = jps.id_persona
-                                INNER JOIN join_persona_organo_carica AS jpoc
-                                 ON pp.id_persona = jpoc.id_persona
-                                INNER JOIN cariche AS cc
-                                 ON jpoc.id_carica = cc.id_carica
-                                INNER JOIN legislature AS ll
-                                 ON jpoc.id_legislatura = ll.id_legislatura
-                                LEFT OUTER JOIN tbl_delibere AS td
-                                 ON jpoc.tipo_delibera_proclamazione = td.id_delibera
-                                LEFT OUTER JOIN tbl_delibere AS td2
-                                 ON jps.tipo_delibera = td2.id_delibera
-                                LEFT OUTER JOIN persona AS pp2
-                                 ON (jps.sostituito_da = pp2.id_persona AND pp2.deleted = 0)
-                                LEFT OUTER JOIN join_persona_sostituzioni AS jpsost
-                                 ON (pp2.id_persona = jpsost.id_persona AND jpsost.deleted = 0)
-                                LEFT OUTER JOIN join_persona_organo_carica AS jpoc2
-                                 ON (pp2.id_persona = jpoc2.id_persona AND jpoc2.deleted = 0)
-                                LEFT OUTER JOIN cariche AS cc2
-                                 ON (jpoc2.id_carica = cc2.id_carica)
-                                LEFT OUTER JOIN tbl_delibere AS td3
-                                 ON jpoc2.tipo_delibera_proclamazione = td3.id_delibera
-                                LEFT OUTER JOIN tbl_delibere AS td4
-                                 ON jpsost.tipo_delibera = td4.id_delibera
-                                WHERE jps.deleted = 0
-                                  AND pp.deleted = 0
-                                  AND cc.id_tipo_carica = 4 -- 'consigliere regionale'
-                                  AND (cc2.id_tipo_carica = 4 -- 'consigliere regionale' OR cc2.id_tipo_carica = 5 -- 'consigliere regionale supplente' OR cc2.id_tipo_carica = 3 -- 'assessore non consigliere' OR pp2.cognome IS NULL)
-                                  AND LOWER(jps.tipo) = 'sospensione'
-                                  AND jps.data_inizio BETWEEN jpoc.data_inizio AND COALESCE(jpoc.data_fine, CONVERT(datetime, '30001231'))
-                                  AND jps.id_legislatura = @id_leg
-                                UNION
-                                SELECT DISTINCT NULL AS id_rec,
-                                                pp.cognome,
-                                                pp.nome, 
-                                                pp.cognome + ' ' + pp.nome AS nome_completo,
-                                                COALESCE(CONVERT(varchar, jpoc.data_proclamazione, 103), 'N/A') AS data_procl,
-                                                COALESCE(CONVERT(varchar, td.tipo_delibera), 'N/A') AS tipo_delib_procl,
-                                                COALESCE(jpoc.delibera_proclamazione, 'N/A') AS numero_pratica_procl,
-                                                COALESCE(CONVERT(varchar, YEAR(jpoc.data_delibera_proclamazione)), 'N/A') AS anno_delib_procl,
-                                                COALESCE(jpoc.circoscrizione, 'N/A') AS circoscrizione,
-                                                'N/A' AS data_sosp,
-                                                'N/A' AS tipo_delib_sosp,
-                                                'N/A' AS numero_delib_sosp,
-                                                'N/A' AS anno_delib_sosp,
-                                                COALESCE((SELECT TOP(1) gg.nome_gruppo
-                                                          FROM join_persona_gruppi_politici AS jpgp
-                                                          INNER JOIN gruppi_politici AS gg
-                                                            ON jpgp.id_gruppo = gg.id_gruppo
-                                                          WHERE jpgp.id_persona = pp.id_persona
-                                                            AND jpgp.deleted = 0
-                                                            AND gg.deleted = 0
-                                                            AND jpgp.deleted = 0
-                                                            AND jpgp.id_legislatura = ll.id_legislatura
-                                                            AND jpoc.data_fine >= jpgp.data_inizio
-                                                            AND jpoc.data_fine <= COALESCE(jpgp.data_fine, CONVERT(datetime, '30001231'))), 'NESSUN GRUPPO ASSOCIATO') AS nome_gruppo,
-                                                NULL AS nome_completo_sost,
-                                                NULL AS data_procl_sost,
-                                                NULL AS tipo_delib_procl_sost,
-                                                NULL AS numero_pratica_procl_sost,
-                                                NULL AS anno_delib_procl_sost,
-                                                NULL AS circoscrizione_sost,
-                                                NULL AS nome_gruppo_sost
-                                FROM persona AS pp
-                                INNER JOIN join_persona_organo_carica AS jpoc
-                                 ON pp.id_persona = jpoc.id_persona
-                                INNER JOIN legislature AS ll
-                                 ON jpoc.id_legislatura = ll.id_legislatura
-                                LEFT OUTER JOIN tbl_delibere AS td
-                                 ON jpoc.tipo_delibera_proclamazione = td.id_delibera
-                                LEFT OUTER JOIN tbl_cause_fine AS tcf
-                                 ON jpoc.id_causa_fine = tcf.id_causa
-                                INNER JOIN cariche AS ca
-                                 ON jpoc.id_carica = ca.id_carica
-                                WHERE pp.deleted = 0
-                                 AND jpoc.deleted = 0
-                                 AND LOWER(tcf.descrizione_causa) = 'dimissioni'
-                                 AND (ca.id_tipo_carica = 4 -- 'consigliere regionale' 
-                                        OR ca.id_tipo_carica = 5 -- 'consigliere regionale supplente' 
-                                        OR ca.id_tipo_carica = 3 -- 'assessore non consigliere'
-                                        )
-                                 AND ll.id_legislatura = @id_leg";
-
-    #endregion
-
     #region QUERY_NEW
 
+    /// <summary>
+    /// Query caricamento dati completi consiglieri sospesi
+    /// </summary>
     string select_template = @"
   SELECT DISTINCT jps.id_rec, 
 	pp.cognome,
@@ -330,7 +206,7 @@ UNION
     string query_order = "";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

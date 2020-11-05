@@ -49,7 +49,7 @@ public partial class sostituzioni_sostituzioni : System.Web.UI.Page
     string control = "";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

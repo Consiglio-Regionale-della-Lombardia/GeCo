@@ -46,6 +46,9 @@ public partial class riepilogo_UOPrerogative_giunta_regionale : System.Web.UI.Pa
                                    AND MONTH(data_seduta) = @mese
                                    AND YEAR(data_seduta) = @anno";
 
+    /// <summary>
+    /// Query caricamento dari per riepilogo persone con parteciazioni a sedute
+    /// </summary>
     string select_template = @"SELECT pp.cognome + ' ' + pp.nome AS componente,
                                       CASE 
                                         WHEN SUM(CASE tp.id_partecipazione
@@ -122,7 +125,7 @@ group by poc.id_persona, poc.id_organo, poc.id_legislatura, poc.deleted, poc.dat
 
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

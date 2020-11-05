@@ -42,7 +42,9 @@ public partial class dettaglio : System.Web.UI.Page
     string formato = "";
     string legislatura_corrente;
 
-    //Recupero dati anangrafici consiglieri
+    /// <summary>
+    /// Query recupero dati anangrafici consiglieri
+    /// </summary>
     string select_info_tessera = @"SELECT pp.cognome,
 	                                      pp.nome,
 	                                      COALESCE(tc_nascita.comune + ' (' + tc_nascita.provincia + ')', 'N/A') AS luogo_nascita,
@@ -77,6 +79,9 @@ public partial class dettaglio : System.Web.UI.Page
                                           ) 
                                      AND ll.id_legislatura = @id_leg";
 
+    /// <summary>
+    /// Recupero sospensioni
+    /// </summary>
     string info_sosp = @"SELECT COUNT(jps.id_rec)  
                          FROM persona AS pp 
                          INNER JOIN join_persona_sospensioni AS jps 
@@ -91,6 +96,9 @@ public partial class dettaglio : System.Web.UI.Page
                            AND pp.id_persona = @id_persona
                            AND ll.id_legislatura = @id_legislatura";
 
+    /// <summary>
+    /// Recupero sostituzioni
+    /// </summary>
     string info_sost = @"SELECT pp.cognome + ' ' + pp.nome AS sost
                          FROM join_persona_sostituzioni AS jps 
                          INNER JOIN persona AS pp 
@@ -106,7 +114,7 @@ public partial class dettaglio : System.Web.UI.Page
                            AND ll.id_legislatura = @id_legislatura";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati, composizione queries e caricamento struttura 
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

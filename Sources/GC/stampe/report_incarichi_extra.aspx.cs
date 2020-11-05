@@ -36,6 +36,9 @@ public partial class report_incarichi_extra : System.Web.UI.Page
 
     public bool printable = false;
 
+    /// <summary>
+    /// Query per ricerca dichiarazioni incarichi extra
+    /// </summary>
     string query_ricerca = @"SELECT distinct 
                                  ll.id_legislatura
                                 ,ll.num_legislatura               
@@ -58,6 +61,9 @@ public partial class report_incarichi_extra : System.Web.UI.Page
                             WHERE pp.deleted = 0
                             AND sc.deleted = 0 ";
 
+    /// <summary>
+    /// Query caricamento dati dichiarazioni incarichi extra 
+    /// </summary>
     string query_template = @"SELECT ll.id_legislatura
                                     ,ll.num_legislatura
                                     ,pp.id_persona
@@ -83,7 +89,7 @@ public partial class report_incarichi_extra : System.Web.UI.Page
     string query_order = " ORDER BY ll.durata_legislatura_da DESC, nominativo, sc.data DESC";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

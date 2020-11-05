@@ -65,7 +65,7 @@ public partial class sedute_gestisciSedute : System.Web.UI.Page
     bool landscape = false;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -91,59 +91,10 @@ public partial class sedute_gestisciSedute : System.Web.UI.Page
 
         if (Page.IsPostBack == false)
         {
-            //Feb 2014 - Parte sostituita da gestione filtri utente (vedi sotto)
-
-            //string query = query_init;
-            //if (role == 6)
-            //    query = query_init_consiglio;
-
-            //DropDownList ddlLeg = UpdatePanel1.FindControl("DropDownListLegislatura") as DropDownList;
-            //ddlLeg.SelectedValue = legislatura_corrente;
-
-            //if (organo != "")
-            //{
-            //    if (role == 5)
-            //        query += " AND (ss.id_organo = " + organo + " OR (oo.comitato_ristretto = 1 AND oo.id_commissione = " + organo + ")) ";
-            //    else
-            //        query += " AND ss.id_organo = " + organo;
-            //}
-
-            ///* BEPPE 20/05/2010 */
-            //if (role == 2)
-            //{
-            //    query += " AND (ss.locked1 = 1 OR oo.vis_serv_comm = 0) ";
-            //}
-            //else if (role == 4)
-            //{
-            //    query += " AND ss.locked = 1";
-            //    //query += " AND ss.locked1 = 1";
-            //    query += " AND oo.vis_serv_comm = 1";
-            //}
-
-            //query += " AND ss.id_legislatura = " + legislatura_corrente;
-
-            //query += " AND YEAR(ss.data_seduta) = YEAR(GETDATE())";
-
-            //query += " ORDER BY ss.data_seduta DESC";
-
-            //SqlDataSource_GridViewSedute.SelectCommand = query;
-            //GridViewSedute.DataBind();
-
-            //if (!DropDownListLegislatura.Visible)
-            //{
-            //    SqlDataSourceOrgani.SelectParameters.Clear();
-            //    SqlDataSourceOrgani.SelectParameters.Add("id_legislatura", TypeCode.Int32, legislatura_corrente);
-            //    DropDownListOrgano.DataBind();
-            //}
-
             //Feb 2014 - Carico gli eventuali filtri utente e chiamo la EseguiRicerca
             LoadFilters();
             EseguiRicerca(false);
         }
-        //else
-        //{
-        //    EseguiRicerca();
-        //}
     }
 
     /// <summary>

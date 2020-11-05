@@ -32,7 +32,7 @@ public partial class stampe_consiglieri_nascita : System.Web.UI.Page
     bool no_first_col = false;
     bool landscape = false;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

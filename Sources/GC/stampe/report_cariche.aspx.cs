@@ -38,6 +38,9 @@ public partial class report_cariche : System.Web.UI.Page
     string[] filters = new string[14];
     bool landscape;
 
+    /// <summary>
+    /// Query per caricamento perosne con cariche ricoperte
+    /// </summary>
     string query1 = @"SELECT oo.id_organo,
                              UPPER(LTRIM(RTRIM(oo.nome_organo))) AS nome_organo,
                              cc.nome_carica,
@@ -74,7 +77,7 @@ public partial class report_cariche : System.Web.UI.Page
     int n_columns = 9;
     string[] columns_names;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

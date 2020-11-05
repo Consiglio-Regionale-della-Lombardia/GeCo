@@ -36,7 +36,7 @@ public partial class organi_gestisciOrgani : System.Web.UI.Page
     bool no_first_col = false;
     bool landscape = false;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura tabelle
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

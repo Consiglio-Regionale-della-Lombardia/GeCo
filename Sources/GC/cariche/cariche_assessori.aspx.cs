@@ -49,7 +49,7 @@ public partial class cariche_assessori : System.Web.UI.Page
     int id_tipo_carica_default = (int)Constants.TipoCarica.AssessoreNonConsigliere;
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento struttura tabelle
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

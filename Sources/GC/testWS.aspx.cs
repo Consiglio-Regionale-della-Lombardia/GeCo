@@ -24,7 +24,7 @@ using System;
 public partial class testWS : System.Web.UI.Page
 {
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Test invio dati a Open Data
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

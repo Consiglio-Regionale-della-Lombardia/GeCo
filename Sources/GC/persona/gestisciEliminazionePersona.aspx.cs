@@ -25,6 +25,9 @@ using System.Web.UI.WebControls;
 
 public partial class gestisciEliminazionePersona : System.Web.UI.Page
 {
+    /// <summary>
+    /// Frammento con join per composizione query cancellazione persona
+    /// </summary>
     string delete_join = @"DELETE FROM join_persona_aspettative
                            WHERE id_persona = @id_persona 
                            DELETE FROM join_persona_assessorati
@@ -68,7 +71,7 @@ public partial class gestisciEliminazionePersona : System.Web.UI.Page
                               WHERE id_persona = @id_persona";
 
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Nessuna azione necessaria in questo caso
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

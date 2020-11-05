@@ -25,7 +25,7 @@ public partial class titolistudio_aggiungiTitoloStudio : System.Web.UI.Page
 {
     string id;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>

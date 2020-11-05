@@ -32,10 +32,10 @@ public partial class incarichi_extra_istituzionali_assessore : System.Web.UI.Pag
     public string selected_text_legislatura, selected_text_persona;
     public string photoName;
 
-    string sel_leg_id; // forse è possibile usare id_legislatura...
+    string sel_leg_id; 
     public string nome_organo, legislatura_corrente;
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
@@ -57,15 +57,6 @@ public partial class incarichi_extra_istituzionali_assessore : System.Web.UI.Pag
         }
 
         Page.CheckIdPersona(Session.Contents["id_persona"] as string);
-
-        //if (role == 4)
-        //{
-        //    btn_new_scheda.Visible = false;
-        //}
-        //else
-        //{
-        //    btn_new_scheda.Visible = true;
-        //}
 
         if (!Page.IsPostBack)
         {

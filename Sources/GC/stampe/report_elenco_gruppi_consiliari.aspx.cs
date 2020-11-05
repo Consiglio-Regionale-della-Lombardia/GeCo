@@ -35,6 +35,9 @@ public partial class report_elenco_gruppi_consiliari : System.Web.UI.Page
     string[] filters = new string[4];
     bool landscape;
 
+    /// <summary>
+    /// Query caricamento dati gruppi politici
+    /// </summary>
     string query1 = @"SELECT DISTINCT ll.id_legislatura,
                                       ll.num_legislatura,
                                       ll.durata_legislatura_da,
@@ -58,7 +61,7 @@ public partial class report_elenco_gruppi_consiliari : System.Web.UI.Page
 
     string query_order = @" ORDER BY ll.durata_legislatura_da DESC, nomegruppo ASC";
     /// <summary>
-    /// Evento per il caricamento della pagina
+    /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
     /// </summary>
     /// <param name="sender">Oggetto che ha generato l'evento</param>
     /// <param name="e">Argomenti</param>
