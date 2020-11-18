@@ -51,7 +51,7 @@ GeCo è un'applicazione web sviluppata utilizzando la tecnologia Microsoft ASP.n
 * **Integrazione con sistema di autenticazione**: Sistema di autenticazione basato su Active Directory e gestito tramite sistema operativo Windows
 
 GeCo è sviluppato in ASP.net utilizzanto il linguaggio di programmazione C# mediante il [Framework .NET 4.0](https://docs.microsoft.com/it-it/dotnet/).<br />
-Si tratta pertanto di una applicazione [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) che comunica con la base dati in modalità ADO.Net tramite la libreria [System.Data.SqlClient](https://docs.microsoft.com/it-it/dotnet/api/system.data.sqlclient?view=netframework-4.0).
+Si tratta pertanto di una applicazione web [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) che comunica con la base dati in modalità ADO.Net tramite la libreria [System.Data.SqlClient](https://docs.microsoft.com/it-it/dotnet/api/system.data.sqlclient?view=netframework-4.0).
 
 La parte di autenticazione all'applicazione web e la gestione dei ruoli/permessi utente è stata realizzata interfacciandosi con il repository Active Directory presente sul server di Dominio Microsoft Windows utilizzato dal Consiglio regionale della Lombardia per la gestione delle utenze di rete. Tutte regole per le password (regole per ottenere password sicure, scadenza della password, etc...) sono pertanto demandate a tale sistema. I profili di autorizzazione sono gestiti attraverso la creazione security groups Active Directory configurabili nel pannello di amministrazione di GeCo.
 Il software GeCo è inoltre dotato di un sistema di autenticazione nativo con utenze, password e ruoli memorizzati sul proprio database. Tale autenticazione è attivabile attraverso parametro di configurazione presente nel web.config dell'applicazione [SPIEGARE]
@@ -68,6 +68,8 @@ Sia la parte di front-end (sito web [asp.net](https://dotnet.microsoft.com/apps/
 
 Si consiglia [Windows Server 2012 R2](https://docs.microsoft.com/it-it/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh801901(v=ws.11)) (o superiore) con [SQL Server 2014](https://www.microsoft.com/en-us/download/details.aspx?id=42295).
 
+[INDICARE IL WEB APPLICATION SERVER UTILIZZATO - IIS7.5? - Quali sono le estensioni da attivare?]
+
 Si rimanda alle specifiche di Microsoft per ottenere i requisiti minimi di sistema.
 
 Browser web supportati [INDICARE]
@@ -76,7 +78,9 @@ Browser web supportati [INDICARE]
 
 Per l'installazione del sistema operativo, si rimanda al link [Installazione Windows Server 2012 R2](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh831620(v=ws.11)).
 
-Analogamente, per quanto concerne l'installazione della base dati, si rimanada al link [Installzione SQL Server 2014 Step by Step](https://social.technet.microsoft.com/wiki/contents/articles/23878.sql-server-2014-step-by-step-installation.aspx).
+Analogamente, per quanto concerne l'installazione del DBMS, si rimanada al link [Installzione SQL Server 2014 Step by Step](https://social.technet.microsoft.com/wiki/contents/articles/23878.sql-server-2014-step-by-step-installation.aspx).
+
+Per la creazione del database è stato creato uno script sql reperibile nella cartella Database di questo repository
 
 Per l'installazione dell'applicazione web, si rimanda al [manuale di installazione](Documents/Install.md), descritto nella cartalla [Documents](Documents/Readme.md).
 
