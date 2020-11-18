@@ -7,7 +7,7 @@
 * Mantenimento in carico a [Nposistemi S.r.l.](https://www.nposistemi.it)
 * Per segnalare CVE e problemi di sicurezza scrivere a helpdesk.software@nposistemi.it
 
-Le icone sono di proprietà del [Consiglio regionale della Lombardia](https://www.consiglio.regione.lombardia.it/), pertanto dovranno essere sostituite.
+Il logo del Consiglio regionale della Lombardia è di proprietà esclusiva del [Consiglio regionale della Lombardia](https://www.consiglio.regione.lombardia.it/), pertanto dovrà essere sostituito qualora si esegua il download e l'installazione del software. [IL LOGO, SE PRESENTE, SAREBBE MEGLIO TOGLIERLO DAL SORGENTE PUBBLICATO]
 
 ## Finalità del software
 
@@ -30,25 +30,30 @@ Di seguito l'alberatura del repository:
 3. [Database](Database/Readme.md) (contiene gli script per la generazione della struttura dati)
 4. [Screenshots](Screenshots/Readme.md) (contiene le immagini dell'applicazione)
 
-Le licenze presenti sono le seguenti:
-* [AGPL 3.0](https://www.gnu.org/licenses/agpl-3.0.txt)
-* [CC by 4.0](https://creativecommons.org/licenses/by/4.0/legalcode)
-
+Il codice sorgente sviluppato per conto del Consiglio regionale della Lombardia e la documentazione prodotta, sono rilasciati con le sottoindicate licenze:
+* [AGPL 3.0](https://www.gnu.org/licenses/agpl-3.0.txt) - codice sorgente e base dati
+* [CC by 4.0](https://creativecommons.org/licenses/by/4.0/legalcode) - documentazione
+Il software GeCo utilizza inoltre alcune librerie di terze parti rilasciate con specifica licenza. L'elenco delle librerie utilizzate e la relativa licenza è presente nella sezione "Licenza" di questo documento.
 
 ## Architettura del sistema
 
-Il sistenma presenta la seguente architettura:
+GeCo è un'applicazione web sviluppata utilizzando la tecnologia Microsoft ASP.net ed è fruibile utilizzando i più diffusi browser (Ms IE ver.7 e successive, Ms EDGE, Chrome, Firefox). Il sistenma presenta la seguente architettura:
 
-* **Front-end**: Pagine con le quali gli alcune tipologie di utenti possono gestire le anagrafiche presenti nel sistema e possono anche inserire presenze o assenze; inoltre è possibile effettuare esportare informazioni in formato Excel.
+* **Front-end**: Pagine html che costituiscono l'interfaccia utente dell'applicativo.
+
+* **Back-end**: Logica di business sviluppata in c# su Framework .NET che implementa gli algoritmi di calcolo, di generazione di report, di gestione delle viste e dei permessi, di interfaccia con applicazioni esterne, ecc
 
 * **Back-end**: Database SQL Server 2014
 
-* **Back-end**: Sistema di pubblicazioni **OPENDATA** (Web Services)
+* **Integrazione con portale opendata**: Sistema di pubblicazioni **OPENDATA** (Web Services)
 
-GeCo è sviluppato in C# mediante il [Framework .NET 4.0](https://docs.microsoft.com/it-it/dotnet/).<br />
-Si tratta di un sito [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) che comunica con la base dati in modalità ADO.Net tramite la libreria [System.Data.SqlClient](https://docs.microsoft.com/it-it/dotnet/api/system.data.sqlclient?view=netframework-4.0).
+* **Integrazione con sistema di autenticazione**: Sistema di autenticazione basato su Active Directory e gestito tramite sistema operativo Windows
 
-La parte di autenticazione, per poter accedere all'applicazione web, è demandata al sistema operativo, pertanto tutte regole per le password (regole per ottenere password sicure, scadenza della password, etc...) sono demandate al sistema operativo.
+GeCo è sviluppato in ASP.net utilizzanto il linguaggio di programmazione C# mediante il [Framework .NET 4.0](https://docs.microsoft.com/it-it/dotnet/).<br />
+Si tratta pertanto di una applicazione [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) che comunica con la base dati in modalità ADO.Net tramite la libreria [System.Data.SqlClient](https://docs.microsoft.com/it-it/dotnet/api/system.data.sqlclient?view=netframework-4.0).
+
+La parte di autenticazione, per poter accedere all'applicazione web, e la gestione dei ruoli/permessi utente è stata realizzata interfacciandosi con repository delle utenze di rete Active Directory presente sul server di Dominio Microsoft Windows utilizzato dal Consiglio regionale della Lombardia per la gestione delle utenze di rete. Tutte regole per le password (regole per ottenere password sicure, scadenza della password, etc...) sono pertanto demandate a tale sistema. 
+Il software GeCo è inoltre dotato di un sistema di autenticazione nativo con utenze, password e ruoli memorizzati sul proprio database. Tale autenticazione è attivabile attraverso una configurazione [SPIEGARE]
 
 ![Struttura](Struttura.PNG)
 
