@@ -40,9 +40,9 @@ Il software GeCo utilizza inoltre alcune librerie di terze parti rilasciate con 
 
 GeCo è un'applicazione web sviluppata utilizzando la tecnologia Microsoft ASP.net ed è fruibile utilizzando i più diffusi browser (Ms IE ver.7 e successive, Ms EDGE, Chrome, Firefox). Il sistenma presenta la seguente architettura:
 
-* **Front-end**: Pagine html che costituiscono l'interfaccia utente dell'applicativo.
+* **Front-end**: Pagine html che costituiscono l'interfaccia utente dell'applicativo. Le funzionalità Ajax e le animazioni degli elementi DOM nelle pagine HTML sono state sviluppate utilizzando la libreria jQuery e AjaxControlToolkit
 
-* **Back-end**: Logica di business sviluppata in c# su Framework .NET che implementa gli algoritmi di calcolo, di generazione di report, di gestione delle viste e dei permessi, di interfaccia con applicazioni esterne, ecc
+* **Back-end**: Logica di business sviluppata in c# su Framework .NET che implementa gli algoritmi di calcolo, di generazione report/estrazioni, di gestione dei profili di autorizzazione e dei permessi, di interfaccia con applicazioni esterne, ecc
 
 * **Back-end**: Database SQL Server 2014
 
@@ -53,10 +53,12 @@ GeCo è un'applicazione web sviluppata utilizzando la tecnologia Microsoft ASP.n
 GeCo è sviluppato in ASP.net utilizzanto il linguaggio di programmazione C# mediante il [Framework .NET 4.0](https://docs.microsoft.com/it-it/dotnet/).<br />
 Si tratta pertanto di una applicazione [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) che comunica con la base dati in modalità ADO.Net tramite la libreria [System.Data.SqlClient](https://docs.microsoft.com/it-it/dotnet/api/system.data.sqlclient?view=netframework-4.0).
 
-La parte di autenticazione per poter accedere all'applicazione web e la gestione dei ruoli/permessi utente è stata realizzata interfacciandosi con repository delle utenze di rete Active Directory presente sul server di Dominio Microsoft Windows utilizzato dal Consiglio regionale della Lombardia per la gestione delle utenze di rete. Tutte regole per le password (regole per ottenere password sicure, scadenza della password, etc...) sono pertanto demandate a tale sistema. I profili di autorizzazione sono gestiti attraverso appositi gruppi Active Directory configurabili nel pannello di amministrazione di GeCo.
-Il software GeCo è inoltre dotato di un sistema di autenticazione nativo con utenze, password e ruoli memorizzati sul proprio database. Tale autenticazione è attivabile attraverso una configurazione [SPIEGARE]
+La parte di autenticazione all'applicazione web e la gestione dei ruoli/permessi utente è stata realizzata interfacciandosi con il repository Active Directory presente sul server di Dominio Microsoft Windows utilizzato dal Consiglio regionale della Lombardia per la gestione delle utenze di rete. Tutte regole per le password (regole per ottenere password sicure, scadenza della password, etc...) sono pertanto demandate a tale sistema. I profili di autorizzazione sono gestiti attraverso la creazione security groups Active Directory configurabili nel pannello di amministrazione di GeCo.
+Il software GeCo è inoltre dotato di un sistema di autenticazione nativo con utenze, password e ruoli memorizzati sul proprio database. Tale autenticazione è attivabile attraverso parametro di configurazione presente nel web.config dell'applicazione [SPIEGARE]
 
-I dati anagrafici dei Consiglieri/Assessori, i gruppi politici, gli organi e la loro composizione vengono trasferiti in automatico, utilizzando un webservice di interfaccia, sulla piattaforma opendata utilizzata da Regione Lombardia. Tale opzione è disattivata sulla versione pubblicata per il riuso.
+I dati anagrafici dei Consiglieri/Assessori, i gruppi politici, gli organi e la loro composizione vengono trasferiti in automatico, utilizzando un webservice di interfaccia, sulla piattaforma opendata utilizzata da Regione Lombardia. Tale opzione è disattivata sulla versione pubblicata per il riuso attraverso l'apposito parametro di configurazione [DETTAGLIARE]
+
+[NELLA STRUTTURA INSERIRE IL WEBSERVICE DI INTERFACCIAMENTO]
 
 ![Struttura](Struttura.PNG)
 
