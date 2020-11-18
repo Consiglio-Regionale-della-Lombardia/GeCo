@@ -33,6 +33,7 @@ Di seguito l'alberatura del repository:
 Il codice sorgente sviluppato per conto del Consiglio regionale della Lombardia e la documentazione prodotta, sono rilasciati con le sottoindicate licenze:
 * [AGPL 3.0](https://www.gnu.org/licenses/agpl-3.0.txt) - codice sorgente e base dati
 * [CC by 4.0](https://creativecommons.org/licenses/by/4.0/legalcode) - documentazione
+
 Il software GeCo utilizza inoltre alcune librerie di terze parti rilasciate con specifica licenza. L'elenco delle librerie utilizzate e la relativa licenza è presente nella sezione "Licenza" di questo documento.
 
 ## Architettura del sistema
@@ -52,8 +53,10 @@ GeCo è un'applicazione web sviluppata utilizzando la tecnologia Microsoft ASP.n
 GeCo è sviluppato in ASP.net utilizzanto il linguaggio di programmazione C# mediante il [Framework .NET 4.0](https://docs.microsoft.com/it-it/dotnet/).<br />
 Si tratta pertanto di una applicazione [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) che comunica con la base dati in modalità ADO.Net tramite la libreria [System.Data.SqlClient](https://docs.microsoft.com/it-it/dotnet/api/system.data.sqlclient?view=netframework-4.0).
 
-La parte di autenticazione, per poter accedere all'applicazione web, e la gestione dei ruoli/permessi utente è stata realizzata interfacciandosi con repository delle utenze di rete Active Directory presente sul server di Dominio Microsoft Windows utilizzato dal Consiglio regionale della Lombardia per la gestione delle utenze di rete. Tutte regole per le password (regole per ottenere password sicure, scadenza della password, etc...) sono pertanto demandate a tale sistema. 
+La parte di autenticazione per poter accedere all'applicazione web e la gestione dei ruoli/permessi utente è stata realizzata interfacciandosi con repository delle utenze di rete Active Directory presente sul server di Dominio Microsoft Windows utilizzato dal Consiglio regionale della Lombardia per la gestione delle utenze di rete. Tutte regole per le password (regole per ottenere password sicure, scadenza della password, etc...) sono pertanto demandate a tale sistema. I profili di autorizzazione sono gestiti attraverso appositi gruppi Active Directory configurabili nel pannello di amministrazione di GeCo.
 Il software GeCo è inoltre dotato di un sistema di autenticazione nativo con utenze, password e ruoli memorizzati sul proprio database. Tale autenticazione è attivabile attraverso una configurazione [SPIEGARE]
+
+I dati anagrafici dei Consiglieri/Assessori, i gruppi politici, gli organi e la loro composizione vengono trasferiti in automatico, utilizzando un webservice di interfaccia, sulla piattaforma opendata utilizzata da Regione Lombardia. Tale opzione è disattivata sulla versione pubblicata per il riuso.
 
 ![Struttura](Struttura.PNG)
 
@@ -64,6 +67,8 @@ Sia la parte di front-end (sito web [asp.net](https://dotnet.microsoft.com/apps/
 Si consiglia [Windows Server 2012 R2](https://docs.microsoft.com/it-it/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh801901(v=ws.11)) (o superiore) con [SQL Server 2014](https://www.microsoft.com/en-us/download/details.aspx?id=42295).
 
 Si rimanda alle specifiche di Microsoft per ottenere i requisiti minimi di sistema.
+
+Browser web supportati [INDICARE]
 
 ## Istruzioni per l'installazione
 
