@@ -11,15 +11,10 @@ Il logo del Consiglio regionale della Lombardia è di proprietà esclusiva del [
 
 ## Finalità del software
 
-L'l’applicazione **GeCo** (**GE**stione **CO**nsiglieri) permette la gestione e consultazione di tutti i dati legati all’attività del Consiglio Regionale della Regione Lombardia.
-
-Le entità principali gestibili comprendono i consiglieri e le relative cariche, le legislature, gli organi consiliari, i gruppi politici, le sedute e tutto ciò che è ad esse collegato.
-
-Il sistema permette la gestione delle sedute degli organi consiliari in esso configurati, l'impostazione di presenze/assenze/ritardi di ogni persona coinvolta, con possibilità di indicare anche assenze giustificate per missioni, malattie e sostituzioni.
-
+L'applicazione GeCo (GEstione COnsiglieri) permette la gestione e consultazione delle informazioni istituzionali relative ai Consiglieri e agli Assessori regionali.
+Per ciascun Consigliere e Assessore regionale è presente una scheda con i dati anagrafici, il gruppo consiliare di appartenenza, gli incarichi istituzionali ricoperti e le variazioni intervenute nel corso della legislatura. Sia per i Consiglieri che per gli Assessori, è disponibile una sezione specifica in cui sono riportate le informazioni relative ai titolari di incarichi politici che l’Amministrazione ha l’obbligo di pubblicare ai sensi dell’art. 13, comma 1, lett. a) e dell’art. 14 del d.lgs. 33/2013, anche riferite alle precedenti legislature. Per ciascun organo è disponibile una scheda con i dati relativi all’istituzione, ai componenti e ai ruoli ricoperti, con i relativi aggiornamenti. Tutti i dati sono esportabili, inoltre, si possono generare report di carattere generale riferiti alle informazioni gestite dal programma.
+L’applicazione consente di registrare per ogni seduta degli organi i dati relativi alla rilevazione delle presenze e delle assenze di ciascuno componente, con la possibilità per gli Uffici di inserire anche eventuali giustificativi per missioni istituzionali, gravi motivi di salute, particolari e rilevanti motivi personali o familiari, e sostituzioni ai sensi dell’art. 27, comma 4 del Regolamento generale. Inoltre, è possibile generare un report mensile, specifico per ciascuno dei profili disponibili, che riporta il riepilogo delle presenze ed assenze di ogni componente a ciascun organo o organismo per le finalità di cui alla l.r. 3/2013. L'algoritmo di calcolo è in grado di incrociare tutti i dati presenti, recuperandoli dalle rilevazioni delle presenze nelle sedute degli organi, sanando le eventuali assenze dell’interessato nel caso di partecipazione a sedute concomitanti di altri organi, in base a quanto disposto dalle Deliberazioni dell'Ufficio di Presidenza in materia di trattenute per assenza dai lavori dei vari organi e organismi.  
 Sono previsti diversi profili utente, con visibilità su organi e funzionalità differenti, che permettono di definire un workflow per l'invio dei fogli presenza agli uffici preposti.
-
-Infine è disponibile un report mensile, specifico per ciascuno dei profili disponibili, che calcola e mostra a video il riepilogo delle presenze ed assenze di ogni persona. L'algoritmo di calcolo incrocia i dati recuperandoli dai fogli presenze delle sedute dei vari organi e sanando le assenze con le presenze in eventuali sedute concomitanti di altri organi, in base a regole precise stabilite dai decreti dell'Ufficio di Presidenza e codificate all'interno dell'applicativo.
 
 
 ## Struttura del repository
