@@ -745,7 +745,8 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                    --,REPLACE('{URL_CURRICULUM}', '{ID_CONSIGLIERE}', pp.id_persona_string) as 'LINK_C.V. @COGNOME @INIZN_Curriculum'
                                                    ,prec.recapito as 'LINK_C.V. @COGNOME @INIZN_Curriculum'
                                                    ,case 
-	                                                    when (oo.nome_organo like '%commissione%' or oo.nome_organo like '%conferenza%' or oo.nome_organo like '%comitato%')
+	                                                    --commissione, conferenza, comitato%
+														when (oo.id_categoria_organo IN(2,3,6))
 	                                                    then
 		                                                    (
 			                                                    case when charindex(' ', cc.nome_carica) > 0
@@ -950,7 +951,8 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                    --,REPLACE('{URL_CURRICULUM}', '{ID_CONSIGLIERE}', pp.id_persona_string) as 'LINK_C.V. @COGNOME @INIZN_Curriculum'
                                                    ,prec.recapito as 'LINK_C.V. @COGNOME @INIZN_Curriculum'
                                                     ,case 
-	                                                    when (oo.nome_organo like '%commissione%' or oo.nome_organo like '%conferenza%' or oo.nome_organo like '%comitato%')
+	                                                    --commissione, conferenza, comitato%
+														when (oo.id_categoria_organo IN(2,3,6))
 	                                                    then
 		                                                    (
 			                                                    case when charindex(' ', cc.nome_carica) > 0
@@ -1183,7 +1185,8 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                ,'{URL_A_ATTOPROCLAMAZIONE}' as 'LINK_Atto nomina'
                                                ,isnull(prec.recapito, REPLACE('{URL_A_CURRICULUM}', '{ID_CONSIGLIERE}', pp.id_persona_string)) as 'LINK_C.V. @COGNOME @INIZN_Curriculum'
                                                 ,case 
-	                                                when (oo.nome_organo like '%commissione%' or oo.nome_organo like '%conferenza%' or oo.nome_organo like '%comitato%')
+	                                                --commissione, conferenza, comitato%
+													when (oo.id_categoria_organo IN(2,3,6))
 	                                                then
 		                                                (
 			                                                case when charindex(' ', cc.nome_carica) > 0
@@ -1270,7 +1273,14 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
-                                                and LOWER(cc.nome_carica) like '%assessore%'
+                                                AND (
+                                                    (cc.id_tipo_carica = 3 -- 'assessore non consigliere'
+                                                    AND oo.id_categoria_organo = 4 -- 'giunta regionale'
+                                                    ) 
+                                                    OR 
+                                                    (cc.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
+                                                    and jpoc.data_fine is null)
+                                                )
                                                 /*
                                                 and
                                                 (
@@ -1293,7 +1303,8 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                ,'{URL_A_ATTOPROCLAMAZIONE}' as 'LINK_Atto nomina'
                                                ,isnull(prec.recapito, REPLACE('{URL_A_CURRICULUM}', '{ID_CONSIGLIERE}', pp.id_persona_string)) as 'LINK_C.V. @COGNOME @INIZN_Curriculum'
                                                 ,case 
-	                                                when (oo.nome_organo like '%commissione%' or oo.nome_organo like '%conferenza%' or oo.nome_organo like '%comitato%')
+	                                                --commissione, conferenza, comitato%
+													when (oo.id_categoria_organo IN(2,3,6))
 	                                                then
 		                                                (
 			                                                case when charindex(' ', cc.nome_carica) > 0
@@ -1380,7 +1391,14 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
-                                                and (LOWER(cc.nome_carica) like '%assessore%' or LOWER(cc.nome_carica) like '%sottosegretario%')
+                                                AND (
+                                                    (cc.id_tipo_carica = 3 -- 'assessore non consigliere'
+                                                    AND oo.id_categoria_organo = 4 -- 'giunta regionale'
+                                                    ) 
+                                                    OR 
+                                                    (cc.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
+                                                    and jpoc.data_fine is null)
+                                                )
                                                 /*
                                                 and 
                                                 (
