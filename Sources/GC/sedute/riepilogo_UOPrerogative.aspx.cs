@@ -714,6 +714,8 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
         int pri = 0;
         int? tip_sess = null;
 
+        bool compensato = false;
+
         SeduteAssenzeMese seduteAssenzeMese = new SeduteAssenzeMese();
 
         seduteAssenzeMese.tooltip = "";
@@ -816,25 +818,6 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
             paList.Add(new PAGiornoDUP53(lastDate, numDat, numPre, numRit, numAss, lastCons, pri, (int?)tip_sess));
         }
 
-        /***********************************************************************************************************************/
-        //var tmp = paList.Where(p => p.allAss > 0 || p.allRit > 0).ToList();
-
-        //Fraction totRit = 0;
-        //Fraction totAss = 0;
-
-        //Fraction corrRit = 0;
-        //Fraction corrAss = 0;
-
-        //foreach (var paDay in paList.GroupBy(p => p.dat))
-        //{
-        //    var paCur = paDay.OrderByDescending(p => p.OrderKey).First();
-
-        //    var curAss = paCur.totAss;
-        //    if (curAss > 0 && paDay.Any(p => p.OrderKey != paCur.OrderKey && p.totPre > 0))
-        //        curAss = 0;
-
-        //    totAss += new Fraction(curAss, paCur.allDat);
-        //}
 
         /************************************************************************************************************************/
         /* Compensazioni                                                                                                        */
@@ -854,65 +837,88 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
         {
             var d_list = paList.Where(p => p.dat == d).ToList();
 
-            if (d_list.Count == 2)
+            compensato = false;
+
+            foreach (var x in d_list)
             {
-                var pri1 = d_list[0].priorita;
-                var pri2 = d_list[1].priorita;
+                if (x.consultaz)
+                    compensato = true;
+            }
 
-                Fraction totAss1 = 0;
-                Fraction totAss2 = 0;
-
-                if ((pri1 == (int)Constants.Priorita.Prima && pri2 == (int)Constants.Priorita.Seconda) || (pri1 == (int)Constants.Priorita.Seconda && pri2 == (int)Constants.Priorita.Prima))
+            if (!compensato)
+            {
+                if (d_list.Count == 2)
                 {
-                    if (d_list[0].tipo_sessione != d_list[1].tipo_sessione)
+                    var pri1 = d_list[0].priorita;
+                    var pri2 = d_list[1].priorita;
+
+                    Fraction totAss1 = 0;
+                    Fraction totAss2 = 0;
+
+                    if ((pri1 == (int)Constants.Priorita.Prima && pri2 == (int)Constants.Priorita.Seconda) || (pri1 == (int)Constants.Priorita.Seconda && pri2 == (int)Constants.Priorita.Prima))
                     {
-                        if (d_list[0].totAss != 0 || d_list[1].totAss != 0)
+                        if (d_list[0].tipo_sessione != d_list[1].tipo_sessione)
                         {
-                            totAss1 = new Fraction(d_list[0].totAss, d_list[0].allDat);
-                            totAss2 = new Fraction(d_list[1].totAss, d_list[1].allDat);
-
-                            if (totAss1.ToDecimal() > totAss2.ToDecimal())
+                            if (d_list[0].totAss != 0 || d_list[1].totAss != 0)
                             {
-                                totAss += totAss1;
+                                totAss1 = new Fraction(d_list[0].totAss, d_list[0].allDat);
+                                totAss2 = new Fraction(d_list[1].totAss, d_list[1].allDat);
 
-                                if (totAss1.ToDecimal() > 0)
-                                    tooltipDate[d_list[0].dat] = get_data_formattata(d_list[0].dat) + " " + FractionToText(totAss1.Simplify());
-                                //seduteAssenzeMese.tooltip += get_data_formattata(d_list[0].dat) + " " + FractionToText(totAss1.Simplify()) + "\n";
+                                if (totAss1.ToDecimal() > totAss2.ToDecimal())
+                                {
+                                    totAss += totAss1;
 
+                                    if (totAss1.ToDecimal() > 0)
+                                        tooltipDate[d_list[0].dat] = get_data_formattata(d_list[0].dat) + " " + FractionToText(totAss1.Simplify());
+
+                                }
+                                else
+                                {
+                                    totAss += totAss2;
+
+                                    if (totAss2.ToDecimal() > 0)
+                                        tooltipDate[d_list[1].dat] = get_data_formattata(d_list[1].dat) + " " + FractionToText(totAss2.Simplify());
+                                }
                             }
-                            else
+                        }
+                        else
+                        {
+                            if (d_list[0].totAss != 0 && d_list[1].totAss != 0)
                             {
-                                totAss += totAss2;
+                                totAss1 = new Fraction(d_list[0].totAss, d_list[0].allDat);
+                                totAss2 = new Fraction(d_list[1].totAss, d_list[1].allDat);
 
-                                if (totAss2.ToDecimal() > 0)
-                                    tooltipDate[d_list[1].dat] = get_data_formattata(d_list[1].dat) + " " + FractionToText(totAss2.Simplify());
-                                //seduteAssenzeMese.tooltip += get_data_formattata(d_list[1].dat) + " " + FractionToText(totAss2.Simplify()) + "\n";
+                                if (totAss1.ToDecimal() > totAss2.ToDecimal())
+                                {
+                                    totAss += totAss1;
+
+                                    if (totAss1.ToDecimal() > 0)
+                                        tooltipDate[d_list[0].dat] = get_data_formattata(d_list[0].dat) + " " + FractionToText(totAss1.Simplify());
+                                }
+                                else
+                                {
+                                    totAss += totAss2;
+
+                                    if (totAss2.ToDecimal() > 0)
+                                        tooltipDate[d_list[1].dat] = get_data_formattata(d_list[1].dat) + " " + FractionToText(totAss2.Simplify());
+                                }
                             }
                         }
                     }
                     else
                     {
-                        if (d_list[0].totAss != 0 && d_list[1].totAss != 0)
+                        foreach (var paDay in d_list.GroupBy(p => p.dat))
                         {
-                            totAss1 = new Fraction(d_list[0].totAss, d_list[0].allDat);
-                            totAss2 = new Fraction(d_list[1].totAss, d_list[1].allDat);
+                            var paCur = paDay.OrderByDescending(p => p.OrderKey).First();
 
-                            if (totAss1.ToDecimal() > totAss2.ToDecimal())
-                            {
-                                totAss += totAss1;
+                            var curAss = paCur.totAss;
+                            if (curAss > 0 && paDay.Any(p => p.OrderKey != paCur.OrderKey && p.totPre > 0))
+                                curAss = 0;
 
-                                if (totAss1.ToDecimal() > 0)
-                                    tooltipDate[d_list[0].dat] = get_data_formattata(d_list[0].dat) + " " + FractionToText(totAss1.Simplify());
-                                //seduteAssenzeMese.tooltip += get_data_formattata(d_list[0].dat) + " " + FractionToText(totAss1.Simplify()) + "\n";
-                            }
-                            else
-                            {
-                                totAss += totAss2;
+                            totAss += new Fraction(curAss, paCur.allDat);
 
-                                if (totAss2.ToDecimal() > 0)
-                                    tooltipDate[d_list[1].dat] = get_data_formattata(d_list[1].dat) + " " + FractionToText(totAss2.Simplify());
-                                //seduteAssenzeMese.tooltip += get_data_formattata(d_list[1].dat) + " " + FractionToText(totAss2.Simplify()) + "\n";
-                            }
+                            if (curAss > 0)
+                                tooltipDate[paCur.dat] = get_data_formattata(paCur.dat) + " " + FractionToText(new Fraction(curAss, paCur.allDat).Simplify());
                         }
                     }
                 }
@@ -930,27 +936,10 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
 
                         if (curAss > 0)
                             tooltipDate[paCur.dat] = get_data_formattata(paCur.dat) + " " + FractionToText(new Fraction(curAss, paCur.allDat).Simplify());
-                        // seduteAssenzeMese.tooltip += get_data_formattata(paCur.dat) + " " + FractionToText(new Fraction(curAss, paCur.allDat).Simplify()) + "\n";
                     }
                 }
             }
-            else
-            {
-                foreach (var paDay in d_list.GroupBy(p => p.dat))
-                {
-                    var paCur = paDay.OrderByDescending(p => p.OrderKey).First();
 
-                    var curAss = paCur.totAss;
-                    if (curAss > 0 && paDay.Any(p => p.OrderKey != paCur.OrderKey && p.totPre > 0))
-                        curAss = 0;
-
-                    totAss += new Fraction(curAss, paCur.allDat);
-
-                    if (curAss > 0)
-                        tooltipDate[paCur.dat] = get_data_formattata(paCur.dat) + " " + FractionToText(new Fraction(curAss, paCur.allDat).Simplify());
-                    //seduteAssenzeMese.tooltip += get_data_formattata(paCur.dat) + " " + FractionToText(new Fraction(curAss, paCur.allDat).Simplify()) + "\n";
-                }
-            }
         }
 
 
@@ -959,7 +948,6 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
         //Correzioni manuali UOPrerogative
         Fraction corrFraction = 0;
 
-        //var qry2 = query_persone_correzione_DUP53.Replace("@id_persona", id_persona.ToString());
         var qry2 = SQLDataSource_DetailsView_DUP53.SelectCommand.Replace("@id_persona", id_persona.ToString());
         qry2 = qry2.Replace("@mese", DropDownListMeseRiepilogo.SelectedValue);
         qry2 = qry2.Replace("@anno", DropDownListAnnoRiepilogo.SelectedValue);
@@ -968,12 +956,6 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
 
         string segno = "+";
 
-        /*
-         SELECT isnull(corr_ass_diaria,0) as corr_ass_diaria, 
-                                            isnull(corr_ass_rimb_spese,0) as corr_ass_rimb_spese,
-                                            isnull(corr_frazione,0) as corr_frazione,
-                                            corr_segno
-         */
 
         while (rdr2.Read())
         {
@@ -1026,13 +1008,6 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
 
         return seduteAssenzeMese;
 
-        /*
-        return new Dictionary<string, Fraction>()
-        {
-            {"A", fA },
-            {"R", fR }
-        };
-        */
     }
 
 
@@ -1349,6 +1324,7 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
         public int priorita = 0;
         public int? tipo_sessione = null;
 
+        public bool consultaz = false;
         /// <summary>
         /// Metodo di ordinamento
         /// </summary>
@@ -1388,6 +1364,7 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
             priorita = pri;
             tipo_sessione = tip_session;
 
+            consultaz = cons;
         }
 
 
