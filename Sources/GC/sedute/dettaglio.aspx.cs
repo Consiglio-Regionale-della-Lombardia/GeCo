@@ -848,14 +848,13 @@ WHERE ss.deleted = 0
         string query = query_populate_grid_OLD;
         if (view_as_consiglio)
         {
-            if (Utility.GetDupByDate(seduta_data) == Constants.Dup.DUP106 && seduta_id_categoria_organo == (int)Constants.CategoriaOrgano.ConsiglioRegionale)
+            if ((idDup == Constants.Dup.DUP106 || idDup == Constants.Dup.DUP53 ) && seduta_id_categoria_organo == (int)Constants.CategoriaOrgano.ConsiglioRegionale)
             {
                 query = query_populate_grid;
             }
             else
             {
-                //query = query_populate_grid + " union " + query_assNC;
-                query = query_populate_grid;
+                query = query_populate_grid + " union " + query_assNC;
             }
 
             query = query.Replace("@dataSeduta", seduta_data_YYYYMMDD);
