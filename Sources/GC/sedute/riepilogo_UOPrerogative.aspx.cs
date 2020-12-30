@@ -282,6 +282,9 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
     /// <param name="e">Argomenti</param>
     protected void btn_modify_diaria_Click(object sender, EventArgs e)
     {
+        searchParams = getSearchParams();
+
+        idDup = Utility.GetDupByYearMonth(searchParams.anno, searchParams.mese);
 
         var annoMese = DropDownListAnnoRiepilogo.SelectedValue + DropDownListMeseRiepilogo.SelectedValue.PadLeft(2, '0');
 
