@@ -217,7 +217,6 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
             query = @"SELECT DISTINCT oo.nome_organo
                   FROM organi AS oo
                   WHERE oo.deleted = 0
-                    AND oo.vis_serv_comm = 1
                     AND oo.id_legislatura = " + Session["id_legislatura"].ToString();
 
             query = query + @" AND oo.id_organo NOT IN (SELECT ss.id_organo
