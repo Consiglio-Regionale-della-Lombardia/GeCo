@@ -627,6 +627,53 @@ public partial class cariche_assessori : System.Web.UI.Page
         UpdatePanelDetails.Update();
         UpdatePanelMaster.Update();
         ModalPopupExtenderDetails.Hide();
+
+        CPersona objPersona = new CPersona();
+
+        objPersona.pk_id_persona = (int)e.Command.Parameters["@id_persona"].Value;
+
+        objPersona.SendToOpenData("I");
+
+        CCaricaPersona obj = new CCaricaPersona();
+
+        obj.pk_id_rec = (int)e.Command.Parameters["@id_rec"].Value;
+
+        obj.SendToOpenData("I");
+
+    }
+
+    /// <summary>
+    /// Refresh pagina post-update
+    /// </summary>
+    /// <param name="sender">Oggetto che ha generato l'evento</param>
+    /// <param name="e">Argomenti</param>
+    protected void SqlDataSource2_Updated(object sender, SqlDataSourceStatusEventArgs e)
+    {
+        if (e.Exception == null)
+        {
+            CCaricaPersona obj = new CCaricaPersona();
+
+            obj.pk_id_rec = (int)e.Command.Parameters["@id_rec"].Value;
+
+            obj.SendToOpenData("U");
+        }
+    }
+
+    /// <summary>
+    /// Refresh pagina post-delete
+    /// </summary>
+    /// <param name="sender">Oggetto che ha generato l'evento</param>
+    /// <param name="e">Argomenti</param>
+    protected void SqlDataSource2_Deleted(object sender, SqlDataSourceStatusEventArgs e)
+    {
+        if (e.Exception == null)
+        {
+            CCaricaPersona obj = new CCaricaPersona();
+
+            obj.pk_id_rec = (int)e.Command.Parameters["@id_rec"].Value;
+
+            obj.SendToOpenData("D");
+        }
     }
 
     /// <summary>

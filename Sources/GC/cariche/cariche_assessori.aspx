@@ -1153,7 +1153,10 @@
                                                       [note_trasparenza] = @note_trasparenza 
 				                                  WHERE [id_rec] = @id_rec"
 				                   
-				                   OnInserted="SqlDataSource2_Inserted">
+				                   OnInserted="SqlDataSource2_Inserted"
+                                   OnUpdated="SqlDataSource2_Updated"
+                                   OnDeleted="SqlDataSource2_Deleted">
+
 				                   
 				    <SelectParameters>
 				        <asp:ControlParameter ControlID="GridView1" Name="id_rec" PropertyName="SelectedValue"
