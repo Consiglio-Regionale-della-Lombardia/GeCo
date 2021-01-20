@@ -197,7 +197,7 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
                   WHERE oo.deleted = 0 
                     AND ss.deleted = 0 
                     AND ss.locked1 = 0 
-                    AND lower(oo.nome_organo) not like '%ristretto%'
+                    AND oo.id_categoria_organo <> 6 -- diverso da comitato ristretto
                     AND oo.id_legislatura = " + Session["id_legislatura"].ToString() +
                       " AND MONTH(ss.data_seduta) = " + DropDownListMeseRiepilogo.SelectedValue +
                       " AND YEAR(ss.data_seduta) = " + DropDownListAnnoRiepilogo.SelectedValue +
