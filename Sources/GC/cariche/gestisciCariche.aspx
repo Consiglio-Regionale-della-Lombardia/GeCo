@@ -152,6 +152,12 @@
                             CommandArgument="tipologia"
                             OnClick="Sort_Column_Click">Tipologia</asp:LinkButton>
 		            </th>
+
+		            <th id="Th_Tipo_Carica" runat="server">	            
+                        <asp:LinkButton runat="server" ID="Sort_Tipo_Carica" 
+                            CommandArgument="tipo_carica"
+                            OnClick="Sort_Column_Click">Tipo Carica</asp:LinkButton>
+		            </th>
 			        
 		            <th width="7%" id="Th_Ordine" runat="server">
                         <asp:LinkButton runat="server" ID="Sort_Ordine" 
@@ -258,6 +264,18 @@
 	                <asp:ListItem Text="ORGANI" Value="ORGANI"></asp:ListItem>
 	                <asp:ListItem Text="GRPPOL" Value="GRPPOL"></asp:ListItem>
 	            </asp:DropDownList>
+	        </td>
+
+	        <td align="center">
+				<asp:DropDownList ID="ddlTipoCarica_Insert" 
+					                runat="server" 
+					                DataSourceID="SqlDataSource2"
+						            DataTextField="tipo_carica" 
+						            DataValueField="id_tipo_carica" 
+						            SelectedValue='<%# Bind("id_tipo_carica") %>'
+						            Width="200px" 
+						            AppendDataBoundItems="True">
+				</asp:DropDownList>
 	        </td>
 	        
 	        <td align="center">
@@ -399,6 +417,18 @@
 	                <asp:ListItem Text="GRPPOL" Value="GRPPOL"></asp:ListItem>
 	            </asp:DropDownList>
 	        </td>
+
+	        <td align="center">
+				<asp:DropDownList ID="ddlTipoCarica_Edit" 
+					                runat="server" 
+					                DataSourceID="SqlDataSource2"
+						            DataTextField="tipo_carica" 
+						            DataValueField="id_tipo_carica" 
+						            SelectedValue='<%# Bind("id_tipo_carica") %>'
+						            Width="200px" 
+						            AppendDataBoundItems="True">
+				</asp:DropDownList>
+	        </td>
 	        
 	        <td align="center">
 		        <asp:TextBox ID="txtOrdine_Edit" 
@@ -526,6 +556,13 @@
 		                   Text='<%# Eval("tipologia") %>' >
 		        </asp:Label>
 	        </td>
+
+	        <td align="center">
+		        <asp:Label ID="lblTipoCarica_Item" 
+		                   runat="server" 
+		                   Text='<%# Eval("tipo_carica") %>' >
+		        </asp:Label>
+	        </td>
 	        
             <td align="center">
 	            <asp:Label ID="ordineLabel" 
@@ -601,6 +638,13 @@
 		                   Text='<%# Eval("tipologia") %>' >
 		        </asp:Label>
 	        </td>
+
+	        <td align="center">
+		        <asp:Label ID="lblTipoCarica_Item" 
+		                   runat="server" 
+		                   Text='<%# Eval("tipo_carica") %>' >
+		        </asp:Label>
+	        </td>
 	        
             <td align="center">
 	            <asp:Label ID="ordineLabel" 
@@ -670,6 +714,8 @@
                                       ,[nome_carica]
                                       ,[ordine]
                                       ,[tipologia]
+									  ,a.id_tipo_carica
+									  ,b.tipo_carica
                                       ,isnull([presidente_gruppo],0) as presidente_gruppo
                                       ,indennita_carica
                                       ,indennita_funzione
@@ -690,7 +736,8 @@
                                           ,case when [indennita_fine_mandato] is null then ''
 	                                       else '€ ' + convert(varchar, [indennita_fine_mandato], 1)
 	                                       end as indennita_fine_mandato_desc
-                                  FROM cariche"
+                                  FROM cariche AS a INNER JOIN tbl_tipo_carica AS b
+                                                        ON a.id_tipo_carica = b.id_tipo_carica"
                                   
                    DeleteCommand="DELETE FROM cariche 
                                   WHERE id_carica = @id_carica" 
@@ -702,7 +749,8 @@
                                                       ,indennita_carica
                                                       ,indennita_funzione
                                                       ,rimborso_forfettario_mandato
-                                                      ,indennita_fine_mandato) 
+                                                      ,indennita_fine_mandato
+													  ,id_tipo_carica) 
                                   VALUES (@nome_carica 
                                          ,@tipologia
                                          ,@ordine
@@ -710,7 +758,8 @@
                                          ,@indennita_carica
                                          ,@indennita_funzione
                                          ,@rimborso_forfettario_mandato
-                                         ,@indennita_fine_mandato); 
+                                         ,@indennita_fine_mandato
+										 ,@id_tipo_carica); 
                                   SELECT @id_carica = SCOPE_IDENTITY();"
 
                    UpdateCommand="UPDATE cariche 
@@ -722,6 +771,7 @@
                                      ,indennita_funzione = @indennita_funzione
                                      ,rimborso_forfettario_mandato = @rimborso_forfettario_mandato
                                      ,indennita_fine_mandato = @indennita_fine_mandato
+									 ,id_tipo_carica = @id_tipo_carica	
                                   WHERE id_carica = @id_carica"
                    
                    OnInserted="SqlDataSource1_Inserted" OnSelecting="SqlDataSource1_Selecting">
@@ -733,6 +783,7 @@
     <UpdateParameters>
 		<asp:Parameter Name="nome_carica" Type="String" />
 		<asp:Parameter Name="tipologia" Type="String" />
+		<asp:Parameter Name="id_tipo_carica" Type="Int32" />
 		<asp:Parameter Name="ordine" Type="Int32" />
     	<asp:Parameter Name="id_carica" Type="Int32" />
         <asp:Parameter Name="indennita_carica" Type="Decimal" />
@@ -744,6 +795,7 @@
     <InsertParameters>
 		<asp:Parameter Name="nome_carica" Type="String" />
 		<asp:Parameter Name="tipologia" Type="String" />
+		<asp:Parameter Name="id_tipo_carica" Type="Int32" />
 		<asp:Parameter Name="ordine" Type="Int32" />
         <asp:Parameter Name="indennita_carica" Type="Decimal" />
         <asp:Parameter Name="indennita_funzione" Type="Decimal" />
@@ -752,6 +804,16 @@
     	<asp:Parameter Direction="Output" Name="id_carica" Type="Int32" />
     </InsertParameters>
 </asp:SqlDataSource>
+
+<asp:SqlDataSource ID="SqlDataSource2" 
+			        runat="server" 
+                    ConnectionString="<%$ ConnectionStrings:GestioneConsiglieriConnectionString %>"
+			                           
+			        SelectCommand="SELECT *
+                                    FROM tbl_tipo_carica 
+                                    ORDER BY 1" >
+</asp:SqlDataSource>
+
 </ContentTemplate>
 </asp:UpdatePanel>
 </div>
