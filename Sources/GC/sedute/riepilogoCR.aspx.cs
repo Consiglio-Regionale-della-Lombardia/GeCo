@@ -397,7 +397,7 @@ public partial class sedute_riepilogoCR : System.Web.UI.Page
         }
         else
         {
-            if (isDup106)
+            if (isDup106 && idDup != Constants.Dup.DUP53)
             {
                 GridView1.Visible = false;
                 GridView2.Visible = true;
@@ -476,7 +476,7 @@ public partial class sedute_riepilogoCR : System.Web.UI.Page
                 }
                 else
                 {
-                    if (isDup106)
+                    if (isDup106 && idDup != Constants.Dup.DUP53)
                         query = query_persone_partecipazione;
                     else if (idDup == Constants.Dup.DUP53)
                         query = query_persone_partecipazione_DUP53;
@@ -500,7 +500,7 @@ public partial class sedute_riepilogoCR : System.Web.UI.Page
 
                     bool presente_in_uscita = false;
 
-                    if (isDup106)
+                    if (isDup106 && idDup != Constants.Dup.DUP53)
                         aggiunto_dinamico = bool.Parse(reader["aggiunto_dinamico"].ToString());
 
                     if (idDup == Constants.Dup.DUP53 && (logged_categoria_organo == (int)Constants.CategoriaOrgano.UfficioPresidenza || logged_categoria_organo == (int)Constants.CategoriaOrgano.ConferenzaPresidentiGruppi))
@@ -561,7 +561,7 @@ public partial class sedute_riepilogoCR : System.Web.UI.Page
                         }
                         else
                         {
-                            if (isDup106)
+                            if (isDup106 && idDup != Constants.Dup.DUP53)
                             {
                                 if (aggiunto_dinamico)
                                 {
