@@ -1228,12 +1228,15 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 		                                            on oox.id_organo = jpocx.id_organo		
 	                                            inner join legislature llx
 		                                            on llx.id_legislatura = jpocx.id_legislatura		
+    	                                        inner join join_cariche_organi jco
+	    	                                        on oox.id_organo = jco.id_organo and ccx.id_carica = jco.id_carica
 
 	                                            where 
 	                                                ppx.deleted = 0
 	                                            and jpocx.deleted = 0
 	                                            and oox.deleted = 0
                                                 @llx_idLegislatura 	                
+                                                and jco.visibile_trasparenza = 1   
                                                 AND (
                                                     (ccx.id_tipo_carica = 3 -- 'assessore non consigliere' 
                                                     AND oox.id_categoria_organo = 4 -- 'giunta regionale'
@@ -1261,8 +1264,6 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 												on prec.id_persona = pp.id_persona
 
                                             where 
-                                                --jpoc.deleted = 0
- 	                                            --and oo.deleted = 0
                                                 oo.deleted = 0
                                                 and oo.vis_serv_comm = 0   
                                                 and jco.deleted = 0  
@@ -1273,6 +1274,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
+                                                /*
                                                 AND (
                                                     (cc.id_tipo_carica = 3 -- 'assessore non consigliere'
                                                     AND oo.id_categoria_organo = 4 -- 'giunta regionale'
@@ -1281,15 +1283,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                     (cc.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
                                                     and jpoc.data_fine is null)
                                                 )
-                                                /*
-                                                and
-                                                (
-                                                    (CONVERT(char(8), jpoc.data_inizio, 112) <= '@dataFine')
-                                                    AND
-                                                    ((jpoc.data_fine IS NULL) OR  (CONVERT(char(8), dateadd(year,2,jpoc.data_fine), 112) >= '@dataInizio'))
-                                                )
                                                 */
-
                                             order by pp.cognome, pp.nome, jpoc.data_inizio";
 
         /// <summary>
@@ -1347,11 +1341,14 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 		                                            on oox.id_organo = jpocx.id_organo		
 	                                            inner join legislature llx
 		                                            on llx.id_legislatura = jpocx.id_legislatura			
-	                                            where 
+													 inner join join_cariche_organi jco
+		                                        on oox.id_organo = jco.id_organo and ccx.id_carica = jco.id_carica	                                            
+                                                where 
 	                                                ppx.deleted = 0
 	                                            and jpocx.deleted = 0
 	                                            and oox.deleted = 0
-                                                @llx_idLegislatura 	                
+                                                @llx_idLegislatura 	
+                                                and jco.visibile_trasparenza = 1
                                                 AND (
                                                     (ccx.id_tipo_carica = 3 -- 'assessore non consigliere'
                                                     AND oox.id_categoria_organo = 4 -- 'giunta regionale'
@@ -1379,8 +1376,6 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 												on prec.id_persona = pp.id_persona
 
                                             where 
-                                                --jpoc.deleted = 0
- 	                                            --and oo.deleted = 0
                                                 oo.deleted = 0
                                                 and oo.vis_serv_comm = 0   
                                                 and jco.deleted = 0  
@@ -1391,6 +1386,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
+                                                /*
                                                 AND (
                                                     (cc.id_tipo_carica = 3 -- 'assessore non consigliere'
                                                     AND oo.id_categoria_organo = 4 -- 'giunta regionale'
@@ -1399,16 +1395,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                     (cc.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
                                                     and jpoc.data_fine is null)
                                                 )
-                                                /*
-                                                and 
-                                                (
-                                                    (CONVERT(char(8), jpoc.data_inizio, 112) <= '@dataFine')
-                                                    AND
-                                                    ((jpoc.data_fine IS NULL) OR  (CONVERT(char(8), dateadd(year,2,jpoc.data_fine), 112) >= '@dataInizio'))
-                                                )
                                                 */
-
-
                                             order by pp.cognome, pp.nome, jpoc.data_inizio";
 
         #endregion
