@@ -1177,7 +1177,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
         /// <summary>
         /// Query recupero dati per report assessori prima del 2016
         /// </summary>
-        const string QUERY_REPORT_ASSESSORI_PRIMA_2016 = @"select 
+        const string QUERY_REPORT_ASSESSORI_PRIMA_2016 = @"select  
                                                 pp.id_persona as ID_persona
 	                                           ,pp.cognome as 'Cognome' 
                                                ,pp.nome as 'Nome'
@@ -1242,8 +1242,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                     AND oox.id_categoria_organo = 4 -- 'giunta regionale'
                                                     ) 
                                                     OR 
-                                                    (ccx.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere'  
-                                                     and jpocx.data_fine is null)
+                                                    ccx.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere'  
                                                 )
                                             ) pp
                                             inner join vw_join_persona_organo_carica jpoc 
@@ -1274,22 +1273,12 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
-                                                /*
-                                                AND (
-                                                    (cc.id_tipo_carica = 3 -- 'assessore non consigliere'
-                                                    AND oo.id_categoria_organo = 4 -- 'giunta regionale'
-                                                    ) 
-                                                    OR 
-                                                    (cc.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
-                                                    and jpoc.data_fine is null)
-                                                )
-                                                */
-                                            order by pp.cognome, pp.nome, jpoc.data_inizio";
+                                            order by 2, 3, 8";
 
         /// <summary>
         /// Query recupero dati per report assessori dopo il 2016
         /// </summary>
-        const string QUERY_REPORT_ASSESSORI = @"select 
+        const string QUERY_REPORT_ASSESSORI = @"select  
                                                 pp.id_persona as ID_persona
 	                                           ,pp.cognome as 'Cognome' 
                                                ,pp.nome as 'Nome'
@@ -1354,8 +1343,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                     AND oox.id_categoria_organo = 4 -- 'giunta regionale'
                                                     ) 
                                                     OR 
-                                                    (ccx.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
-                                                    and jpocx.data_fine is null)
+                                                    ccx.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
                                                 )
                                             ) pp
                                             inner join vw_join_persona_organo_carica jpoc 
@@ -1386,17 +1374,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
-                                                /*
-                                                AND (
-                                                    (cc.id_tipo_carica = 3 -- 'assessore non consigliere'
-                                                    AND oo.id_categoria_organo = 4 -- 'giunta regionale'
-                                                    ) 
-                                                    OR 
-                                                    (cc.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
-                                                    and jpoc.data_fine is null)
-                                                )
-                                                */
-                                            order by pp.cognome, pp.nome, jpoc.data_inizio";
+                                            order by 2, 3, 8";
 
         #endregion
 
@@ -1464,10 +1442,22 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
         /// <returns>DataTable</returns>
         public static DataTable GetTable_Assessori(DateTime dataInizio, DateTime dataFine, int? idLegislatura, int year)
         {
+            /*
             if (year < 2016)
                 return GetTable(dataInizio, dataFine, idLegislatura, QUERY_REPORT_ASSESSORI_PRIMA_2016);
             else
                 return GetTable(dataInizio, dataFine, idLegislatura, QUERY_REPORT_ASSESSORI);
+            */
+
+            string qryStrutt;
+
+            if (year < 2016)
+                qryStrutt = Regex.Replace(QUERY_REPORT_ASSESSORI_PRIMA_2016, "^select", "select distinct ", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            else
+                qryStrutt = Regex.Replace(QUERY_REPORT_ASSESSORI, "^select", "select distinct ", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+            return GetTable(DateTime.Now, DateTime.Now, null, qryStrutt);
+
         }
 
 
