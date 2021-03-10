@@ -1217,7 +1217,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                ,jpoc.data_fine as ID_DataFineCarica 
                                                ,cc.nome_carica as ID_NomeCarica  
                                             from (
-	                                            select distinct ppx.id_persona, ppx.cognome, ppx.nome, jpocx.id_legislatura, jpocx.data_proclamazione, jpocx.data_fine, rtrim(ltrim(str(ppx.id_persona,20,0))) as id_persona_string
+	                                            select distinct ppx.id_persona, ppx.cognome, ppx.nome, jpocx.id_legislatura, jpocx.id_organo, jpocx.id_carica, jpocx.data_proclamazione, jpocx.data_fine, rtrim(ltrim(str(ppx.id_persona,20,0))) as id_persona_string
                               -- [2019-01-09 COLONNA RIMOSSA CAUSA DUPLICAZIOE RIGHE] ,jpocx.note_trasparenza
 	                                            from persona ppx
 	                                            inner join join_persona_organo_carica jpocx 
@@ -1230,7 +1230,6 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 		                                            on llx.id_legislatura = jpocx.id_legislatura		
     	                                        inner join join_cariche_organi jco
 	    	                                        on oox.id_organo = jco.id_organo and ccx.id_carica = jco.id_carica
-
 	                                            where 
 	                                                ppx.deleted = 0
 	                                            and jpocx.deleted = 0
@@ -1249,12 +1248,11 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 	                                            on jpoc.id_persona = pp.id_persona
                                                 and jpoc.id_legislatura = pp.id_legislatura
                                             inner join cariche cc
-	                                            on cc.id_carica = jpoc.id_carica 
+	                                            on cc.id_carica = jpoc.id_carica and pp.id_carica = cc.id_carica
                                             inner join organi oo
-	                                            on oo.id_organo = jpoc.id_organo
+	                                            on oo.id_organo = jpoc.id_organo and pp.id_organo = oo.id_organo
 	                                        inner join join_cariche_organi jco
 		                                        on oo.id_organo = jco.id_organo and cc.id_carica = jco.id_carica
-
 											left outer join (
 												select id_persona, recapito
 												from [dbo].[join_persona_recapiti]
@@ -1319,7 +1317,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                ,jpoc.data_fine as ID_DataFineCarica 
                                                ,cc.nome_carica as ID_NomeCarica  
                                             from (
-	                                            select distinct ppx.id_persona, ppx.cognome, ppx.nome, jpocx.id_legislatura, jpocx.data_proclamazione, jpocx.data_fine, rtrim(ltrim(str(ppx.id_persona,20,0))) as id_persona_string
+	                                            select distinct ppx.id_persona, ppx.cognome, ppx.nome, jpocx.id_legislatura, jpocx.id_organo, jpocx.id_carica, jpocx.data_proclamazione, jpocx.data_fine, rtrim(ltrim(str(ppx.id_persona,20,0))) as id_persona_string
                         -- [2019-01-09 COLONNA RIMOSSA CAUSA DUPLICAZIOE RIGHE] , jpocx.note_trasparenza
 	                                            from persona ppx
 	                                            inner join join_persona_organo_carica jpocx 
@@ -1350,9 +1348,9 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 	                                            on jpoc.id_persona = pp.id_persona
                                                 and jpoc.id_legislatura = pp.id_legislatura
                                             inner join cariche cc
-	                                            on cc.id_carica = jpoc.id_carica 
+	                                            on cc.id_carica = jpoc.id_carica and pp.id_carica = cc.id_carica
                                             inner join organi oo
-	                                            on oo.id_organo = jpoc.id_organo
+	                                            on oo.id_organo = jpoc.id_organo and pp.id_organo = oo.id_organo
 	                                        inner join join_cariche_organi jco
 		                                        on oo.id_organo = jco.id_organo and cc.id_carica = jco.id_carica
 
