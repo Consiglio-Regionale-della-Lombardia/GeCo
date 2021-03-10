@@ -1242,7 +1242,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                     AND oox.id_categoria_organo = 4 -- 'giunta regionale'
                                                     ) 
                                                     OR 
-                                                    ccx.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere'  
+                                                    ccx.id_tipo_carica in (1,2,3,10) -- 'assessore, assessore e vice presidente, assessore non consigliere'  
                                                 )
                                             ) pp
                                             inner join vw_join_persona_organo_carica jpoc 
@@ -1343,7 +1343,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                                     AND oox.id_categoria_organo = 4 -- 'giunta regionale'
                                                     ) 
                                                     OR 
-                                                    ccx.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
+                                                    ccx.id_tipo_carica in (1,2,3,10) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
                                                 )
                                             ) pp
                                             inner join vw_join_persona_organo_carica jpoc 
