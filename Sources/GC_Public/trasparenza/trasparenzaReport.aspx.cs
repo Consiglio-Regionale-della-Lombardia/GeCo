@@ -80,7 +80,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
         if (Mode == MODE_CONSIGLIERI)
             lbMode.InnerText = "Consiglieri";
         else if (Mode == MODE_ASSESSORI)
-            lbMode.InnerText = "Assessori e Sottosegretari non Consiglieri";
+            lbMode.InnerText = "Assessori e Sottosegretari";
 
         if (!this.IsPostBack)
         {
