@@ -521,7 +521,6 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                 e.Row.Cells[i].Text = "";
 
                     }
-
                 }
             }
         }
@@ -831,6 +830,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
+												and (jpoc.data_fine is null or GETDATE() < DATEADD(year, 3, jpoc.data_fine))
                                                 /*
                                                 and
                                                 (
@@ -914,6 +914,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpg.data_inizio) and year(jpg.data_fine))
 												)  
+												and (pp.data_fine is null or GETDATE() < DATEADD(year, 3, pp.data_fine))
                                                 /*
                                                 and
                                                 (
@@ -1052,6 +1053,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
+												and (jpoc.data_fine is null or GETDATE() < DATEADD(year, 3, jpoc.data_fine))
                                                 /*
                                                 and
                                                 (
@@ -1149,6 +1151,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpg.data_inizio) and year(jpg.data_fine))
 												)  
+												and (pp.data_fine is null or GETDATE() < DATEADD(year, 3, pp.data_fine))
                                                 /*
                                                 and
                                                 (
@@ -1271,6 +1274,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
+												and (pp.data_fine is null or GETDATE() < DATEADD(year, 3, pp.data_fine))
                                             order by 2, 3, 8";
 
         /// <summary>
@@ -1372,6 +1376,8 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													OR
 													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
 												)  
+												and (pp.data_fine is null or GETDATE() < DATEADD(year, 3, pp.data_fine))
+
                                             order by 2, 3, 8";
 
         #endregion
