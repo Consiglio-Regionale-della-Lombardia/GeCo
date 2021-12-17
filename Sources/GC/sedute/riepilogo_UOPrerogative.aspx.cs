@@ -942,6 +942,7 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
                 }
             }
 
+            totAss = totAss.Simplify();
         }
 
 
@@ -1020,38 +1021,45 @@ public partial class sedute_riepilogo_UoPrerogative : System.Web.UI.Page
     /// <param name="e">Argomenti</param>
     protected void GridView_Consiglieri_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Row.RowType == DataControlRowType.DataRow)
+        try
         {
-            int id_persona = (e.Row.DataItem as DataRowView).Row.Field<int>("id_persona");
-            if (id_persona > 0)
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                var lbRit = e.Row.FindControl("lbl_assenza_diaria_val") as Label;
-                var lbAss = e.Row.FindControl("lbl_assenza_rimborso_spese_val") as Label;
-                var lbAss_dec = e.Row.FindControl("lbl_assenza_rimborso_spese_val_dec") as Label;
-
-                if (idDup == Constants.Dup.DUP53)
+                int id_persona = (e.Row.DataItem as DataRowView).Row.Field<int>("id_persona");
+                if (id_persona > 0)
                 {
-                    SeduteAssenzeMese s = GetAssenzePersona_DUP53(id_persona, Constants.TipoCarica.Consigliere); //, baseQuery_DUP53.ToString());
+                    var lbRit = e.Row.FindControl("lbl_assenza_diaria_val") as Label;
+                    var lbAss = e.Row.FindControl("lbl_assenza_rimborso_spese_val") as Label;
+                    var lbAss_dec = e.Row.FindControl("lbl_assenza_rimborso_spese_val_dec") as Label;
 
-                    var ar = s.dictionary;
+                    if (idDup == Constants.Dup.DUP53)
+                    {
+                        SeduteAssenzeMese s = GetAssenzePersona_DUP53(id_persona, Constants.TipoCarica.Consigliere); //, baseQuery_DUP53.ToString());
 
-                    lbAss.Text = FractionToHtml(ar["A"]);
-                    lbRit.Text = FractionToHtml(ar["R"]);
-                    lbAss_dec.Text = FractionToHtml_dec(ar["R"]);
+                        var ar = s.dictionary;
 
-                    lbAss_dec.ToolTip = lbAss_dec.Text;
+                        lbAss.Text = FractionToHtml(ar["A"]);
+                        lbRit.Text = FractionToHtml(ar["R"]);
+                        lbAss_dec.Text = FractionToHtml_dec(ar["R"]);
 
-                    SetTooltip(e.Row, s.tooltip, true);
+                        lbAss_dec.ToolTip = lbAss_dec.Text;
 
-                }
-                else
-                {
-                    var ar = GetAssenzePersona(id_persona, Constants.TipoCarica.Consigliere); //, baseQuery.ToString());
+                        SetTooltip(e.Row, s.tooltip, true);
 
-                    lbAss.Text = PresAssString(ar["A"]);
-                    lbRit.Text = PresAssString(ar["R"]);
+                    }
+                    else
+                    {
+                        var ar = GetAssenzePersona(id_persona, Constants.TipoCarica.Consigliere); //, baseQuery.ToString());
+
+                        lbAss.Text = PresAssString(ar["A"]);
+                        lbRit.Text = PresAssString(ar["R"]);
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
         }
     }
 
