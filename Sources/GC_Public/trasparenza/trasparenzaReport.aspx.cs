@@ -1374,7 +1374,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 											    and (
 													(CONVERT(char(8), jpoc.data_inizio, 112) <= '@dataFine' and jpoc.data_fine IS NULL)
 													OR
-													(@anno between year(jpoc.data_inizio) and year(jpoc.data_fine))
+													(@anno between year(jpoc.data_inizio) and (year(jpoc.data_fine)+3))
 												)  
 												and (pp.data_fine is null or GETDATE() < DATEADD(year, 3, pp.data_fine))
 
