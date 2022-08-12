@@ -87,7 +87,7 @@
         					                   
 					                               SelectCommand="SELECT id_legislatura, num_legislatura 
                                                                     FROM legislature
-                                                                    where year(durata_legislatura_da) <= @Anno and isnull(year(durata_legislatura_a),3000) >= @Anno
+                                                                    WHERE YEAR(durata_legislatura_da) <= @Anno AND (durata_legislatura_a IS NULL OR (YEAR(durata_legislatura_a) >= @Anno AND DATEADD(second, -1, DATEADD(day, 1, DATEADD(year, 3, durata_legislatura_a))) > GETDATE()))
                                                                    ORDER BY durata_legislatura_da DESC">
                                     <SelectParameters>
                                         <asp:ControlParameter Name="Anno" Type="Int32"
