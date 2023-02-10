@@ -466,8 +466,9 @@
                                         <InsertItemTemplate>
                                             <asp:TextBox ID="TextBoxNT" 
                                                          MaxLength="20" 
-                                                         runat="server" 
-                                                         Text='<%# Bind("numero_tessera") %>'>
+                                                         runat="server"
+                                                         Text='<%# Bind("numero_tessera") %>'
+                                                Value='<%#newCardNumber%>'>
                                             </asp:TextBox>
                                         </InsertItemTemplate>
                                         

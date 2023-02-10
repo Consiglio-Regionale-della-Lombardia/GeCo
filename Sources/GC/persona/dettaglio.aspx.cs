@@ -32,6 +32,7 @@ public partial class dettaglio : System.Web.UI.Page
     string conn_string = ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString;
 
     public string photoName;
+    public string newCardNumber;
 
     public int id_user;
     public int role;
@@ -134,6 +135,7 @@ public partial class dettaglio : System.Web.UI.Page
 
         if (nuovo == "true")
         {
+            newCardNumber = GetLastCardNumber();
             photoName = "../foto/fotond.jpg";
             DetailsView1.ChangeMode(DetailsViewMode.Insert);
             PanelGestione.Visible = false;
@@ -333,6 +335,24 @@ public partial class dettaglio : System.Web.UI.Page
             PanelGestione.Visible = true;
             PanelFoto.Visible = false;
         }
+    }
+
+    private string GetLastCardNumber()
+    {
+        string query = "select top 1 numero_tessera from persona order by numero_tessera desc";
+
+        DataTableReader reader = Utility.ExecuteQuery(query);
+
+        long lastNumber = 0;
+
+        while (reader.Read())
+        {
+            lastNumber = long.Parse(reader[0].ToString());
+        }
+
+        long newNumber = lastNumber + 1;
+
+        return newNumber.ToString();
     }
 
     /// <summary>
