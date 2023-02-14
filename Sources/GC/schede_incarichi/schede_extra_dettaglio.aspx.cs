@@ -50,7 +50,7 @@ public partial class schede_extra_dettaglio : System.Web.UI.Page
                                      ON jpoc.id_carica = cc.id_carica
                                   INNER JOIN legislature AS ll
                                      ON jpoc.id_legislatura = ll.id_legislatura
-                                  WHERE pp.deleted = 0
+                                  WHERE pp.deleted = 0 AND pp.chiuso = 0 
                                     AND oo.deleted = 0
                                     AND id_tipo_carica = 4 -- consigliere regionale
                                     AND id_categoria_organo = 1 --consiglio regionale

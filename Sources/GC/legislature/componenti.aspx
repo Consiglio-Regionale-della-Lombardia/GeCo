@@ -197,7 +197,7 @@
                                               LEFT OUTER JOIN gruppi_politici AS gg 
                                                  ON (gg.deleted = 0 
                                                      AND jpgp.id_gruppo = gg.id_gruppo)
-                                              WHERE pp.deleted = 0 
+                                              WHERE pp.deleted = 0 AND pp.chiuso = 0
                                                 AND jpoc.deleted = 0
                                                 AND oo.deleted = 0
                                                 AND ll.id_legislatura = @id_legislatura 

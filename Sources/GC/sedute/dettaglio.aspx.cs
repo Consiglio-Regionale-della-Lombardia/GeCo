@@ -223,14 +223,14 @@ public partial class sedute_dettaglio : System.Web.UI.Page
                                    WHERE ss.deleted = 0
                                      AND oo.deleted = 0
                                      AND jpoc.deleted = 0
-                                     AND pp.deleted = 0
+                                     AND pp.deleted = 0 AND pp.chiuso = 0
                                      AND (((jpoc.data_inizio <= ss.data_seduta) AND (jpoc.data_fine >= ss.data_seduta)) OR
                                           ((jpoc.data_inizio <= ss.data_seduta) AND (jpoc.data_fine IS NULL)))
                                      AND pp.id_persona NOT IN (SELECT pp2.id_persona
                                                                FROM persona AS pp2
                                                                INNER JOIN join_persona_sospensioni AS jps
                                                                   ON pp2.id_persona = jps.id_persona
-                                                               WHERE pp2.deleted = 0
+                                                               WHERE pp2.deleted = 0 AND pp2.chiuso = 0
                                                                  AND jps.deleted = 0
                                                                  AND jps.id_legislatura = ll.id_legislatura
                                                                  AND (((jps.data_inizio <= ss.data_seduta) AND (jps.data_fine >= ss.data_seduta)) OR
@@ -278,14 +278,14 @@ INNER JOIN persona AS pp
 WHERE ss.deleted = 0
  AND oo.deleted = 0
  AND jpoc.deleted = 0
- AND pp.deleted = 0
+ AND pp.deleted = 0 AND pp.chiuso = 0
  AND (((jpoc.data_inizio <= ss.data_seduta) AND (jpoc.data_fine >= ss.data_seduta)) OR
       ((jpoc.data_inizio <= ss.data_seduta) AND (jpoc.data_fine IS NULL)))
  AND pp.id_persona NOT IN (SELECT pp2.id_persona
                            FROM persona AS pp2
                            INNER JOIN join_persona_sospensioni AS jps
                               ON pp2.id_persona = jps.id_persona
-                           WHERE pp2.deleted = 0
+                           WHERE pp2.deleted = 0 AND pp2.chiuso = 0
                              AND jps.deleted = 0
                              AND jps.id_legislatura = ll.id_legislatura
                              AND (((jps.data_inizio <= ss.data_seduta) AND (jps.data_fine >= ss.data_seduta)) OR
@@ -307,7 +307,7 @@ WHERE ss.deleted = 0
                                                  INNER JOIN cariche AS cc
                                                    ON jpoc.id_carica = cc.id_carica
 
-                                                 WHERE pp.deleted = 0
+                                                 WHERE pp.deleted = 0 AND pp.chiuso = 0
                                                    AND jpoc.deleted = 0
                                                    AND oo.deleted = 0
                                                    AND oo.id_categoria_organo = 4 -- 'giunta regionale'

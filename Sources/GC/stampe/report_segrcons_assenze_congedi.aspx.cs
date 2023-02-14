@@ -60,7 +60,7 @@ public partial class report_segrcons_assenze_congedi : System.Web.UI.Page
                                  ON jps.tipo_partecipazione = tp.id_partecipazione
                                LEFT OUTER JOIN join_persona_gruppi_politici_incarica_view AS jpgpiv
                                  ON pp.id_persona = jpgpiv.id_persona
-                               WHERE pp.deleted = 0 
+                               WHERE pp.deleted = 0 AND pp.chiuso = 0 
                                  AND jpoc.deleted = 0 
                                  AND jpoc.data_fine IS NULL
                                  AND oo.deleted = 0

@@ -91,7 +91,7 @@
                                             ON jpoc.id_carica = cc.id_carica
                                           INNER JOIN legislature AS ll
                                             ON jpoc.id_legislatura = ll.id_legislatura
-                                          WHERE pp.deleted = 0
+                                          WHERE pp.deleted = 0 AND pp.chiuso = 0
                                             AND jpoc.deleted = 0                                       
                                           ORDER BY ll.durata_legislatura_da DESC,
                                                    pp.cognome, pp.nome, nome_organo, cc.ordine ASC,

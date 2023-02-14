@@ -61,7 +61,7 @@ public partial class report_incarichi_extra_incarichi : System.Web.UI.Page
                                  ON sc.id_legislatura = ll.id_legislatura
                               INNER JOIN incarico AS ii
                                  ON sc.id_scheda = ii.id_scheda
-                              WHERE pp.deleted = 0
+                              WHERE pp.deleted = 0 AND pp.chiuso = 0 
                                 AND sc.deleted = 0
                                 AND ii.deleted = 0";
 

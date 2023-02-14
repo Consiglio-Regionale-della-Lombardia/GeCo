@@ -65,7 +65,7 @@ public partial class sedute_riepilogo : System.Web.UI.Page
 		                                ON (pp.id_persona = jj.id_persona AND jj.deleted = 0)
 	                                LEFT OUTER JOIN sedute AS ss 
 		                                ON (jj.id_seduta = ss.id_seduta AND ss.deleted = 0)
-	                                WHERE pp.deleted = 0
+	                                WHERE pp.deleted = 0 AND pp.chiuso = 0 
 		                                AND jpoc.deleted = 0
 		                                AND oo.deleted = 0
 		                                AND oo.vis_serv_comm = 1
@@ -85,7 +85,7 @@ public partial class sedute_riepilogo : System.Web.UI.Page
 	                                inner join sedute ss
 		                                on ss.id_seduta = jps.id_seduta
 	                                where
-		                                pp.deleted = 0
+		                                pp.deleted = 0 AND pp.chiuso = 0 
 		                                AND jps.deleted = 0
 		                                and ss.deleted = 0
 		                                AND(
@@ -119,7 +119,7 @@ public partial class sedute_riepilogo : System.Web.UI.Page
 		                                ON (pp.id_persona = jj.id_persona AND jj.deleted = 0)
 	                                LEFT OUTER JOIN sedute AS ss 
 		                                ON (jj.id_seduta = ss.id_seduta AND ss.deleted = 0)
-	                                WHERE pp.deleted = 0
+	                                WHERE pp.deleted = 0 AND pp.chiuso = 0 
 		                                AND jpoc.deleted = 0
 		                                AND oo.deleted = 0
 		                                AND oo.vis_serv_comm = 1
@@ -213,7 +213,7 @@ public partial class sedute_riepilogo : System.Web.UI.Page
 	                                        INNER JOIN tbl_partecipazioni AS tp2 
                                                 ON jps2.tipo_partecipazione = tp2.id_partecipazione 
 	                                        where jps2.deleted = 0								
-	                                            and pp2.deleted = 0
+	                                            and pp2.deleted = 0 AND pp2.chiuso = 0 
 	                                            and ss2.deleted = 0
                                                 AND ss2.locked = 1
                                                 AND oo2.vis_serv_comm = 1 
@@ -251,7 +251,7 @@ public partial class sedute_riepilogo : System.Web.UI.Page
                                         INNER JOIN tbl_partecipazioni AS tp3 
                                             ON jps3.tipo_partecipazione = tp3.id_partecipazione 
                                         where jps3.deleted = 0								
-	                                        and pp3.deleted = 0
+	                                        and pp3.deleted = 0 AND pp3.chiuso = 0 
 	                                        and ss3.deleted = 0
                                             AND ss3.locked = 1
                                             AND oo3.vis_serv_comm = 1 

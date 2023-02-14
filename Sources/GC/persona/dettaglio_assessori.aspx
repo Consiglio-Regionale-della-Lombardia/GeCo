@@ -55,7 +55,7 @@
 	                       SelectCommand="SELECT pp.nome + ' ' + pp.cognome AS nome_completo,
 	                                             pp.data_nascita
 			                              FROM persona AS pp
-			                              WHERE pp.deleted = 0
+			                              WHERE pp.deleted = 0 AND pp.chiuso = 0
 			                                AND pp.id_persona = @id_persona" >
 	        <SelectParameters>
 		        <asp:SessionParameter Name="id_persona" SessionField="id_persona" Type="Int32" />
@@ -78,6 +78,84 @@
 		
 	    <div id="tab_content">
 	        <div id="tab_content_content">
+
+				<asp:Panel ID="PanelChiusura" 
+                    runat="server" 
+                    Width="1000px" 
+                    BackColor="White" 
+                    BorderColor="DarkSeaGreen"
+                    BorderWidth="2px"
+                    Visible="false"
+                    Style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto;">
+
+                    <div align="center">
+                        <br />
+                                    
+                        <h3>CHIUSURA</h3>
+                        <br />
+
+                            <p>Seleziona la motivazione della chiusura</p>
+                        <asp:DropDownList runat="server" ID="chiusuraCausaFine">
+
+                        </asp:DropDownList>
+
+                            <br />
+
+                        <p>Seleziona la data della chiusura</p>
+                            <asp:DropDownList runat="server" ID="chiusuraGiorni">
+
+                        </asp:DropDownList>
+
+                        <asp:DropDownList runat="server" ID="chiusuraMesi">
+                            <asp:ListItem Text="Seleziona un mese" Value="0" />
+                            <asp:ListItem Text="Gennaio" Value="01" />
+                            <asp:ListItem Text="Febbraio" Value="02" />
+                            <asp:ListItem Text="Marzo" Value="03" />
+                            <asp:ListItem Text="Aprile" Value="04" />
+                            <asp:ListItem Text="Maggio" Value="05" />
+                            <asp:ListItem Text="Giugno" Value="06" />
+                            <asp:ListItem Text="Luglio" Value="07" />
+                            <asp:ListItem Text="Agosto" Value="08" />
+                            <asp:ListItem Text="Settembre" Value="09" />
+                            <asp:ListItem Text="Ottobre" Value="10" />
+                            <asp:ListItem Text="Novembre" Value="11" />
+                            <asp:ListItem Text="Dicembre" Value="12" />
+                        </asp:DropDownList>
+
+                        <asp:DropDownList runat="server" ID="chiusuraAnni">
+
+                        </asp:DropDownList>
+
+                            <br />
+                        <br />
+                        <asp:Label ID="labelChiusuraError" 
+                                                       runat="server"  
+                                                       ForeColor="Red"
+                            Text="Prima di proseguire è necessario compilare tutti i campi"
+                                                       Visible="false">
+                                            </asp:Label>
+                        <br />
+                            <br />
+
+                            <asp:Button ID="Button3" 
+                                        runat="server" 
+                                        CausesValidation="False" 
+                                        Text="Conferma" 
+                                        OnClientClick="return confirm ('Confermare la chiusura?');"
+                                        OnClick="ButtonConfirmChiusura_Click"/>
+                                    
+                        <br />
+                    </div>
+
+                    <div align="center">
+                        <br />
+                        <asp:Button ID="ButtonChiudiChiusura" OnClick="ButtonCloseChiusura_Click" runat="server" Text="Chiudi" CssClass="button" />
+                        <br />
+                        <br />
+                    </div>
+                                
+                </asp:Panel>
+
 		    <table width="100%" cellspacing="5" cellpadding="10">
 		    <tr>
 			    <td class="singleborder" valign="top" width="75%">
@@ -453,6 +531,13 @@
 					            <ItemTemplate>
 					                <asp:Button ID="Button1" runat="server" CausesValidation="False" CommandName="Edit"
 						            Text="Modifica" Visible="<%# (role <= 2) ? true : false %>" />
+									<asp:Button ID="ButtonChiusura" 
+                                                        runat="server" 
+                                                        CausesValidation="False" 
+                                                        CommandName="Close"
+                                                        Text="Chiusura" 
+                                                        Visible="<%# (role <= 2) ? true : false %>"
+                                                        OnClick="ButtonChiusura_Click" />
 					                <asp:Button ID="Button3" 
 					                            runat="server" 
 					                            CausesValidation="False" 
@@ -526,7 +611,7 @@
                                                          ON jpoc.id_legislatura = ll.id_legislatura
 				                                      LEFT OUTER JOIN tbl_comuni AS cmn 
 				                                         ON pp.id_comune_nascita = cmn.id_comune 
-				                                      WHERE pp.deleted = 0
+				                                      WHERE pp.deleted = 0 AND pp.chiuso = 0
 				                                        AND jpoc.deleted = 0
 		                                                AND oo.deleted = 0
 		                                                AND oo.id_categoria_organo = 4 --'giunta regionale' 

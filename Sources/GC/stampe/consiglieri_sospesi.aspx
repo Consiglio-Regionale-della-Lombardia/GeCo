@@ -82,13 +82,13 @@
 	                                             (SELECT cognome + ' ' + nome 
 		                                          FROM persona pp1
 		                                          WHERE jps.sostituito_da = pp1.id_persona
-                                                    AND pp1.deleted = 0) as sostituto
+                                                    AND pp1.deleted = 0 AND pp.chiuso = 0) as sostituto
                                           FROM persona AS pp
                                           INNER JOIN join_persona_sospensioni AS jps
                                             ON pp.id_persona = jps.id_persona 
                                           INNER JOIN legislature AS ll
                                             ON jps.id_legislatura = ll.id_legislatura
-                                          WHERE pp.deleted = 0
+                                          WHERE pp.deleted = 0 AND pp.chiuso = 0
                                             AND jps.deleted = 0
                                           ORDER BY ll.durata_legislatura_da DESC,
 		                                           pp.cognome, pp.nome ASC,

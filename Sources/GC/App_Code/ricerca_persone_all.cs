@@ -63,7 +63,7 @@ public class ricerca_persone_all : System.Web.Services.WebService
         SqlCommand sqlComd = new SqlCommand(@"SELECT TOP 15 cognome + ' ' + nome AS nome_completo 
                                               FROM persona 
                                               WHERE (nome LIKE '" + prefixText + "%' OR cognome LIKE '" + prefixText + "%') " +
-                                               "AND (deleted = 0) " +
+                                               "AND (deleted = 0) AND pp.chiuso = 0 " +
                                              "ORDER BY cognome, nome", conn);
         SqlDataAdapter sqlAdpt = new SqlDataAdapter();
         sqlAdpt.SelectCommand = sqlComd;

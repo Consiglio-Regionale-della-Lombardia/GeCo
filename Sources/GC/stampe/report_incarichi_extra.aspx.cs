@@ -58,7 +58,7 @@ public partial class report_incarichi_extra : System.Web.UI.Page
                                 ON (sc.id_seduta = ss.id_seduta AND ss.deleted = 0)
 	                        LEFT OUTER JOIN incarico ii
 		                        ON ii.id_scheda = sc.id_scheda
-                            WHERE pp.deleted = 0
+                            WHERE pp.deleted = 0 AND pp.chiuso = 0 
                             AND sc.deleted = 0 ";
 
     /// <summary>
@@ -78,7 +78,7 @@ public partial class report_incarichi_extra : System.Web.UI.Page
                                  ON sc.id_legislatura = ll.id_legislatura
                               LEFT OUTER JOIN sedute AS ss
                                  ON (sc.id_seduta = ss.id_seduta AND ss.deleted = 0)
-                              WHERE pp.deleted = 0
+                              WHERE pp.deleted = 0 AND pp.chiuso = 0 
                                 AND sc.deleted = 0
                                 AND sc.data = (SELECT TOP(1) MAX(data)
 				                               FROM scheda

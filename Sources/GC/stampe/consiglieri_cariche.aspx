@@ -97,7 +97,7 @@
                                             ON (pp.id_persona = jpgp.id_persona AND jpgp.deleted = 0 AND jpgp.data_fine IS NULL)
                                           LEFT OUTER JOIN gruppi_politici AS gg
                                             ON (jpgp.id_gruppo = gg.id_gruppo AND gg.deleted = 0)
-                                          WHERE pp.deleted = 0
+                                          WHERE pp.deleted = 0 AND pp.chiuso = 0
                                             AND oo.deleted = 0
                                             AND jpoc.deleted = 0 
                                           ORDER BY pp.cognome ASC, pp.nome ASC,

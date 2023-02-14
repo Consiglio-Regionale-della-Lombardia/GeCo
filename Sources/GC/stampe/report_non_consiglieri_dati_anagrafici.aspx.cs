@@ -62,7 +62,7 @@ public partial class report_non_consiglieri_dati_anagrafici : System.Web.UI.Page
                         ON pp.id_persona = jpr.id_persona
                       LEFT OUTER JOIN tbl_comuni AS tc2
                         ON jpr.id_comune_residenza = tc2.id_comune
-                      WHERE pp.deleted = 0
+                      WHERE pp.deleted = 0 AND pp.chiuso = 0 
                         AND jpoc.deleted = 0
                         AND oo.deleted = 0
                         AND cc.id_tipo_carica = 3 -- 'assessore non consigliere' 

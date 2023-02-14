@@ -104,7 +104,7 @@ public partial class report_consiglieri_cariche_ricoperte : System.Web.UI.Page
 						                            ON jpoc.id_carica = cc.id_carica
 						                          INNER JOIN organi AS oo
 						                            ON jpoc.id_organo = oo.id_organo
-						                          WHERE pp.deleted = 0
+						                          WHERE pp.deleted = 0 AND pp.chiuso = 0
 						                            AND jpoc.deleted = 0
 						                            AND oo.deleted = 0
                                                     AND jpoc.id_legislatura = @id_leg
@@ -342,7 +342,7 @@ public partial class report_consiglieri_cariche_ricoperte : System.Web.UI.Page
 						                              ON jpoc.id_carica = cc.id_carica
 						                            INNER JOIN organi AS oo
 						                              ON jpoc.id_organo = oo.id_organo
-						                            WHERE pp.deleted = 0
+						                            WHERE pp.deleted = 0 AND pp.chiuso = 0 
 						                              AND jpoc.deleted = 0
 						                              AND oo.deleted = 0
                                                       AND jpoc.id_legislatura = @id_leg

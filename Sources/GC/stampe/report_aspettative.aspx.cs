@@ -46,7 +46,7 @@ public partial class report_aspettative : System.Web.UI.Page
                         ON pp.id_persona = jpa.id_persona
                       INNER JOIN legislature AS ll
                         ON jpa.id_legislatura = ll.id_legislatura
-                      WHERE pp.deleted = 0
+                      WHERE pp.deleted = 0 AND pp.chiuso = 0 
                         AND jpa.deleted = 0
                         AND ll.id_legislatura = @id_leg";
 

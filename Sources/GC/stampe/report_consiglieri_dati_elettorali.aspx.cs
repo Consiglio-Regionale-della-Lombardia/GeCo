@@ -62,7 +62,7 @@ public partial class report_consiglieri_dati_elettorali : System.Web.UI.Page
                          ON (jpgp.id_gruppo = gg.id_gruppo) 
                       INNER JOIN cariche AS cc
                          ON (jpoc.id_carica = cc.id_carica)  
-                      WHERE pp.deleted = 0 
+                      WHERE pp.deleted = 0 AND pp.chiuso = 0 
                       and lower(cc.nome_carica) in ('consigliere regionale','consigliere regionale supplente') 
                       AND jpoc.id_legislatura = @id_leg
                       AND jpre.id_legislatura = @id_leg

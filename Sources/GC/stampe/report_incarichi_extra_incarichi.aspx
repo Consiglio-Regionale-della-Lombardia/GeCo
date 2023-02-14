@@ -91,7 +91,7 @@
                                                   FROM persona AS pp
                                                   --INNER JOIN scheda AS sc
                                                      --ON pp.id_persona = sc.id_persona
-                                                  WHERE pp.deleted = 0
+                                                  WHERE pp.deleted = 0 AND pp.chiuso = 0 
                                                     --AND sc.deleted = 0
                                                   ORDER BY nominativo"></asp:SqlDataSource>
                         </td>

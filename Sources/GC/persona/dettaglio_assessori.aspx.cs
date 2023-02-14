@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -32,6 +33,8 @@ public partial class dettaglio_assessori : System.Web.UI.Page
     string conn_string = ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString;
 
     public string photoName;
+    public bool isClosingVisible = false;
+    public Dictionary<int, string> causeFine = new Dictionary<int, string>();
 
     public int id_user;
     public int role;
@@ -70,7 +73,7 @@ public partial class dettaglio_assessori : System.Web.UI.Page
                                       ON (pp.id_persona = jpr.id_persona AND jpr.residenza_attuale = 1)
                                    LEFT OUTER JOIN tbl_comuni AS tc_residenza
                                       ON jpr.id_comune_residenza = tc_residenza.id_comune
-                                   WHERE pp.deleted = 0 
+                                   WHERE pp.deleted = 0 AND pp.chiuso = 0 
                                      AND jpoc.deleted = 0
                                      AND oo.deleted = 0
                                      AND pp.id_persona = @id_persona 
@@ -124,6 +127,54 @@ public partial class dettaglio_assessori : System.Web.UI.Page
 
             if (string.IsNullOrEmpty(sel_leg_id))
                 sel_leg_id = legislatura_corrente;
+
+            causeFine = GetCauseFine();
+
+            ListItem[] causeFineItems = new ListItem[causeFine.Count + 1];
+            causeFineItems[0] = new ListItem() { Text = "Seleziona una motivazione", Selected = true, Value = 0.ToString() };
+
+            ListItem[] chiusuraGiorniItems = new ListItem[32];
+            chiusuraGiorniItems[0] = new ListItem() { Text = "Seleziona un giorno", Selected = true, Value = 0.ToString() };
+
+            ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2020 + 1];
+            chiusuraAnniItems[0] = new ListItem() { Text = "Seleziona un anno", Selected = true, Value = 0.ToString() };
+
+            int count = 1;
+
+            foreach (var item in causeFine)
+            {
+                causeFineItems[count] = new ListItem() { Text = item.Value, Value = item.Key.ToString() };
+                count++;
+            }
+
+            count = 1;
+            for (int i = 1; i < 32; i++)
+            {
+                chiusuraGiorniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
+                count++;
+            }
+
+            count = 1;
+            for (int i = DateTime.Now.Year; i > 2020; i--)
+            {
+                chiusuraAnniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
+                count++;
+            }
+
+            if (chiusuraCausaFine.Items.Count < 1)
+            {
+                chiusuraCausaFine.Items.AddRange(causeFineItems);
+            }
+
+            if (chiusuraGiorni.Items.Count < 1)
+            {
+                chiusuraGiorni.Items.AddRange(chiusuraGiorniItems);
+            }
+
+            if (chiusuraAnni.Items.Count < 1)
+            {
+                chiusuraAnni.Items.AddRange(chiusuraAnniItems);
+            }
 
             Page.CheckIdPersona(id);
 
@@ -239,6 +290,66 @@ public partial class dettaglio_assessori : System.Web.UI.Page
 
         SetModeVisibility(Request.QueryString["mode"]);
         tabsPersona.SelectTab(EnumTabsPersona.a_dettaglio);
+    }
+
+    private Dictionary<int, string> GetCauseFine()
+    {
+        Dictionary<int, string> causeFine = new Dictionary<int, string>();
+        string query = "select id_causa, descrizione_causa from tbl_cause_fine where tipo_causa = 'Persona-Sospensioni-Sostituzioni'";
+
+        DataTableReader reader = Utility.ExecuteQuery(query);
+
+        while (reader.Read())
+        {
+            causeFine.Add((int)reader[0], (string)reader[1]);
+        }
+
+        return causeFine;
+    }
+
+    protected void ButtonConfirmChiusura_Click(object sender, EventArgs e)
+    {
+        if (chiusuraCausaFine.SelectedItem.Value.Equals("0") ||
+            chiusuraAnni.SelectedItem.Value.Equals("0") ||
+            chiusuraMesi.SelectedItem.Value.Equals("0") ||
+            chiusuraGiorni.SelectedItem.Value.Equals("0"))
+        {
+            labelChiusuraError.Visible = true;
+            return;
+        }
+
+        long idCausaFine = long.Parse(chiusuraCausaFine.SelectedItem.Value);
+        DateTime dataChiusura = DateTime.Parse(chiusuraAnni.SelectedItem.Value + "-" + chiusuraMesi.SelectedItem.Value + "-" + chiusuraGiorni.SelectedItem.Value);
+
+        string query = "EXECUTE dbo.spChiusuraPersona @idPersona = " + id +
+            ", @idLegislatura = " + sel_leg_id +
+            ", @idCausaFine = " + idCausaFine +
+            ", @dataChiusura = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
+
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString);
+        SqlCommand cmd = new SqlCommand();
+
+        cmd.Connection = con;
+        cmd.Connection.Open();
+        cmd.CommandText = query;
+        int id_rec = Convert.ToInt32(cmd.ExecuteScalar());
+        cmd.Connection.Close();
+
+        Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_persona_chisura");
+
+        Response.Redirect("persona_assessori.aspx");
+    }
+
+    protected void ButtonChiusura_Click(object sender, EventArgs e)
+    {
+        isClosingVisible = true;
+        PanelChiusura.Visible = isClosingVisible;
+    }
+
+    protected void ButtonCloseChiusura_Click(object sender, EventArgs e)
+    {
+        isClosingVisible = false;
+        PanelChiusura.Visible = isClosingVisible;
     }
 
     string getLegislatura()

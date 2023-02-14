@@ -120,7 +120,7 @@ public partial class sedute_riepilogo_ragioneria : System.Web.UI.Page
                                    AND ss.id_legislatura = ll.id_legislatura
 	                               AND MONTH(ss.data_seduta) = @mese
                                    AND YEAR(ss.data_seduta) = @anno)
-                             WHERE pp.deleted = 0
+                             WHERE pp.deleted = 0 AND pp.chiuso = 0 
                                AND jpoc.deleted = 0
                                AND oo.deleted = 0
                                AND cc.nome_carica = '@carica'

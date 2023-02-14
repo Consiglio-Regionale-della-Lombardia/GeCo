@@ -141,7 +141,7 @@ WHERE oo.id_categoria_organo = 1 --consiglio regionale
 AND oo.id_legislatura = @id_leg                            
 AND jpoc.deleted = 0 
 AND jpoc.data_fine IS NULL  
-and pp.deleted = 0 ";
+and pp.deleted = 0 AND pp.chiuso = 0";
 
     string select_where = @"";
 
