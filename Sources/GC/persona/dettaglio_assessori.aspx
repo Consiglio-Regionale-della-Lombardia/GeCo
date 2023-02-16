@@ -612,8 +612,8 @@
 				                                      LEFT OUTER JOIN tbl_comuni AS cmn 
 				                                         ON pp.id_comune_nascita = cmn.id_comune 
 				                                      WHERE pp.deleted = 0 AND pp.chiuso = 0
-				                                        AND jpoc.deleted = 0
-		                                                AND oo.deleted = 0
+				                                        AND jpoc.deleted = 0 and jpoc.chiuso = 0
+		                                                AND oo.deleted = 0 and oo.chiuso = 0 
 		                                                AND oo.id_categoria_organo = 4 --'giunta regionale' 
                                                         AND cc.id_tipo_carica IN (1, 2, 3) --like 'assessore%' 
 				                                        AND pp.id_persona = @id_persona

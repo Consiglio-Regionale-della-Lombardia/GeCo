@@ -16,7 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -30,6 +32,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
     string conn_string = ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString;
 
     private string id_leg;
+    public string isClosingVisibleClass = "position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; visibility: hidden;";
 
     public int role;
     string formato = "";
@@ -64,6 +67,38 @@ public partial class legislature_dettaglio : System.Web.UI.Page
             DetailsView1.ChangeMode(DetailsViewMode.Insert);
         }
 
+        ListItem[] chiusuraGiorniItems = new ListItem[32];
+        chiusuraGiorniItems[0] = new ListItem() { Text = "Seleziona un giorno", Selected = true, Value = 0.ToString() };
+
+        ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2020 + 1];
+        chiusuraAnniItems[0] = new ListItem() { Text = "Seleziona un anno", Selected = true, Value = 0.ToString() };
+
+        int count = 1;
+
+        count = 1;
+        for (int i = 1; i < 32; i++)
+        {
+            chiusuraGiorniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
+            count++;
+        }
+
+        count = 1;
+        for (int i = DateTime.Now.Year; i > 2020; i--)
+        {
+            chiusuraAnniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
+            count++;
+        }
+
+        if (chiusuraGiorni.Items.Count < 1)
+        {
+            chiusuraGiorni.Items.AddRange(chiusuraGiorniItems);
+        }
+
+        if (chiusuraAnni.Items.Count < 1)
+        {
+            chiusuraAnni.Items.AddRange(chiusuraAnniItems);
+        }
+
         SetModeVisibility(Request.QueryString["mode"]);
     }
     /// <summary>
@@ -77,6 +112,51 @@ public partial class legislature_dettaglio : System.Web.UI.Page
         Exception ex = Server.GetLastError();
         Session.Contents.Add("error_message", ex.Message.ToString());
         Response.Redirect("../errore.aspx");
+    }
+
+    protected void ButtonChiusura_Click(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack == false)
+        {
+            PanelChiusura.Visible = true;
+        }
+    }
+
+    protected void ButtonCloseChiusura_Click(object sender, EventArgs e)
+    {
+        PanelChiusura.Visible = false;
+    }
+
+    protected void ButtonConfirmChiusura_Click(object sender, EventArgs e)
+    {
+        if (chiusuraAnni.SelectedItem.Value.Equals("0") ||
+            chiusuraMesi.SelectedItem.Value.Equals("0") ||
+            chiusuraGiorni.SelectedItem.Value.Equals("0"))
+        {
+            labelChiusuraError.Visible = true;
+            return;
+        }
+
+        DateTime dataChiusura = DateTime.Parse(chiusuraAnni.SelectedItem.Value + "-" + chiusuraMesi.SelectedItem.Value + "-" + chiusuraGiorni.SelectedItem.Value);
+        List<int> idPersoneLegislatura = new List<int>();
+
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString);
+
+        string querySp = "EXECUTE dbo.spChiusuraLegislatura " +
+            "@idLegislatura = " + id_leg +
+            ", @dataChiusura = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
+
+        SqlCommand cmd = new SqlCommand();
+
+        cmd.Connection = con;
+        cmd.Connection.Open();
+        cmd.CommandText = querySp;
+        int id_rec = Convert.ToInt32(cmd.ExecuteScalar());
+        cmd.Connection.Close();
+
+        Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_legislature_chiusura");
+
+        Response.Redirect("gestisciLegislature.aspx");
     }
 
     /// <summary>

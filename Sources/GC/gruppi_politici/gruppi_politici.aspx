@@ -267,10 +267,10 @@
 				                                ON (jgpl.id_legislatura = ll.id_legislatura AND jpgp.id_legislatura = ll.id_legislatura)
                                               INNER JOIN cariche AS cc 
 				                                ON jpgp.id_carica = cc.id_carica 
-				                              WHERE pp.deleted = 0
-				                                AND gg.deleted = 0
-				                                AND jpgp.deleted = 0
-				                                AND jgpl.deleted = 0 
+				                              WHERE pp.deleted = 0 and pp.chiuso = 0 
+				                                AND gg.deleted = 0 AND gg.chiuso = 0
+				                                AND jpgp.deleted = 0 and jpgp.chiuso = 0 
+				                                AND jgpl.deleted = 0 and jgpl.chiuso = 0
 				                                AND pp.id_persona = @id" >
 			    <SelectParameters>
 				    <asp:SessionParameter Name="id" SessionField="id_persona" />
@@ -453,8 +453,8 @@
 						                                            ON gg.id_gruppo = jgpl.id_gruppo
 						                                          INNER JOIN legislature AS ll
 						                                            ON jgpl.id_legislatura = ll.id_legislatura
-						                                          WHERE gg.deleted = 0
-						                                            AND jgpl.deleted = 0
+						                                          WHERE gg.deleted = 0 and gg.chiuso = 0 
+						                                            AND jgpl.deleted = 0 and jgpl.chiuso = 0 
 						                                            AND ll.id_legislatura = @id_legislatura
 						                                          ORDER BY nome_gruppo">
 						            <SelectParameters>
@@ -496,8 +496,8 @@
 						                                            ON gg.id_gruppo = jgpl.id_gruppo
 						                                          INNER JOIN legislature AS ll
 						                                            ON jgpl.id_legislatura = ll.id_legislatura
-						                                          WHERE gg.deleted = 0
-						                                            AND jgpl.deleted = 0 
+						                                          WHERE gg.deleted = 0 AND gg.chiuso = 0 
+						                                            AND jgpl.deleted = 0 and jgpl.chiuso = 0 
 						                                            AND ll.id_legislatura = @id_legislatura
 						                                          ORDER BY nome_gruppo" >
                                     <SelectParameters>

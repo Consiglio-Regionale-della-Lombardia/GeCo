@@ -53,8 +53,8 @@ public partial class gestisciGruppiPolitici : System.Web.UI.Page
                                  ON jgpl.id_legislatura = ll.id_legislatura 
                                LEFT OUTER JOIN tbl_cause_fine AS tcf 
                                  ON gg.id_causa_fine = tcf.id_causa 
-                               WHERE gg.deleted = 0
-                                 AND jgpl.deleted = 0";
+                               WHERE gg.deleted = 0 and gg.chiuso = 0 
+                                 AND jgpl.deleted = 0 and jgpl.chiuso = 0";
 
     string select_orderby = @" ORDER BY nome_gruppo";
 
@@ -352,7 +352,7 @@ public partial class gestisciGruppiPolitici : System.Web.UI.Page
 
         string query_template = @"SELECT COUNT(*) 
                                   FROM join_gruppi_politici_legislature
-                                  WHERE deleted = 0 
+                                  WHERE deleted = 0 and chiuso = 0 
                                     AND id_gruppo = @id_gruppo
                                     AND id_legislatura = " + legislatura_corrente;
 

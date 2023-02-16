@@ -42,6 +42,78 @@
     	
 	    <div id="tab_content">
 	        <div id="tab_content_content">
+
+				<asp:Panel ID="PanelChiusura" 
+                    runat="server" 
+                    Width="1000px" 
+                    BackColor="White" 
+                    BorderColor="DarkSeaGreen"
+                    BorderWidth="2px"
+					Visible="true"
+					Style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto;">
+
+                    <div align="center">
+                        <br />
+                                    
+                        <h3>CHIUSURA</h3>
+                        <br />
+
+
+                        <p>Seleziona la data della chiusura</p>
+                            <asp:DropDownList runat="server" ID="chiusuraGiorni">
+
+                        </asp:DropDownList>
+
+                        <asp:DropDownList runat="server" ID="chiusuraMesi">
+                            <asp:ListItem Text="Seleziona un mese" Value="0" />
+                            <asp:ListItem Text="Gennaio" Value="01" />
+                            <asp:ListItem Text="Febbraio" Value="02" />
+                            <asp:ListItem Text="Marzo" Value="03" />
+                            <asp:ListItem Text="Aprile" Value="04" />
+                            <asp:ListItem Text="Maggio" Value="05" />
+                            <asp:ListItem Text="Giugno" Value="06" />
+                            <asp:ListItem Text="Luglio" Value="07" />
+                            <asp:ListItem Text="Agosto" Value="08" />
+                            <asp:ListItem Text="Settembre" Value="09" />
+                            <asp:ListItem Text="Ottobre" Value="10" />
+                            <asp:ListItem Text="Novembre" Value="11" />
+                            <asp:ListItem Text="Dicembre" Value="12" />
+                        </asp:DropDownList>
+
+                        <asp:DropDownList runat="server" ID="chiusuraAnni">
+
+                        </asp:DropDownList>
+
+                            <br />
+                        <br />
+                        <asp:Label ID="labelChiusuraError" 
+                                                       runat="server"  
+                                                       ForeColor="Red"
+                            Text="Prima di proseguire è necessario compilare tutti i campi"
+                                                       Visible="false">
+                                            </asp:Label>
+                        <br />
+                            <br />
+
+                            <asp:Button ID="Button3" 
+                                        runat="server" 
+                                        CausesValidation="False" 
+                                        Text="Conferma" 
+                                        OnClientClick="return confirm ('Confermare la chiusura?');"
+                                        OnClick="ButtonConfirmChiusura_Click"/>
+                                    
+                        <br />
+                    </div>
+
+                    <div align="center">
+                        <br />
+                        <asp:Button ID="ButtonChiudiChiusura" OnClick="ButtonCloseChiusura_Click" runat="server" Text="Chiudi" CssClass="button" />
+                        <br />
+                        <br />
+                    </div>
+                                
+                </asp:Panel>
+
 		    <asp:UpdatePanel ID="UpdatePanelMaster" runat="server" UpdateMode="Conditional">
 		        <ContentTemplate>
 			    <table width="100%" cellspacing="5" cellpadding="10">
@@ -323,6 +395,13 @@
 						                        CommandName="Edit"
 							                    Text="Modifica" 
 							                    Visible="<%# (role <= 2) ? true : false %>" />
+									<asp:Button ID="ButtonChiusura" 
+                                                        runat="server" 
+                                                        CausesValidation="False" 
+                                                        CommandName="Close"
+                                                        Text="Chiusura" 
+                                                        Visible="<%# (role <= 2) ? true : false %>"
+                                                        OnClick="ButtonChiusura_Click" />
     							                
 						            <%--<asp:Button ID="Button3" 
 						                            runat="server" 

@@ -419,7 +419,7 @@
 		                                                 data_fine 
 		                                          FROM gruppi_politici 
 		                                          WHERE id_gruppo != @id_gruppo 
-		                                            AND deleted = 0 
+		                                            AND deleted = 0 and chiuso = 0 
 		                                            AND attivo = 1 
 		                                            AND data_fine IS NULL
 		                                          ORDER BY nome_gruppo" >
