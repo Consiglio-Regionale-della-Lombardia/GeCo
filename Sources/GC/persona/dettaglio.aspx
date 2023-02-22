@@ -122,19 +122,6 @@
                         </asp:DropDownList>
 
                         <asp:DropDownList runat="server" ID="chiusuraMesi">
-                            <asp:ListItem Text="Seleziona un mese" Value="0" />
-                            <asp:ListItem Text="Gennaio" Value="01" />
-                            <asp:ListItem Text="Febbraio" Value="02" />
-                            <asp:ListItem Text="Marzo" Value="03" />
-                            <asp:ListItem Text="Aprile" Value="04" />
-                            <asp:ListItem Text="Maggio" Value="05" />
-                            <asp:ListItem Text="Giugno" Value="06" />
-                            <asp:ListItem Text="Luglio" Value="07" />
-                            <asp:ListItem Text="Agosto" Value="08" />
-                            <asp:ListItem Text="Settembre" Value="09" />
-                            <asp:ListItem Text="Ottobre" Value="10" />
-                            <asp:ListItem Text="Novembre" Value="11" />
-                            <asp:ListItem Text="Dicembre" Value="12" />
                         </asp:DropDownList>
 
                         <asp:DropDownList runat="server" ID="chiusuraAnni">
@@ -201,19 +188,6 @@
                         </asp:DropDownList>
 
                         <asp:DropDownList runat="server" ID="chiusuraMesiStorico">
-                            <asp:ListItem Text="Seleziona un mese" Value="0" />
-                            <asp:ListItem Text="Gennaio" Value="01" />
-                            <asp:ListItem Text="Febbraio" Value="02" />
-                            <asp:ListItem Text="Marzo" Value="03" />
-                            <asp:ListItem Text="Aprile" Value="04" />
-                            <asp:ListItem Text="Maggio" Value="05" />
-                            <asp:ListItem Text="Giugno" Value="06" />
-                            <asp:ListItem Text="Luglio" Value="07" />
-                            <asp:ListItem Text="Agosto" Value="08" />
-                            <asp:ListItem Text="Settembre" Value="09" />
-                            <asp:ListItem Text="Ottobre" Value="10" />
-                            <asp:ListItem Text="Novembre" Value="11" />
-                            <asp:ListItem Text="Dicembre" Value="12" />
                         </asp:DropDownList>
 
                         <asp:DropDownList runat="server" ID="chiusuraAnniStorico">
