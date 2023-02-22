@@ -35,7 +35,9 @@ public partial class dettaglio : System.Web.UI.Page
     public string photoName;
     public string newCardNumber;
     public bool isClosingVisible = false;
+    public bool isClosed = false;
     public Dictionary<int, string> causeFine = new Dictionary<int, string>();
+    List<string> mesi = new List<string>() { "", "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" };
 
     public int id_user;
     public int role;
@@ -73,7 +75,7 @@ public partial class dettaglio : System.Web.UI.Page
                                       ON (pp.id_persona = jpr.id_persona AND jpr.residenza_attuale = 1)
                                    LEFT OUTER JOIN tbl_comuni AS tc_residenza
                                       ON jpr.id_comune_residenza = tc_residenza.id_comune
-                                   WHERE pp.deleted = 0 and pp.chiuso = 0
+                                   WHERE pp.deleted = 0
                                      AND jpoc.deleted = 0
                                      AND oo.deleted = 0
                                      AND pp.id_persona = @id_persona 
@@ -92,7 +94,7 @@ public partial class dettaglio : System.Web.UI.Page
                             ON pp.id_persona = jps.id_persona
                          INNER JOIN legislature AS ll
                             ON jps.id_legislatura = ll.id_legislatura
-                         WHERE pp.deleted = 0 AND pp.chiuso = 0
+                         WHERE pp.deleted = 0 
                            AND jps.deleted = 0 
                            AND jps.data_inizio <= GETDATE()
                            AND (jps.data_fine >= GETDATE() OR jps.data_fine IS NULL)
@@ -187,10 +189,13 @@ public partial class dettaglio : System.Web.UI.Page
             ListItem[] causeFineItems = new ListItem[causeFine.Count + 1];
             causeFineItems[0] = new ListItem() { Text = "Seleziona una motivazione", Selected = true, Value = 0.ToString() };
 
-            ListItem[] chiusuraGiorniItems = new ListItem[32];
+            ListItem[] chiusuraGiorniItems = new ListItem[DateTime.Now.Day + 1];
             chiusuraGiorniItems[0] = new ListItem() { Text = "Seleziona un giorno", Selected = true, Value = 0.ToString() };
 
-            ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2020 + 1];
+            ListItem[] chiusuraMesiItems = new ListItem[DateTime.Now.Month + 1];
+            chiusuraMesiItems[0] = new ListItem() { Text = "Seleziona un mese", Selected = true, Value = 0.ToString() };
+
+            ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2022 + 1];
             chiusuraAnniItems[0] = new ListItem() { Text = "Seleziona un anno", Selected = true, Value = 0.ToString() };
 
             int count = 1;
@@ -202,22 +207,24 @@ public partial class dettaglio : System.Web.UI.Page
             }
 
             count = 1;
-            for (int i = 1; i < 32; i++)
+            for (int i = 1; i < DateTime.Now.Day + 1; i++)
             {
                 chiusuraGiorniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
                 count++;
             }
 
             count = 1;
-            for (int i = DateTime.Now.Year; i > 2020; i--)
+            for (int i = 1; i < DateTime.Now.Month + 1; i++)
             {
-                chiusuraAnniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
+                chiusuraMesiItems[count] = new ListItem() { Text = mesi[i], Value = i.ToString() };
                 count++;
             }
 
-            if (chiusuraCausaFine.Items.Count < 1)
+            count = 1;
+            for (int i = DateTime.Now.Year; i > 2022; i--)
             {
-                chiusuraCausaFine.Items.AddRange(causeFineItems);
+                chiusuraAnniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
+                count++;
             }
 
             if (chiusuraGiorni.Items.Count < 1)
@@ -225,9 +232,29 @@ public partial class dettaglio : System.Web.UI.Page
                 chiusuraGiorni.Items.AddRange(chiusuraGiorniItems);
             }
 
+            if (chiusuraMesi.Items.Count < 1)
+            {
+                chiusuraMesi.Items.AddRange(chiusuraMesiItems);
+            }
+
             if (chiusuraAnni.Items.Count < 1)
             {
                 chiusuraAnni.Items.AddRange(chiusuraAnniItems);
+            }
+
+            if (chiusuraGiorniStorico.Items.Count < 1)
+            {
+                chiusuraGiorniStorico.Items.AddRange(chiusuraGiorniItems);
+            }
+
+            if (chiusuraMesiStorico.Items.Count < 1)
+            {
+                chiusuraMesiStorico.Items.AddRange(chiusuraMesiItems);
+            }
+
+            if (chiusuraAnniStorico.Items.Count < 1)
+            {
+                chiusuraAnniStorico.Items.AddRange(chiusuraAnniItems);
             }
 
             Page.CheckIdPersona(id);
@@ -320,6 +347,9 @@ public partial class dettaglio : System.Web.UI.Page
         tabsPersona.SelectTab(EnumTabsPersona.a_dettaglio);
 
         SetModeVisibility(Request.QueryString["mode"]);
+
+        CheckBox checkChiuso = DetailsView1.FindControl("chkbox_chiuso_item") as CheckBox;
+        isClosed = checkChiuso.Checked;
     }
 
     /// <summary>
@@ -347,6 +377,70 @@ public partial class dettaglio : System.Web.UI.Page
         Exception ex = Server.GetLastError();
         Session.Contents.Add("error_message", ex.Message.ToString());
         Response.Redirect("../errore.aspx");
+    }
+
+    protected void ButtonVediChiusure_Click(object sender, EventArgs e)
+    {
+        PanelVediChiusure.Visible = true;
+
+        DataTableReader reader = Utility.ExecuteQuery("select join_persona_chisura.id_rec, tbl_cause_fine.descrizione_causa , data_chiusura from join_persona_chisura inner join tbl_cause_fine on tbl_cause_fine.id_causa = join_persona_chisura.id_causa_fine where join_persona_chisura.id_persona = " + id + " order by data_chiusura desc");
+
+        DataTable dataTable = new DataTable();
+        dataTable.Load(reader);
+
+        TableRow[] tableRowsChisure = new TableRow[dataTable.Rows.Count];
+
+        int counter = 0;
+        foreach (DataRow row in dataTable.Rows)
+        {
+            TableRow tableRow = new TableRow();
+
+            TableCell[] tableCells = new TableCell[2];
+            tableCells[0] = new TableCell() { Text = row[1].ToString() };
+
+            DateTime dataChiusura = (DateTime)row[2];
+            tableCells[1] = new TableCell() { Text = dataChiusura.ToString("dd/MM/yyyy") };
+
+            tableRow.Cells.AddRange(tableCells);
+            tableRowsChisure[counter++] = tableRow;
+        }
+
+        TableStoricoChiusure.Rows.AddRange(tableRowsChisure);
+    }
+
+    protected void ButtonVediChiusureAnnulla_Click(object sender, EventArgs e)
+    {
+        PanelVediChiusure.Visible = false;
+    }
+
+    protected void ButtonVediChiusureConferma_Click(object sender, EventArgs e)
+    {
+        if (chiusuraGiorniStorico.SelectedItem.Value.Equals("0") ||
+            chiusuraMesiStorico.SelectedItem.Value.Equals("0") ||
+            chiusuraAnniStorico.SelectedItem.Value.Equals("0"))
+        {
+            labelChiusuraErrorStorico.Visible = true;
+            return;
+        }
+
+        DateTime dataChiusura = DateTime.Parse(chiusuraAnniStorico.SelectedItem.Value + "-" + chiusuraMesiStorico.SelectedItem.Value + "-" + chiusuraGiorniStorico.SelectedItem.Value);
+
+        string query = "EXECUTE dbo.spAggiornaDataFinePersona @idPersona = " + id +
+            ", @idLegislatura = " + sel_leg_id +
+            ", @dataChiusura = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
+
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString);
+        SqlCommand cmd = new SqlCommand();
+
+        cmd.Connection = con;
+        cmd.Connection.Open();
+        cmd.CommandText = query;
+        int id_rec = Convert.ToInt32(cmd.ExecuteScalar());
+        cmd.Connection.Close();
+
+        Audit.LogUpdate(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_persona_chisura");
+
+        PanelVediChiusure.Visible = false;
     }
 
     /// <summary>
@@ -582,6 +676,7 @@ public partial class dettaglio : System.Web.UI.Page
             lbl_error.Visible = true;
         }
     }
+
     /// <summary>
     /// Redirect post-insert
     /// </summary>

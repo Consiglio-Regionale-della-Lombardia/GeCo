@@ -11,6 +11,8 @@
              TagPrefix="cc1" %>
              
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+	<asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="True">
+			    </asp:ScriptManager>
 <table style="width: 98%" align="center" cellpadding="0" cellspacing="0">
 <tr>
     <td>
@@ -49,8 +51,7 @@
                     BackColor="White" 
                     BorderColor="DarkSeaGreen"
                     BorderWidth="2px"
-					Visible="true"
-					Style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto;">
+					Style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; display: none">
 
                     <div align="center">
                         <br />
@@ -108,6 +109,72 @@
                     <div align="center">
                         <br />
                         <asp:Button ID="ButtonChiudiChiusura" OnClick="ButtonCloseChiusura_Click" runat="server" Text="Chiudi" CssClass="button" />
+                        <br />
+                        <br />
+                    </div>
+                                
+                </asp:Panel>
+
+				<asp:Panel ID="PanelVediChiusure" 
+                    runat="server" 
+                    Width="1000px" 
+                    BackColor="White" 
+                    BorderColor="DarkSeaGreen"
+                    BorderWidth="2px"
+                    Style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; display: none">
+
+                    <div align="center">
+                        <br />
+                                    
+                        <h3>STORICO CHIUSURA</h3>
+
+                            <br />
+
+                        <asp:Table ID="TableStoricoChiusure" runat="server" CellPadding="10" CellSpacing="5" Width="300px" BorderWidth="2px" GridLines="Horizontal" HorizontalAlign="Center">
+                            <asp:TableHeaderRow>
+                                <asp:TableHeaderCell>Causa chiusura</asp:TableHeaderCell>
+                                <asp:TableHeaderCell>Data chiusura</asp:TableHeaderCell>
+                            </asp:TableHeaderRow>
+                            
+                        </asp:Table>
+
+                        <p>Aggiorna l'ultima data di chiusura</p>
+
+                            <asp:DropDownList runat="server" ID="chiusuraGiorniStorico">
+
+                        </asp:DropDownList>
+
+                        <asp:DropDownList runat="server" ID="chiusuraMesiStorico">
+                        </asp:DropDownList>
+
+                        <asp:DropDownList runat="server" ID="chiusuraAnniStorico">
+
+                        </asp:DropDownList>
+
+                            <br />
+                        <br />
+                        <asp:Label ID="labelChiusuraErrorStorico" 
+                                                       runat="server"  
+                                                       ForeColor="Red"
+                            Text="Prima di proseguire è necessario compilare tutti i campi"
+                                                       Visible="false">
+                                            </asp:Label>
+                        <br />
+                            <br />
+
+                            <asp:Button ID="Button4" 
+                                        runat="server" 
+                                        CausesValidation="False" 
+                                        Text="Conferma" 
+                                        OnClientClick="return confirm ('Confermare la modifica della chiusura?');"
+                                        OnClick="ButtonVediChiusureConferma_Click"/>
+                                    
+                        <br />
+                    </div>
+
+                    <div align="center">
+                        <br />
+                        <asp:Button ID="Button5" OnClick="ButtonVediChiusureAnnulla_Click" runat="server" Text="Annulla" CssClass="button" />
                         <br />
                         <br />
                     </div>
@@ -356,6 +423,15 @@
 						            </asp:DropDownList>
 						        </EditItemTemplate>
 					        </asp:TemplateField>
+
+							<asp:TemplateField HeaderText="Chiuso?">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkbox_chiuso_item" 
+                                                          runat="server" 
+                                                          Checked='<%# Convert.ToBoolean(Eval("attiva")) %>' 
+                                                          Enabled="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
     					    
 					        <asp:TemplateField ShowHeader="False">
 						        <EditItemTemplate>
@@ -395,13 +471,22 @@
 						                        CommandName="Edit"
 							                    Text="Modifica" 
 							                    Visible="<%# (role <= 2) ? true : false %>" />
+
+									<asp:Button ID="ButtonVediChiusure" 
+                                                        runat="server" 
+                                                        CausesValidation="False" 
+                                                        CommandName="VediChiusure"
+                                                        Text="Vedi chiusure" 
+                                                        Visible="<%# (role <= 2 && !isClosed) ? true : false %>"
+                                                        OnClientClick="showPanelVediChiusure()" />
+
 									<asp:Button ID="ButtonChiusura" 
                                                         runat="server" 
                                                         CausesValidation="False" 
                                                         CommandName="Close"
                                                         Text="Chiusura" 
-                                                        Visible="<%# (role <= 2) ? true : false %>"
-                                                        OnClick="ButtonChiusura_Click" />
+                                                        Visible="<%# (role <= 2 && isClosed) ? true : false %>"
+                                                        OnClientClick="showPanelChiusura()" />
     							                
 						            <%--<asp:Button ID="Button3" 
 						                            runat="server" 
@@ -496,8 +581,7 @@
                                                   ORDER BY descrizione_causa" >
 			    </asp:SqlDataSource>
 			    
-			    <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="True">
-			    </asp:ScriptManager>
+			    
 		        </ContentTemplate>
 		    </asp:UpdatePanel>
 		    
@@ -547,4 +631,25 @@
     </td>
 </tr>
 </table>
+	<script type="text/javascript">
+
+		function showPanelVediChiusure() {
+			console.log("click");
+
+			objPanel = document.getElementById("ctl00_ContentPlaceHolder1_PanelVediChiusure");
+			console.log(objPanel);
+
+			objPanel.style.display = 'block';
+		}
+
+        function showPanelChiusura() {
+            console.log("click");
+
+            objPanel = document.getElementById("ctl00_ContentPlaceHolder1_PanelChiusura");
+            console.log(objPanel);
+
+            objPanel.style.display = 'block';
+        }
+
+    </script>
 </asp:Content>

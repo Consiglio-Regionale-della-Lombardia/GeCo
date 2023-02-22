@@ -32,7 +32,9 @@ public partial class legislature_dettaglio : System.Web.UI.Page
     string conn_string = ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString;
 
     private string id_leg;
+    public bool isClosed = false;
     public string isClosingVisibleClass = "position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; visibility: hidden;";
+    List<string> mesi = new List<string>() { "", "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" };
 
     public int role;
     string formato = "";
@@ -57,6 +59,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        //if (!IsPostBack) { PanelVediChiusure.Style.Add("display", "none"); }
         id_leg = Request.QueryString["id"];
         string nuovo = Request.QueryString["nuovo"];
 
@@ -67,23 +70,33 @@ public partial class legislature_dettaglio : System.Web.UI.Page
             DetailsView1.ChangeMode(DetailsViewMode.Insert);
         }
 
-        ListItem[] chiusuraGiorniItems = new ListItem[32];
+        ListItem[] chiusuraGiorniItems = new ListItem[DateTime.Now.Day + 1];
         chiusuraGiorniItems[0] = new ListItem() { Text = "Seleziona un giorno", Selected = true, Value = 0.ToString() };
 
-        ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2020 + 1];
+        ListItem[] chiusuraMesiItems = new ListItem[DateTime.Now.Month + 1];
+        chiusuraMesiItems[0] = new ListItem() { Text = "Seleziona un mese", Selected = true, Value = 0.ToString() };
+
+        ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2022 + 1];
         chiusuraAnniItems[0] = new ListItem() { Text = "Seleziona un anno", Selected = true, Value = 0.ToString() };
 
         int count = 1;
 
         count = 1;
-        for (int i = 1; i < 32; i++)
+        for (int i = 1; i < DateTime.Now.Day + 1; i++)
         {
             chiusuraGiorniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
             count++;
         }
 
         count = 1;
-        for (int i = DateTime.Now.Year; i > 2020; i--)
+        for (int i = 1; i < DateTime.Now.Month + 1; i++)
+        {
+            chiusuraMesiItems[count] = new ListItem() { Text = mesi[i], Value = i.ToString() };
+            count++;
+        }
+
+        count = 1;
+        for (int i = DateTime.Now.Year; i > 2022; i--)
         {
             chiusuraAnniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
             count++;
@@ -94,13 +107,101 @@ public partial class legislature_dettaglio : System.Web.UI.Page
             chiusuraGiorni.Items.AddRange(chiusuraGiorniItems);
         }
 
+        if (chiusuraMesi.Items.Count < 1)
+        {
+            chiusuraMesi.Items.AddRange(chiusuraMesiItems);
+        }
+
         if (chiusuraAnni.Items.Count < 1)
         {
             chiusuraAnni.Items.AddRange(chiusuraAnniItems);
         }
 
+        if (chiusuraGiorniStorico.Items.Count < 1)
+        {
+            chiusuraGiorniStorico.Items.AddRange(chiusuraGiorniItems);
+        }
+
+        if (chiusuraMesiStorico.Items.Count < 1)
+        {
+            chiusuraMesiStorico.Items.AddRange(chiusuraMesiItems);
+        }
+
+        if (chiusuraAnniStorico.Items.Count < 1)
+        {
+            chiusuraAnniStorico.Items.AddRange(chiusuraAnniItems);
+        }
+
+        CheckBox checkChiuso = DetailsView1.FindControl("chkbox_chiuso_item") as CheckBox;
+        isClosed = checkChiuso.Checked;
+
+        GetStoricoChiusure();
+
         SetModeVisibility(Request.QueryString["mode"]);
     }
+
+    private void GetStoricoChiusure()
+    {
+        DataTableReader reader = Utility.ExecuteQuery("select join_legislature_chiusura.id_rec, tbl_cause_fine.descrizione_causa , data_chiusura from join_legislature_chiusura inner join tbl_cause_fine on tbl_cause_fine.id_causa = join_legislature_chiusura.id_causa_fine where join_legislature_chiusura.id_legislatura = " + id_leg + " order by data_chiusura desc");
+
+        DataTable dataTable = new DataTable();
+        dataTable.Load(reader);
+
+        TableRow[] tableRowsChisure = new TableRow[dataTable.Rows.Count];
+
+        int counter = 0;
+        foreach (DataRow row in dataTable.Rows)
+        {
+            TableRow tableRow = new TableRow();
+
+            TableCell[] tableCells = new TableCell[2];
+            tableCells[0] = new TableCell() { Text = row[1].ToString() };
+
+            DateTime dataChiusura = (DateTime)row[2];
+            tableCells[1] = new TableCell() { Text = dataChiusura.ToString("dd/MM/yyyy") };
+
+            tableRow.Cells.AddRange(tableCells);
+            tableRowsChisure[counter++] = tableRow;
+        }
+
+        TableStoricoChiusure.Rows.AddRange(tableRowsChisure);
+    }
+
+    protected void ButtonVediChiusureAnnulla_Click(object sender, EventArgs e)
+    {
+        PanelVediChiusure.Style.Add("display", "none");
+        //PanelVediChiusure.Visible = false;
+    }
+
+    protected void ButtonVediChiusureConferma_Click(object sender, EventArgs e)
+    {
+        if (chiusuraGiorniStorico.SelectedItem.Value.Equals("0") ||
+            chiusuraMesiStorico.SelectedItem.Value.Equals("0") ||
+            chiusuraAnniStorico.SelectedItem.Value.Equals("0"))
+        {
+            labelChiusuraErrorStorico.Visible = true;
+            return;
+        }
+
+        DateTime dataChiusura = DateTime.Parse(chiusuraAnniStorico.SelectedItem.Value + "-" + chiusuraMesiStorico.SelectedItem.Value + "-" + chiusuraGiorniStorico.SelectedItem.Value);
+
+        string query = "EXECUTE dbo.spAggiornaDataFineLegislatura @idLegislatura = " + id_leg +
+            ", @dataChiusura = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
+
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString);
+        SqlCommand cmd = new SqlCommand();
+
+        cmd.Connection = con;
+        cmd.Connection.Open();
+        cmd.CommandText = query;
+        int id_rec = Convert.ToInt32(cmd.ExecuteScalar());
+        cmd.Connection.Close();
+
+        Audit.LogUpdate(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_persona_chisura");
+
+        PanelVediChiusure.Visible = false;
+    }
+
     /// <summary>
     /// Metodo per la gestione della pagina di errore
     /// </summary>

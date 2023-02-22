@@ -231,6 +231,17 @@
 		            </asp:TextBox>
 		        </td>
 
+				<td align="left" valign="middle">
+					Chiuso:
+					<asp:DropDownList ID="DropDownChiuso" 
+		                              runat="server" 
+			                          Width="70px">
+			            <asp:ListItem Text="No" Value="0" />
+						<asp:ListItem Text="Si" Value="1" />
+		            </asp:DropDownList>
+
+				</td>
+
 		        <td align="right" valign="middle">
 		            <asp:Button ID="ButtonRic" 
 		                        runat="server" 
