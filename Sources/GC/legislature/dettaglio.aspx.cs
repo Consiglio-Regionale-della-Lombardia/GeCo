@@ -69,79 +69,89 @@ public partial class legislature_dettaglio : System.Web.UI.Page
         {
             DetailsView1.ChangeMode(DetailsViewMode.Insert);
         }
-
-        ListItem[] chiusuraGiorniItems = new ListItem[DateTime.Now.Day + 1];
-        chiusuraGiorniItems[0] = new ListItem() { Text = "Seleziona un giorno", Selected = true, Value = 0.ToString() };
-
-        ListItem[] chiusuraMesiItems = new ListItem[DateTime.Now.Month + 1];
-        chiusuraMesiItems[0] = new ListItem() { Text = "Seleziona un mese", Selected = true, Value = 0.ToString() };
-
-        ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2022 + 1];
-        chiusuraAnniItems[0] = new ListItem() { Text = "Seleziona un anno", Selected = true, Value = 0.ToString() };
-
-        int count = 1;
-
-        count = 1;
-        for (int i = 1; i < DateTime.Now.Day + 1; i++)
+        else
         {
-            chiusuraGiorniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
-            count++;
+            ListItem[] chiusuraGiorniItems = new ListItem[DateTime.Now.Day + 1];
+            chiusuraGiorniItems[0] = new ListItem() { Text = "Seleziona un giorno", Selected = true, Value = 0.ToString() };
+
+            ListItem[] chiusuraMesiItems = new ListItem[DateTime.Now.Month + 1];
+            chiusuraMesiItems[0] = new ListItem() { Text = "Seleziona un mese", Selected = true, Value = 0.ToString() };
+
+            ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2022 + 1];
+            chiusuraAnniItems[0] = new ListItem() { Text = "Seleziona un anno", Selected = true, Value = 0.ToString() };
+
+            int count = 1;
+
+            count = 1;
+            for (int i = 1; i < DateTime.Now.Day + 1; i++)
+            {
+                chiusuraGiorniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
+                count++;
+            }
+
+            count = 1;
+            for (int i = 1; i < DateTime.Now.Month + 1; i++)
+            {
+                chiusuraMesiItems[count] = new ListItem() { Text = mesi[i], Value = i.ToString() };
+                count++;
+            }
+
+            count = 1;
+            for (int i = DateTime.Now.Year; i > 2022; i--)
+            {
+                chiusuraAnniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
+                count++;
+            }
+
+            if (chiusuraGiorni.Items.Count < 1)
+            {
+                chiusuraGiorni.Items.AddRange(chiusuraGiorniItems);
+            }
+
+            if (chiusuraMesi.Items.Count < 1)
+            {
+                chiusuraMesi.Items.AddRange(chiusuraMesiItems);
+            }
+
+            if (chiusuraAnni.Items.Count < 1)
+            {
+                chiusuraAnni.Items.AddRange(chiusuraAnniItems);
+            }
+
+            if (chiusuraGiorniStorico.Items.Count < 1)
+            {
+                chiusuraGiorniStorico.Items.AddRange(chiusuraGiorniItems);
+            }
+
+            if (chiusuraMesiStorico.Items.Count < 1)
+            {
+                chiusuraMesiStorico.Items.AddRange(chiusuraMesiItems);
+            }
+
+            if (chiusuraAnniStorico.Items.Count < 1)
+            {
+                chiusuraAnniStorico.Items.AddRange(chiusuraAnniItems);
+            }
+
+            if (!string.IsNullOrWhiteSpace(id_leg))
+            {
+                CheckBox checkChiuso = DetailsView1.FindControl("chkbox_chiuso_item") as CheckBox;
+                isClosed = checkChiuso.Checked;
+            }
+
+            GetStoricoChiusure();
         }
-
-        count = 1;
-        for (int i = 1; i < DateTime.Now.Month + 1; i++)
-        {
-            chiusuraMesiItems[count] = new ListItem() { Text = mesi[i], Value = i.ToString() };
-            count++;
-        }
-
-        count = 1;
-        for (int i = DateTime.Now.Year; i > 2022; i--)
-        {
-            chiusuraAnniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
-            count++;
-        }
-
-        if (chiusuraGiorni.Items.Count < 1)
-        {
-            chiusuraGiorni.Items.AddRange(chiusuraGiorniItems);
-        }
-
-        if (chiusuraMesi.Items.Count < 1)
-        {
-            chiusuraMesi.Items.AddRange(chiusuraMesiItems);
-        }
-
-        if (chiusuraAnni.Items.Count < 1)
-        {
-            chiusuraAnni.Items.AddRange(chiusuraAnniItems);
-        }
-
-        if (chiusuraGiorniStorico.Items.Count < 1)
-        {
-            chiusuraGiorniStorico.Items.AddRange(chiusuraGiorniItems);
-        }
-
-        if (chiusuraMesiStorico.Items.Count < 1)
-        {
-            chiusuraMesiStorico.Items.AddRange(chiusuraMesiItems);
-        }
-
-        if (chiusuraAnniStorico.Items.Count < 1)
-        {
-            chiusuraAnniStorico.Items.AddRange(chiusuraAnniItems);
-        }
-
-        CheckBox checkChiuso = DetailsView1.FindControl("chkbox_chiuso_item") as CheckBox;
-        isClosed = checkChiuso.Checked;
-
-        GetStoricoChiusure();
 
         SetModeVisibility(Request.QueryString["mode"]);
     }
 
     private void GetStoricoChiusure()
     {
+        if (string.IsNullOrWhiteSpace(id_leg))
+        {
+            return;
+        }
+
         DataTableReader reader = Utility.ExecuteQuery("select join_legislature_chiusura.id_rec, tbl_cause_fine.descrizione_causa , data_chiusura from join_legislature_chiusura inner join tbl_cause_fine on tbl_cause_fine.id_causa = join_legislature_chiusura.id_causa_fine where join_legislature_chiusura.id_legislatura = " + id_leg + " order by data_chiusura desc");
 
         DataTable dataTable = new DataTable();
@@ -298,11 +308,13 @@ public partial class legislature_dettaglio : System.Web.UI.Page
         }
         else
         {
+            /*
             if (CheckUnclosedLeg())
             {
                 Session.Contents.Add("error_message", "Esistono delle legislature ancora attive. Chiuderle prima di proseguire.");
                 Response.Redirect("../errore.aspx");
             }
+            */
 
             e.Values["durata_legislatura_a"] = null;
             e.Values["attiva"] = 1;

@@ -415,7 +415,7 @@
                                         <ItemTemplate>
                                             <asp:CheckBox ID="chkbox_chiuso_item" 
                                                           runat="server" 
-                                                          Checked='<%# Convert.ToBoolean(Eval("attiva")) %>' 
+                                                          Checked='<%# !Convert.ToBoolean(Eval("attiva")) %>' 
                                                           Enabled="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
