@@ -174,7 +174,12 @@
 
                             <br />
 
-                        <asp:Table ID="TableStoricoChiusure" runat="server" CellPadding="10" CellSpacing="5" Width="300px" BorderWidth="2px" GridLines="Horizontal" HorizontalAlign="Center">
+
+                        <asp:Label Text="Attenzione: prima di poter vedere lo storico è necessario chiudere questo consigliere" runat="server" ID="avvisoNessunoStorico" ForeColor="Red" Visible="false"></asp:Label>
+
+                        <div runat="server" align="center" id="divStorico">
+
+                            <asp:Table ID="TableStoricoChiusure" runat="server" CellPadding="10" CellSpacing="5" Width="300px" BorderWidth="2px" GridLines="Horizontal" HorizontalAlign="Center">
                             <asp:TableHeaderRow>
                                 <asp:TableHeaderCell>Causa chiusura</asp:TableHeaderCell>
                                 <asp:TableHeaderCell>Data chiusura</asp:TableHeaderCell>
@@ -182,7 +187,8 @@
                             
                         </asp:Table>
 
-                        <p>Aggiorna l'ultima data di chiusura</p>
+                            <br />
+                            <p>Aggiorna l'ultima data di chiusura</p>
                             <asp:DropDownList runat="server" ID="chiusuraGiorniStorico">
 
                         </asp:DropDownList>
@@ -211,6 +217,7 @@
                                         Text="Conferma" 
                                         OnClientClick="return confirm ('Confermare la modifica della chiusura?');"
                                         OnClick="ButtonVediChiusureConferma_Click"/>
+                        </div>
                                     
                         <br />
                     </div>
@@ -709,7 +716,7 @@
                                                         CausesValidation="False" 
                                                         CommandName="Close"
                                                         Text="Chiusura" 
-                                                        Visible="<%# (role <= 2 && isClosed) ? true : false %>"
+                                                        Visible="<%# (role <= 2) ? true : false %>"
                                                         OnClick="ButtonChiusura_Click" />
 
                                             <asp:Button ID="ButtonVediChiusure" 
@@ -717,9 +724,9 @@
                                                         CausesValidation="False" 
                                                         CommandName="VediChiusure"
                                                         Text="Vedi chiusure" 
-                                                        Visible="<%# (role <= 2 && !isClosed) ? true : false %>"
+                                                        Visible="<%# (role <= 2) ? true : false %>"
                                                         OnClick="ButtonVediChiusure_Click" />
-                                                
+
                                             <asp:Button ID="Button3" 
                                                         runat="server" 
                                                         CausesValidation="False" 

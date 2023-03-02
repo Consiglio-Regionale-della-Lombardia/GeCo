@@ -157,6 +157,13 @@ public partial class legislature_dettaglio : System.Web.UI.Page
         DataTable dataTable = new DataTable();
         dataTable.Load(reader);
 
+        if (dataTable.Rows.Count < 1)
+        {
+            avvisoNessunoStorico.Visible = true;
+            divStorico.Visible = false;
+            return;
+        }
+
         TableRow[] tableRowsChisure = new TableRow[dataTable.Rows.Count];
 
         int counter = 0;

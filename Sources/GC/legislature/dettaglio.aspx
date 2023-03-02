@@ -117,6 +117,10 @@
 
                             <br />
 
+						<asp:Label Text="Attenzione: prima di poter vedere lo storico è necessario chiudere questa legislatura" runat="server" ID="avvisoNessunoStorico" ForeColor="Red" Visible="false"></asp:Label>
+
+						<div runat="server" align="center" id="divStorico">
+
                         <asp:Table ID="TableStoricoChiusure" runat="server" CellPadding="10" CellSpacing="5" Width="300px" BorderWidth="2px" GridLines="Horizontal" HorizontalAlign="Center">
                             <asp:TableHeaderRow>
                                 <asp:TableHeaderCell>Causa chiusura</asp:TableHeaderCell>
@@ -155,6 +159,7 @@
                                         Text="Conferma" 
                                         OnClientClick="return confirm ('Confermare la modifica della chiusura?');"
                                         OnClick="ButtonVediChiusureConferma_Click"/>
+							</div>
                                     
                         <br />
                     </div>
@@ -464,7 +469,7 @@
                                                         CausesValidation="False" 
                                                         CommandName="VediChiusure"
                                                         Text="Vedi chiusure" 
-                                                        Visible="<%# (role <= 2 && !isClosed) ? true : false %>"
+                                                        Visible="<%# (role <= 2) ? true : false %>"
                                                         OnClientClick="showPanelVediChiusure()" />
 
 									<asp:Button ID="ButtonChiusura" 
@@ -472,7 +477,7 @@
                                                         CausesValidation="False" 
                                                         CommandName="Close"
                                                         Text="Chiusura" 
-                                                        Visible="<%# (role <= 2 && isClosed) ? true : false %>"
+                                                        Visible="<%# (role <= 2) ? true : false %>"
                                                         OnClientClick="showPanelChiusura()" />
     							                
 						            <%--<asp:Button ID="Button3" 
