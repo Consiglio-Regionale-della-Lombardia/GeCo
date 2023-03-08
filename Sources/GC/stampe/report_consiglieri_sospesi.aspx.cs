@@ -108,7 +108,7 @@ public partial class report_consiglieri_sospesi : System.Web.UI.Page
 	LEFT OUTER JOIN tbl_delibere AS td4
 	ON jpsost.tipo_delibera = td4.id_delibera
 	WHERE jps.deleted = 0
-	AND pp.deleted = 0 AND pp.chiuso = 0 
+	AND pp.deleted = 0  
 	AND (cc.id_tipo_carica = 4 -- 'consigliere regionale' 
         OR cc.id_tipo_carica = 5 -- 'consigliere regionale supplente' 
         OR cc.id_tipo_carica = 3 -- 'assessore non consigliere'
@@ -186,7 +186,7 @@ UNION
 	ON (jpoc2.id_carica = cc2.id_carica)
 	LEFT OUTER JOIN tbl_delibere AS td3
 	ON jpoc2.tipo_delibera_proclamazione = td3.id_delibera
-	WHERE pp.deleted = 0 AND pp.chiuso = 0 
+	WHERE pp.deleted = 0  
 	AND jpoc.deleted = 0 and jps.deleted = 0
 	AND LOWER(tcf.descrizione_causa) = 'dimissioni'
 	AND (ca.id_tipo_carica = 4 -- 'consigliere regionale' 

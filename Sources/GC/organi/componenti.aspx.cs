@@ -94,7 +94,7 @@ public partial class organi_componenti : System.Web.UI.Page
                                        ON jpoc.id_legislatura = ll.id_legislatura
                                     LEFT OUTER JOIN join_persona_gruppi_politici_incarica_view AS jpgpiv
                                        ON (jpoc.id_persona = jpgpiv.id_persona AND ll.id_legislatura = jpgpiv.id_legislatura)
-                                    WHERE pp.deleted = 0 AND pp.chiuso = 0
+                                    WHERE pp.deleted = 0 
                                       AND jpoc.deleted = 0 
                                       AND oo.deleted = 0
                                       AND oo.id_organo = @id_organo";

@@ -208,7 +208,7 @@
 		                   
 		                   SelectCommand="SELECT * 
 		                                  FROM organi AS oo 
-		                                  WHERE oo.deleted = 0 and oo.chiuso = 0">
+		                                  WHERE oo.deleted = 0">
 		</asp:SqlDataSource>
 	    </ContentTemplate>
 	</asp:UpdatePanel>

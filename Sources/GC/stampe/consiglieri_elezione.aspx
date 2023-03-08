@@ -82,7 +82,7 @@
 		                                  FROM persona AS pp
 		                                  INNER JOIN join_persona_risultati_elettorali AS jpre
 		                                    ON pp.id_persona = jpre.id_persona 
-		                                  WHERE pp.deleted = 0 AND pp.chiuso = 0
+		                                  WHERE pp.deleted = 0 
 		                                  ORDER BY pp.cognome, pp.nome, jpre.circoscrizione ASC,
 		                                           jpre.data_elezione DESC">
 		                   

@@ -788,7 +788,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 	                                                inner join legislature llx
 		                                                on llx.id_legislatura = jpocx.id_legislatura			
 	                                                where 
-	                                                    ppx.deleted = 0 AND ppx.chiuso = 0 
+	                                                    ppx.deleted = 0  
 	                                                and jpocx.deleted = 0
 	                                                and oox.deleted = 0
 	                                                --and llx.attiva = 1	
@@ -882,7 +882,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 	                                                inner join legislature llx
 		                                                on llx.id_legislatura = jpocx.id_legislatura	
 	                                                where 
-	                                                    ppx.deleted = 0 AND ppx.chiuso = 0
+	                                                    ppx.deleted = 0 
 	                                                and jpocx.deleted = 0
 	                                                and oox.deleted = 0
                                                     @llx_idLegislatura                
@@ -1004,7 +1004,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 	                                                inner join legislature llx
 		                                                on llx.id_legislatura = jpocx.id_legislatura			
 	                                                where 
-	                                                    ppx.deleted = 0 AND ppx.chiuso = 0
+	                                                    ppx.deleted = 0 
 	                                                and jpocx.deleted = 0
 	                                                and oox.deleted = 0
 	                                                --and llx.attiva = 1	
@@ -1113,7 +1113,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 	                                                inner join legislature llx
 		                                                on llx.id_legislatura = jpocx.id_legislatura			
 	                                                where 
-	                                                    ppx.deleted = 0 AND ppx.chiuso = 0 
+	                                                    ppx.deleted = 0  
 	                                                and jpocx.deleted = 0
 	                                                and oox.deleted = 0
                                                     @llx_idLegislatura                
@@ -1234,7 +1234,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
     	                                        inner join join_cariche_organi jco
 	    	                                        on oox.id_organo = jco.id_organo and ccx.id_carica = jco.id_carica
 	                                            where 
-	                                                ppx.deleted = 0 AND ppx.chiuso = 0 
+	                                                ppx.deleted = 0  
 	                                            and jpocx.deleted = 0
 	                                            and oox.deleted = 0
                                                 @llx_idLegislatura 	                
@@ -1335,7 +1335,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
 													 inner join join_cariche_organi jco
 		                                        on oox.id_organo = jco.id_organo and ccx.id_carica = jco.id_carica	                                            
                                                 where 
-	                                                ppx.deleted = 0 AND ppx.chiuso = 0 
+	                                                ppx.deleted = 0  
 	                                            and jpocx.deleted = 0
 	                                            and oox.deleted = 0
                                                 @llx_idLegislatura 	

@@ -99,7 +99,7 @@ public class Utility
         {
             string query = @"SELECT pp.nome + ' ' + pp.cognome AS nome_completo 
                              FROM persona AS pp
-                             WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                             WHERE pp.deleted = 0  
                                AND pp.id_persona = " + id_persona;
 
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString);
@@ -725,12 +725,12 @@ public class Utility
     {
         string query_CF = @"SELECT id_persona
                             FROM persona
-                            WHERE deleted = 0 AND chiuso = 0 
+                            WHERE deleted = 0 
                               AND LOWER(LTRIM(RTRIM(codice_fiscale))) = '@CF'";
 
         string query_nominativo = @"SELECT id_persona
                                     FROM persona
-                                    WHERE deleted = 0 AND chiuso = 0 
+                                    WHERE deleted = 0  
                                       AND LOWER(LTRIM(RTRIM(cognome))) = '@cognome'
                                       AND LOWER(LTRIM(RTRIM(nome))) = '@nome'";
 

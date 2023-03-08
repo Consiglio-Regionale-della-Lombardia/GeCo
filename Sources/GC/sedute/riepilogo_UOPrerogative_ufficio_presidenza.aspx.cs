@@ -98,7 +98,7 @@ group by pp.id_persona, poc.id_organo, poc.id_legislatura, poc.deleted, poc.data
                                       AND ss.id_organo = oo.id_organo)
                                 LEFT OUTER JOIN tbl_partecipazioni AS tp
                                   ON jps.tipo_partecipazione = tp.id_partecipazione
-                                WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                                WHERE pp.deleted = 0  
                                   AND jpoc.deleted = 0 
                          AND (((jpoc.data_inizio <= ss.data_seduta) AND (jpoc.data_fine >= ss.data_seduta)) OR
                               ((jpoc.data_inizio <= ss.data_seduta) AND (jpoc.data_fine IS NULL)))

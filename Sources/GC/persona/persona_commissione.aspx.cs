@@ -62,7 +62,7 @@ public partial class persona_persona_commissione : System.Web.UI.Page
                                  ON jpoc.id_carica = cc.id_carica
                                LEFT OUTER JOIN join_persona_gruppi_politici_incarica_view AS jpgpiv
                                  ON pp.id_persona = jpgpiv.id_persona
-                               WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                               WHERE pp.deleted = 0  
                                  AND jpoc.deleted = 0
                                  AND oo.deleted = 0
                                  AND ll.id_legislatura = @id

@@ -55,7 +55,7 @@ public class ricerca_persone : System.Web.Services.WebService
     {
         string select = @"SELECT TOP 15 cognome + ' ' + nome AS nome_completo, id_persona as id
                           FROM persona 
-                          WHERE deleted = 0 AND chiuso = 0
+                          WHERE deleted = 0 
                             AND (nome LIKE '" + prefixText + "%' OR cognome LIKE '" + prefixText + "%') " +
                           " AND id_persona != " + contextKey +
                         " ORDER BY cognome, nome";
@@ -80,7 +80,7 @@ public class ricerca_persone : System.Web.Services.WebService
                             ON pp.id_persona = jpoc.id_persona 
                           INNER JOIN organi AS oo 
                             ON jpoc.id_organo = oo.id_organo 
-                          WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                          WHERE pp.deleted = 0  
                             AND jpoc.deleted = 0 
                             AND oo.deleted = 0 
                             AND id_categoria_organo = 1 -- consiglio regionale
@@ -113,7 +113,7 @@ public class ricerca_persone : System.Web.Services.WebService
                             ON pp.id_persona = jpoc.id_persona 
                           INNER JOIN organi AS oo 
                             ON jpoc.id_organo = oo.id_organo 
-                          WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                          WHERE pp.deleted = 0  
                             AND jpoc.deleted = 0 
                             AND oo.deleted = 0 
                             AND oo.id_organo = " + id_comm + @" 
@@ -151,7 +151,7 @@ public class ricerca_persone : System.Web.Services.WebService
                                 on jps .id_persona = pp .id_persona and jps .id_seduta = @id_seduta
                             inner join sedute ss
                                     on ss . id_seduta = @id_seduta
-                            WHERE pp .deleted = 0 AND pp.chiuso = 0 
+                            WHERE pp .deleted = 0  
                                 AND oo .deleted = 0
                                 AND jpoc .deleted = 0
                                 AND pp .deleted = 0
@@ -161,7 +161,7 @@ public class ricerca_persone : System.Web.Services.WebService
                                                         FROM persona AS pp2
                                                         INNER JOIN join_persona_sospensioni AS jps
                                                             ON pp2 .id_persona = jps . id_persona
-                                                        WHERE pp2 .deleted = 0 AND pp2.chiuso = 0 
+                                                        WHERE pp2 .deleted = 0  
                                                             AND jps .deleted = 0
                                                             AND jps .id_legislatura = ss .id_legislatura
                                                             AND ((( convert( char (8 ), jps . data_inizio , 112)    <= ss . data_seduta) AND ( convert ( char ( 8 ), jps .data_fine ,112 ) >= ss .data_seduta )) OR
@@ -195,7 +195,7 @@ public class ricerca_persone : System.Web.Services.WebService
                         id_persona as id 
                     FROM persona 
                     WHERE (nome LIKE '" + prefixText + "%' OR cognome LIKE '" + prefixText + "%') " +
-                        "AND (deleted = 0) AND chiuso = 0 " +
+                        "AND (deleted = 0) " +
                         "ORDER BY cognome, nome";
 
         DataSet dtst = ExecuteQuery_GetDataset(select);

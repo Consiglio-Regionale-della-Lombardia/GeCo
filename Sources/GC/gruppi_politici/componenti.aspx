@@ -258,8 +258,8 @@
 			                                            AND jpgp.id_legislatura = ll.id_legislatura)
 			                                      INNER JOIN persona AS pp 
 			                                        ON jpgp.id_persona = pp.id_persona 
-			                                      WHERE gg.deleted = 0 and gg.chiuso = 0 
-			                                        AND jgpl.deleted = 0 and jgpl.chiuso = 0 
+			                                      WHERE gg.deleted = 0  
+			                                        AND jgpl.deleted = 0  
 			                                        AND jpgp.deleted = 0 
 			                                        AND jpgp.id_gruppo = @id" >
 			        <SelectParameters>

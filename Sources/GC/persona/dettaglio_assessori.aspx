@@ -55,7 +55,7 @@
 	                       SelectCommand="SELECT pp.nome + ' ' + pp.cognome AS nome_completo,
 	                                             pp.data_nascita
 			                              FROM persona AS pp
-			                              WHERE pp.deleted = 0 AND pp.chiuso = 0
+			                              WHERE pp.deleted = 0 
 			                                AND pp.id_persona = @id_persona" >
 	        <SelectParameters>
 		        <asp:SessionParameter Name="id_persona" SessionField="id_persona" Type="Int32" />
@@ -107,19 +107,6 @@
                         </asp:DropDownList>
 
                         <asp:DropDownList runat="server" ID="chiusuraMesi">
-                            <asp:ListItem Text="Seleziona un mese" Value="0" />
-                            <asp:ListItem Text="Gennaio" Value="01" />
-                            <asp:ListItem Text="Febbraio" Value="02" />
-                            <asp:ListItem Text="Marzo" Value="03" />
-                            <asp:ListItem Text="Aprile" Value="04" />
-                            <asp:ListItem Text="Maggio" Value="05" />
-                            <asp:ListItem Text="Giugno" Value="06" />
-                            <asp:ListItem Text="Luglio" Value="07" />
-                            <asp:ListItem Text="Agosto" Value="08" />
-                            <asp:ListItem Text="Settembre" Value="09" />
-                            <asp:ListItem Text="Ottobre" Value="10" />
-                            <asp:ListItem Text="Novembre" Value="11" />
-                            <asp:ListItem Text="Dicembre" Value="12" />
                         </asp:DropDownList>
 
                         <asp:DropDownList runat="server" ID="chiusuraAnni">
@@ -150,6 +137,79 @@
                     <div align="center">
                         <br />
                         <asp:Button ID="ButtonChiudiChiusura" OnClick="ButtonCloseChiusura_Click" runat="server" Text="Chiudi" CssClass="button" />
+                        <br />
+                        <br />
+                    </div>
+                                
+                </asp:Panel>
+
+				<asp:Panel ID="PanelVediChiusure" 
+                    runat="server" 
+                    Width="1000px" 
+                    BackColor="White" 
+                    BorderColor="DarkSeaGreen"
+                    BorderWidth="2px"
+                    Visible="false"
+                    Style="position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto;">
+
+                    <div align="center">
+                        <br />
+                                    
+                        <h3>STORICO CHIUSURA</h3>
+
+                            <br />
+
+
+                        <asp:Label Text="Attenzione: prima di poter vedere lo storico è necessario chiudere questo assessore" runat="server" ID="avvisoNessunoStorico" ForeColor="Red" Visible="false"></asp:Label>
+
+                        <div runat="server" align="center" id="divStorico">
+
+                            <asp:Table ID="TableStoricoChiusure" runat="server" CellPadding="10" CellSpacing="5" Width="300px" BorderWidth="2px" GridLines="Horizontal" HorizontalAlign="Center">
+                            <asp:TableHeaderRow>
+                                <asp:TableHeaderCell>Causa chiusura</asp:TableHeaderCell>
+                                <asp:TableHeaderCell>Data chiusura</asp:TableHeaderCell>
+                            </asp:TableHeaderRow>
+                            
+                        </asp:Table>
+
+                            <br />
+                            <p>Aggiorna l'ultima data di chiusura</p>
+                            <asp:DropDownList runat="server" ID="chiusuraGiorniStorico">
+
+                        </asp:DropDownList>
+
+                        <asp:DropDownList runat="server" ID="chiusuraMesiStorico">
+                        </asp:DropDownList>
+
+                        <asp:DropDownList runat="server" ID="chiusuraAnniStorico">
+
+                        </asp:DropDownList>
+
+                            <br />
+                        <br />
+                        <asp:Label ID="labelChiusuraErrorStorico" 
+                                                       runat="server"  
+                                                       ForeColor="Red"
+                            Text="Prima di proseguire è necessario compilare tutti i campi"
+                                                       Visible="false">
+                                            </asp:Label>
+                        <br />
+                            <br />
+
+                            <asp:Button ID="Button4" 
+                                        runat="server" 
+                                        CausesValidation="False" 
+                                        Text="Conferma" 
+                                        OnClientClick="return confirm ('Confermare la modifica della chiusura?');"
+                                        OnClick="ButtonVediChiusureConferma_Click"/>
+                        </div>
+                                    
+                        <br />
+                    </div>
+
+                    <div align="center">
+                        <br />
+                        <asp:Button ID="Button5" OnClick="ButtonVediChiusureAnnulla_Click" runat="server" Text="Annulla" CssClass="button" />
                         <br />
                         <br />
                     </div>
@@ -512,6 +572,15 @@
 					                <asp:Label ID="LabelProf" runat="server" Text='<%# Bind("professione") %>'></asp:Label>
 					            </ItemTemplate>
 				            </asp:TemplateField>
+
+							<asp:TemplateField HeaderText="Chiuso?">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkbox_chiuso_item" 
+                                                          runat="server" 
+                                                          Checked='<%# Convert.ToBoolean(Eval("chiuso")) %>' 
+                                                          Enabled="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
     					    
 				            <asp:TemplateField ShowHeader="False">
 					            <EditItemTemplate>
@@ -538,6 +607,13 @@
                                                         Text="Chiusura" 
                                                         Visible="<%# (role <= 2) ? true : false %>"
                                                         OnClick="ButtonChiusura_Click" />
+									<asp:Button ID="ButtonVediChiusure" 
+                                                        runat="server" 
+                                                        CausesValidation="False" 
+                                                        CommandName="VediChiusure"
+                                                        Text="Vedi chiusure" 
+                                                        Visible="<%# (role <= 2) ? true : false %>"
+                                                        OnClick="ButtonVediChiusure_Click" />
 					                <asp:Button ID="Button3" 
 					                            runat="server" 
 					                            CausesValidation="False" 
@@ -611,9 +687,9 @@
                                                          ON jpoc.id_legislatura = ll.id_legislatura
 				                                      LEFT OUTER JOIN tbl_comuni AS cmn 
 				                                         ON pp.id_comune_nascita = cmn.id_comune 
-				                                      WHERE pp.deleted = 0 AND pp.chiuso = 0
-				                                        AND jpoc.deleted = 0 and jpoc.chiuso = 0
-		                                                AND oo.deleted = 0 and oo.chiuso = 0 
+				                                      WHERE pp.deleted = 0 
+				                                        AND jpoc.deleted = 0 
+		                                                AND oo.deleted = 0  
 		                                                AND oo.id_categoria_organo = 4 --'giunta regionale' 
                                                         AND cc.id_tipo_carica IN (1, 2, 3) --like 'assessore%' 
 				                                        AND pp.id_persona = @id_persona

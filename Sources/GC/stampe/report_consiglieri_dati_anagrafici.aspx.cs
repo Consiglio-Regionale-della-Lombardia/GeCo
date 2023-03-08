@@ -66,7 +66,7 @@ public partial class report_consiglieri_dati_anagrafici : System.Web.UI.Page
                         ON jpr.id_comune_residenza = tc2.id_comune
                       LEFT OUTER JOIN join_persona_gruppi_politici_incarica_view as jjgv
                         ON pp.id_persona = jjgv.id_persona
-                      WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                      WHERE pp.deleted = 0  
                         AND jpoc.deleted = 0
                         AND oo.deleted = 0
                         AND oo.id_categoria_organo = 1 --consiglio regionale

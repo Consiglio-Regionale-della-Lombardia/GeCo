@@ -108,7 +108,7 @@ public partial class stampe_sedute_pres_eff : System.Web.UI.Page
                                   ON jpoc.id_organo = oo.id_organo
                                INNER JOIN legislature AS ll
                                   ON (jpoc.id_legislatura = ll.id_legislatura AND oo.id_legislatura = ll.id_legislatura) 
-                               WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                               WHERE pp.deleted = 0  
                                  AND jpoc.deleted = 0
                                  AND oo.deleted = 0";
 

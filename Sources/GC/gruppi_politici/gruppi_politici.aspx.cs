@@ -75,11 +75,11 @@ public partial class gruppi_politici_gruppi_politici : System.Web.UI.Page
                                                 ON (jgpl.id_legislatura = ll.id_legislatura AND jpgp.id_legislatura = ll.id_legislatura)
                                               INNER JOIN cariche AS cc
                                                 ON jpgp.id_carica = cc.id_carica
-                                              WHERE pp.deleted = 0 and pp.chiuso = 0 
-				                                AND gg.deleted = 0 and gg.chiuso = 0 
+                                              WHERE pp.deleted = 0  
+				                                AND gg.deleted = 0  
 				                                AND jpgp.deleted = 0 and jpgp.deleted = 0
 
-                                                AND jgpl.deleted = 0 and jgpl.chiuso = 0 
+                                                AND jgpl.deleted = 0  
 
                                                 AND pp.id_persona = @id";
 

@@ -218,7 +218,7 @@ public partial class TabsPersona : System.Web.UI.UserControl
                                     ON jpoc.id_organo = oo.id_organo
                                     INNER JOIN cariche AS cc
                                     ON jpoc.id_carica = cc.id_carica
-                                    WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                                    WHERE pp.deleted = 0  
                                     AND jpoc.deleted = 0
                                     AND oo.deleted = 0
                                     AND oo.id_categoria_organo = 4 -- 'giunta regionale'
@@ -258,7 +258,7 @@ public partial class TabsPersona : System.Web.UI.UserControl
                                     ON jpoc.id_organo = oo.id_organo
                                     INNER JOIN cariche AS cc
                                     ON jpoc.id_carica = cc.id_carica
-                                    WHERE pp.deleted = 0 AND pp.chiuso = 0 
+                                    WHERE pp.deleted = 0  
                                     AND jpoc.deleted = 0
                                     AND oo.deleted = 0
                                     AND cc.id_carica in (select id_carica 

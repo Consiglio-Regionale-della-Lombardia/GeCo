@@ -115,9 +115,9 @@ public partial class persona_assessori : System.Web.UI.Page
                            ON jpoc.id_carica = cc.id_carica
                          LEFT OUTER JOIN tbl_comuni AS tc
                            ON pp.id_comune_nascita = tc.id_comune 
-                         WHERE pp.deleted = 0 and pp.chiuso = 0
-                           AND jpoc.deleted = 0 and jpoc.chiuso = 0
-                           AND oo.deleted = 0 and oo.chiuso = 0
+                         WHERE pp.deleted = 0 
+                           AND jpoc.deleted = 0 
+                           AND oo.deleted = 0 
                             AND (
                                 (cc.id_tipo_carica = 3 -- 'assessore non consigliere' 
                                  AND oo.id_categoria_organo = 4 -- 'giunta regionale'

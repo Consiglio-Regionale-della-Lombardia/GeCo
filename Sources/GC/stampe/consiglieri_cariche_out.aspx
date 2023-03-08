@@ -93,7 +93,7 @@
                                             ON pp.id_persona = jpg.id_persona
                                           INNER JOIN gruppi_politici AS gg
                                             ON jpg.id_gruppo = gg.id_gruppo
-                                          WHERE pp.deleted = 0 AND pp.chiuso = 0
+                                          WHERE pp.deleted = 0 
                                             AND gg.deleted = 0
                                             AND jpoc.deleted = 0
                                             AND jpg.deleted = 0                                          

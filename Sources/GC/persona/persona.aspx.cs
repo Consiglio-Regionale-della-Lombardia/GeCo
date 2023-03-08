@@ -121,8 +121,7 @@ public partial class persona : System.Web.UI.Page
         SqlDataSource1.SelectCommand = "EXECUTE dbo.spGetConsiglieri " +
             "@idLegislatura = " + SqlUtils.GetIntValue(Session.Contents["id_legislatura_search"].ToString()) +
             ", @nome = " + SqlUtils.GetStringValue(TextBoxRicNome.Text) +
-            ", @cognome = " + SqlUtils.GetStringValue(TextBoxRicCognome.Text) +
-            ", @chiuso = " + SqlUtils.GetStringValue(DropDownChiuso.SelectedValue);
+            ", @cognome = " + SqlUtils.GetStringValue(TextBoxRicCognome.Text);
 
 
         /*
