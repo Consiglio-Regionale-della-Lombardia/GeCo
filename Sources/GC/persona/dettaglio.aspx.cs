@@ -452,6 +452,13 @@ public partial class dettaglio : System.Web.UI.Page
 
         Audit.LogUpdate(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_persona_chisura");
 
+        CPersona objPersona = new CPersona();
+
+        objPersona.pk_id_persona = Convert.ToInt32(id);
+        objPersona.id_legislatura = Convert.ToInt32(legislatura_corrente);
+
+        objPersona.SendToOpenData("U");
+
         PanelVediChiusure.Visible = false;
     }
 

@@ -274,6 +274,23 @@ public partial class legislature_dettaglio : System.Web.UI.Page
 
         Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_legislature_chiusura");
 
+        string query = "select distinct p.id_persona from dbo.persona p inner join dbo.join_persona_organo_carica jpoc on jpoc.id_persona = p.id_persona and jpoc.deleted = 0 inner join dbo.organi o on o.id_organo = jpoc.id_organo and jpoc.id_legislatura = o.id_legislatura and o.deleted = 0 inner join dbo.legislature l on l.id_legislatura = o.id_legislatura left outer join dbo.join_persona_gruppi_politici_incarica_view jpgpiv on jpgpiv.id_persona = p.id_persona and jpgpiv.id_legislatura = o.id_legislatura and jpgpiv.deleted = 0 where p.deleted = 0 and l.id_legislatura = " + id_leg;
+
+        DataTableReader reader = Utility.ExecuteQuery(query);
+
+        DataTable dataTable = new DataTable();
+        dataTable.Load(reader);
+
+        foreach (DataRow row in dataTable.Rows)
+        {
+            CPersona objPersona = new CPersona();
+
+            objPersona.pk_id_persona = Convert.ToInt32(row["id_persona"]);
+            objPersona.id_legislatura = Convert.ToInt32(id_leg);
+
+            objPersona.SendToOpenData("U");
+        }
+
         Response.Redirect("gestisciLegislature.aspx");
     }
 
