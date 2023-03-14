@@ -521,6 +521,38 @@ public partial class dettaglio : System.Web.UI.Page
 
         objPersona.SendToOpenData("U");
 
+        string queryCarica = "SELECT id_rec FROM join_persona_organo_carica WHERE deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id;
+
+        DataTableReader readerCarica = Utility.ExecuteQuery(query);
+
+        DataTable dataTableCarica = new DataTable();
+        dataTableCarica.Load(readerCarica);
+
+        foreach (DataRow row in dataTableCarica.Rows)
+        {
+            CCaricaPersona objCarica = new CCaricaPersona();
+
+            objCarica.pk_id_rec = Convert.ToInt32(row[0]);
+
+            objCarica.SendToOpenData("U");
+        }
+
+        string queryGruppo = "SELECT id_rec FROM join_persona_gruppi_politici WHERE deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id;
+
+        DataTableReader readerGruppo = Utility.ExecuteQuery(query);
+
+        DataTable dataTableGruppo = new DataTable();
+        dataTableGruppo.Load(readerGruppo);
+
+        foreach (DataRow row in dataTableGruppo.Rows)
+        {
+            CGruppoPoliticoPersona objGruppo = new CGruppoPoliticoPersona();
+
+            objGruppo.pk_id_rec = Convert.ToInt32(row[0]);
+
+            objGruppo.SendToOpenData("U");
+        }
+
         Response.Redirect("persona.aspx");
     }
 

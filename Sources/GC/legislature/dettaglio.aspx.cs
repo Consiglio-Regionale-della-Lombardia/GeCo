@@ -291,6 +291,38 @@ public partial class legislature_dettaglio : System.Web.UI.Page
             objPersona.SendToOpenData("U");
         }
 
+        string queryGruppi = "select id_gruppo from gruppi_politici where id_gruppo in (select id_gruppo from join_gruppi_politici_legislature where id_legislatura = " + id_leg + ")";
+
+        DataTableReader readerGruppi = Utility.ExecuteQuery(queryGruppi);
+
+        DataTable dataTableGroup = new DataTable();
+        dataTableGroup.Load(readerGruppi);
+
+        foreach (DataRow row in dataTableGroup.Rows)
+        {
+            CGruppoPolitico objGruppo = new CGruppoPolitico();
+
+            objGruppo.pk_id_gruppo = Convert.ToInt32(row[0]);
+
+            objGruppo.SendToOpenData("U");
+        }
+
+        string queryOrgani = "select id_organo from organi where id_legislatura = " + id_leg;
+
+        DataTableReader readerOrgani = Utility.ExecuteQuery(queryOrgani);
+
+        DataTable dataTableOrgani = new DataTable();
+        dataTableOrgani.Load(readerOrgani);
+
+        foreach (DataRow row in dataTableOrgani.Rows)
+        {
+            COrgano objOrgani = new COrgano();
+
+            objOrgani.pk_id_organo = Convert.ToInt32(row[0]);
+
+            objOrgani.SendToOpenData("U");
+        }
+
         Response.Redirect("gestisciLegislature.aspx");
     }
 
