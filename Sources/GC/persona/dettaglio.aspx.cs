@@ -584,7 +584,7 @@ public partial class dettaglio : System.Web.UI.Page
 
     private string GetLastCardNumber()
     {
-        string query = "select distinct top 1 p.numero_tessera, p.id_persona from dbo.persona p inner join dbo.join_persona_organo_carica jpoc on jpoc.id_persona = p.id_persona and jpoc.id_carica in (4, 36) and jpoc.deleted = 0 inner join dbo.organi o on o.id_organo = jpoc.id_organo and jpoc.id_legislatura = o.id_legislatura and o.id_categoria_organo = 1 and o.deleted = 0 inner join dbo.legislature l on l.id_legislatura = o.id_legislatura left outer join dbo.join_persona_gruppi_politici_incarica_view jpgpiv on jpgpiv.id_persona = p.id_persona and jpgpiv.id_legislatura = o.id_legislatura and jpgpiv.deleted = 0 where p.deleted = 0 and l.id_legislatura = " + legislatura_corrente + " order by p.id_persona desc;";
+        string query = "select distinct top 1 p.numero_tessera, p.id_persona from dbo.persona p inner join dbo.join_persona_organo_carica jpoc on jpoc.id_persona = p.id_persona and jpoc.id_carica in (4, 36) and jpoc.deleted = 0 inner join dbo.organi o on o.id_organo = jpoc.id_organo and jpoc.id_legislatura = o.id_legislatura and o.id_categoria_organo = 1 and o.deleted = 0 inner join dbo.legislature l on l.id_legislatura = o.id_legislatura left outer join dbo.join_persona_gruppi_politici_incarica_view jpgpiv on jpgpiv.id_persona = p.id_persona and jpgpiv.id_legislatura = o.id_legislatura and jpgpiv.deleted = 0 where p.deleted = 0 and l.id_legislatura = " + legislatura_corrente + " and numero_tessera is not null order by p.id_persona desc;";
 
         DataTableReader reader = Utility.ExecuteQuery(query);
 
@@ -746,6 +746,10 @@ public partial class dettaglio : System.Web.UI.Page
         if (e.Exception == null)
         {
             Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), Convert.ToInt32(e.Command.Parameters["@id_persona"].Value), "persona");
+
+            string query = "update persona set numero_tessera = NULL where numero_tessera = '" + e.Command.Parameters["@numero_tessera"].Value + "' and id_persona != " + e.Command.Parameters["@id_persona"].Value;
+
+            Utility.ExecuteNonQuery(query);
 
             string id_persona = Convert.ToString(e.Command.Parameters["@id_persona"].Value);
             CheckBox chkbox_supplente = DetailsView1.FindControl("chkbox_supplente_insert") as CheckBox;
