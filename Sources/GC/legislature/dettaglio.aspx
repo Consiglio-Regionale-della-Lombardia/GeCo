@@ -61,16 +61,19 @@
 
 
                         <p>Seleziona la data della chiusura</p>
-                            <asp:DropDownList runat="server" ID="chiusuraGiorni">
-
-                        </asp:DropDownList>
-
-                        <asp:DropDownList runat="server" ID="chiusuraMesi">
-                        </asp:DropDownList>
-
-                        <asp:DropDownList runat="server" ID="chiusuraAnni">
-
-                        </asp:DropDownList>
+                           <InsertItemTemplate>
+					            <asp:TextBox ID="TextBoxDataChiusura" 
+					                         runat="server" >
+					            </asp:TextBox>
+					            <img alt="calendar" src="../img/calendar_month.png" id="Img1" runat="server" />
+					            <cc1:CalendarExtender ID="CalendarExtender4" 
+					                                  runat="server" 
+					                                  TargetControlID="TextBoxDataChiusura"
+						                              PopupButtonID="ImageDataInizio" 
+						                              Format="dd/MM/yyyy">
+					            </cc1:CalendarExtender>
+					            
+					    </InsertItemTemplate>
 
                             <br />
                         <br />
@@ -131,16 +134,20 @@
 
                         <p>Aggiorna l'ultima data di chiusura</p>
 
-                            <asp:DropDownList runat="server" ID="chiusuraGiorniStorico">
+                            <InsertItemTemplate>
+					            <asp:TextBox ID="TextBoxAggiornaDataChiusura" 
+					                         runat="server" >
+					            </asp:TextBox>
+					            <img alt="calendar" src="../img/calendar_month.png" id="Img2" runat="server" />
+					            <cc1:CalendarExtender ID="CalendarExtender1" 
+					                                  runat="server" 
+					                                  TargetControlID="TextBoxAggiornaDataChiusura"
+						                              PopupButtonID="ImageDataInizio" 
+						                              Format="dd/MM/yyyy">
+					            </cc1:CalendarExtender>
+					            
+					    </InsertItemTemplate>
 
-                        </asp:DropDownList>
-
-                        <asp:DropDownList runat="server" ID="chiusuraMesiStorico">
-                        </asp:DropDownList>
-
-                        <asp:DropDownList runat="server" ID="chiusuraAnniStorico">
-
-                        </asp:DropDownList>
 
                             <br />
                         <br />

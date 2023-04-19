@@ -134,14 +134,6 @@ public partial class dettaglio_assessori : System.Web.UI.Page
             ListItem[] causeFineItems = new ListItem[causeFine.Count + 1];
             causeFineItems[0] = new ListItem() { Text = "Seleziona una motivazione", Selected = true, Value = 0.ToString() };
 
-            ListItem[] chiusuraGiorniItems = new ListItem[DateTime.Now.Day + 1];
-            chiusuraGiorniItems[0] = new ListItem() { Text = "Seleziona un giorno", Selected = true, Value = 0.ToString() };
-
-            ListItem[] chiusuraMesiItems = new ListItem[DateTime.Now.Month + 1];
-            chiusuraMesiItems[0] = new ListItem() { Text = "Seleziona un mese", Selected = true, Value = 0.ToString() };
-
-            ListItem[] chiusuraAnniItems = new ListItem[DateTime.Now.Year - 2022 + 1];
-            chiusuraAnniItems[0] = new ListItem() { Text = "Seleziona un anno", Selected = true, Value = 0.ToString() };
 
             int count = 1;
 
@@ -151,60 +143,10 @@ public partial class dettaglio_assessori : System.Web.UI.Page
                 count++;
             }
 
-            count = 1;
-            for (int i = 1; i < DateTime.Now.Day + 1; i++)
-            {
-                chiusuraGiorniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
-                count++;
-            }
-
-            count = 1;
-            for (int i = 1; i < DateTime.Now.Month + 1; i++)
-            {
-                chiusuraMesiItems[count] = new ListItem() { Text = mesi[i], Value = i.ToString() };
-                count++;
-            }
-
-            count = 1;
-            for (int i = DateTime.Now.Year; i > 2022; i--)
-            {
-                chiusuraAnniItems[count] = new ListItem() { Text = i.ToString(), Value = i.ToString() };
-                count++;
-            }
-
+         
             if (chiusuraCausaFine.Items.Count < 1)
             {
                 chiusuraCausaFine.Items.AddRange(causeFineItems);
-            }
-
-            if (chiusuraGiorni.Items.Count < 1)
-            {
-                chiusuraGiorni.Items.AddRange(chiusuraGiorniItems);
-            }
-
-            if (chiusuraMesi.Items.Count < 1)
-            {
-                chiusuraMesi.Items.AddRange(chiusuraMesiItems);
-            }
-
-            if (chiusuraAnni.Items.Count < 1)
-            {
-                chiusuraAnni.Items.AddRange(chiusuraAnniItems);
-            }
-
-            if (chiusuraGiorniStorico.Items.Count < 1)
-            {
-                chiusuraGiorniStorico.Items.AddRange(chiusuraGiorniItems);
-            }
-
-            if (chiusuraMesiStorico.Items.Count < 1)
-            {
-                chiusuraMesiStorico.Items.AddRange(chiusuraMesiItems);
-            }
-
-            if (chiusuraAnniStorico.Items.Count < 1)
-            {
-                chiusuraAnniStorico.Items.AddRange(chiusuraAnniItems);
             }
 
             Page.CheckIdPersona(id);
@@ -361,15 +303,8 @@ public partial class dettaglio_assessori : System.Web.UI.Page
 
     protected void ButtonVediChiusureConferma_Click(object sender, EventArgs e)
     {
-        if (chiusuraGiorniStorico.SelectedItem.Value.Equals("0") ||
-            chiusuraMesiStorico.SelectedItem.Value.Equals("0") ||
-            chiusuraAnniStorico.SelectedItem.Value.Equals("0"))
-        {
-            labelChiusuraErrorStorico.Visible = true;
-            return;
-        }
 
-        DateTime dataChiusura = DateTime.Parse(chiusuraAnniStorico.SelectedItem.Value + "-" + chiusuraMesiStorico.SelectedItem.Value + "-" + chiusuraGiorniStorico.SelectedItem.Value);
+        DateTime dataChiusura = DateTime.Parse(TextBoxAggiornaDataChiusura.Text);
 
         string query = "EXECUTE dbo.spAggiornaDataFinePersona @idPersona = " + id +
             ", @idLegislatura = " + sel_leg_id +
@@ -385,7 +320,47 @@ public partial class dettaglio_assessori : System.Web.UI.Page
         cmd.Connection.Close();
 
         Audit.LogUpdate(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_persona_chisura");
+        string queryCarica = "SELECT id_rec FROM join_persona_organo_carica WHERE deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id;
 
+        DataTableReader readerCarica = Utility.ExecuteQuery(queryCarica);
+
+        DataTable dataTableCarica = new DataTable();
+        dataTableCarica.Load(readerCarica);
+
+        foreach (DataRow row in dataTableCarica.Rows)
+        {
+            CCaricaPersona objCarica = new CCaricaPersona();
+
+            objCarica.pk_id_rec = Convert.ToInt32(row[0]);
+
+            objCarica.SendToOpenData("U");
+        }
+
+        string queryGruppo = "SELECT id_rec FROM join_persona_gruppi_politici WHERE deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id;
+
+        DataTableReader readerGruppo = Utility.ExecuteQuery(queryGruppo);
+
+        DataTable dataTableGruppo = new DataTable();
+        dataTableGruppo.Load(readerGruppo);
+
+        foreach (DataRow row in dataTableGruppo.Rows)
+        {
+            CGruppoPoliticoPersona objGruppo = new CGruppoPoliticoPersona();
+
+            objGruppo.pk_id_rec = Convert.ToInt32(row[0]);
+
+            objGruppo.SendToOpenData("U");
+        }
+
+        //VERIFICO CHE NON CI SIANO CARICHE CON DATA CHIUSRA SUPERIORE A QUELLA DI FINE
+        if (
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica WHERE data_fine > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_gruppi_politici WHERE data_fine > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica_priorita WHERE data_fine > '" + dataChiusura.ToString("yyyy-MM-dd") + "'AND id_join_persona_organo_carica IN (SELECT id_rec FROM join_persona_organo_carica WHERE id_persona = " + id + " AND id_legislatura = " + sel_leg_id + ") AND chiuso = 1").HasRows
+            )
+        {
+            throw new Exception("Chiusura eseguita. Esistono cariche con data chiusura maggiore della data selezionata. Verificare");
+        }
         PanelVediChiusure.Visible = false;
     }
 
@@ -411,17 +386,14 @@ public partial class dettaglio_assessori : System.Web.UI.Page
 
     protected void ButtonConfirmChiusura_Click(object sender, EventArgs e)
     {
-        if (chiusuraCausaFine.SelectedItem.Value.Equals("0") ||
-            chiusuraAnni.SelectedItem.Value.Equals("0") ||
-            chiusuraMesi.SelectedItem.Value.Equals("0") ||
-            chiusuraGiorni.SelectedItem.Value.Equals("0"))
+        if (chiusuraCausaFine.SelectedItem.Value.Equals("0"))
         {
             labelChiusuraError.Visible = true;
             return;
         }
 
         long idCausaFine = long.Parse(chiusuraCausaFine.SelectedItem.Value);
-        DateTime dataChiusura = DateTime.Parse(chiusuraAnni.SelectedItem.Value + "-" + chiusuraMesi.SelectedItem.Value + "-" + chiusuraGiorni.SelectedItem.Value);
+        DateTime dataChiusura = DateTime.Parse(TextBoxDataChiusura.Text);
 
         string query = "EXECUTE dbo.spChiusuraPersona @idPersona = " + id +
             ", @idLegislatura = " + sel_leg_id +
@@ -439,12 +411,47 @@ public partial class dettaglio_assessori : System.Web.UI.Page
 
         Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_persona_chisura");
 
-        CPersona obj = new CPersona();
+        string queryCarica = "SELECT id_rec FROM join_persona_organo_carica WHERE deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id;
 
-        obj.pk_id_persona = Convert.ToInt32(id);
-        obj.id_legislatura = Convert.ToInt32(legislatura_corrente);
+        DataTableReader readerCarica = Utility.ExecuteQuery(queryCarica);
 
-        obj.SendToOpenData("U");
+        DataTable dataTableCarica = new DataTable();
+        dataTableCarica.Load(readerCarica);
+
+        foreach (DataRow row in dataTableCarica.Rows)
+        {
+            CCaricaPersona objCarica = new CCaricaPersona();
+
+            objCarica.pk_id_rec = Convert.ToInt32(row[0]);
+
+            objCarica.SendToOpenData("U");
+        }
+
+        string queryGruppo = "SELECT id_rec FROM join_persona_gruppi_politici WHERE deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id;
+
+        DataTableReader readerGruppo = Utility.ExecuteQuery(queryGruppo);
+
+        DataTable dataTableGruppo = new DataTable();
+        dataTableGruppo.Load(readerGruppo);
+
+        foreach (DataRow row in dataTableGruppo.Rows)
+        {
+            CGruppoPoliticoPersona objGruppo = new CGruppoPoliticoPersona();
+
+            objGruppo.pk_id_rec = Convert.ToInt32(row[0]);
+
+            objGruppo.SendToOpenData("U");
+        }
+
+        //VERIFICO CHE NON CI SIANO CARICHE CON DATA CHIUSRA SUPERIORE A QUELLA DI FINE
+        if (
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica WHERE data_fine > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_gruppi_politici WHERE data_fine > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica_priorita WHERE data_fine > '" + dataChiusura.ToString("yyyy-MM-dd") + "'AND id_join_persona_organo_carica IN (SELECT id_rec FROM join_persona_organo_carica WHERE id_persona = " + id + " AND id_legislatura = " + sel_leg_id + ") AND chiuso = 1").HasRows
+            )
+        {
+            throw new Exception("Chiusura eseguita. Esistono cariche con data chiusura maggiore della data selezionata. Verificare");
+        }
 
         Response.Redirect("persona_assessori.aspx");
     }
@@ -638,6 +645,15 @@ public partial class dettaglio_assessori : System.Web.UI.Page
             Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), Convert.ToInt32(e.Command.Parameters["@id_persona"].Value), "persona");
 
             string id_persona = Convert.ToString(e.Command.Parameters["@id_persona"].Value);
+
+
+            var _params = new Dictionary<string, object>();
+            _params.Add("@id_legislatura", legislatura_corrente);
+            _params.Add("@id_persona", id_persona);
+
+            var sqlInsertTessera = "INSERT INTO join_persona_tessere VALUES((SELECT TOP 1 NUMERO_TESSERA FROM PERSONA WHERE ID_PERSONA = @id_persona),@id_legislatura,@id_persona,0)";
+
+            Utility.ExecuteQuery(sqlInsertTessera, CommandType.Text, _params);
 
             ExecuteUpdateJPOC(id_persona);
 

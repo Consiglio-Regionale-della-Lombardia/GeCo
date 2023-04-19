@@ -118,14 +118,7 @@ public partial class persona_assessori : System.Web.UI.Page
                          WHERE pp.deleted = 0 
                            AND jpoc.deleted = 0 
                            AND oo.deleted = 0 
-                            AND (
-                                (cc.id_tipo_carica = 3 -- 'assessore non consigliere' 
-                                 AND oo.id_categoria_organo = 4 -- 'giunta regionale'
-                                ) 
-                                OR 
-                                (cc.id_tipo_carica in (1,2,3) -- 'assessore, assessore e vice presidente, assessore non consigliere' 
-                                 and jpoc.data_fine is null)
-                            )
+                           AND oo.id_categoria_organo = 4 -- 'giunta regionale'
                            AND ll.id_legislatura = @id";
 
         /*

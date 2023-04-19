@@ -1405,12 +1405,9 @@
 			                       runat="server" 
 			                       ConnectionString="<%$ ConnectionStrings:GestioneConsiglieriConnectionString %>"
 				                   
-				                   SelectCommand="SELECT descrizione_causa, 
-				                                         MAX(id_causa) AS id_causa
-                                                  FROM [tbl_cause_fine] 
-                                                  WHERE [tipo_causa] = 'Persona-Cariche-Organi' 
-                                                  GROUP BY descrizione_causa
-                                                  ORDER BY [descrizione_causa]" >
+				                   SelectCommand="select id_causa, descrizione_causa 
+											      from tbl_cause_fine 
+											   where tipo_causa = 'Persona-Sospensioni-Sostituzioni'" >
 				</asp:SqlDataSource>
 			</ContentTemplate>
 		    </asp:UpdatePanel>

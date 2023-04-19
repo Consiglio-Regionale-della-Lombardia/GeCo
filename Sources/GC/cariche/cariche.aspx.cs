@@ -17,6 +17,7 @@
  */
 using AjaxControlToolkit;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -684,6 +685,22 @@ public partial class cariche_cariche : System.Web.UI.Page
             Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), Convert.ToInt32(e.Command.Parameters["@id_rec"].Value), "join_persona_organo_carica");
         }
 
+        var idRec = e.Command.Parameters["@id_rec"].Value;
+        var numero_tessera = GetLastCardNumber(int.Parse(legislatura_corrente));
+
+        string query = @"UPDATE PERSONA SET NUMERO_TESSERA = "+ numero_tessera + " WHERE ID_PERSONA = (SELECT TOP 1 ID_PERSONA FROM join_persona_organo_carica WHERE ID_REC = " + idRec+")";
+
+        DataTableReader reader = Utility.ExecuteQuery(query);
+
+        var _params = new Dictionary<string, object>();
+        _params.Add("@numero_tessera", numero_tessera);
+        _params.Add("@id_legislatura", legislatura_corrente);
+
+        var sqlInsertTessera = "INSERT INTO join_persona_tessere VALUES(@numero_tessera,@id_legislatura,(SELECT TOP 1 ID_PERSONA FROM join_persona_organo_carica WHERE ID_REC = " + idRec+ "),0)";
+
+        Utility.ExecuteQuery(sqlInsertTessera, CommandType.Text, _params);
+
+
         UpdatePanelDetails.Update();
         UpdatePanelMaster.Update();
         ModalPopupExtenderDetails.Hide();
@@ -955,5 +972,32 @@ public partial class cariche_cariche : System.Web.UI.Page
         }
 
         return "openPopupWindow('" + url + "')";
+    }
+    private string GetLastCardNumber(int idLegislatura)
+    {
+        string query = @"select distinct top 1 numero_tessera from dbo.join_persona_tessere WHERE numero_tessera is not NULL and id_legislatura = " + idLegislatura + " order by NUMERO_TESSERA DESC";
+
+        DataTableReader reader = Utility.ExecuteQuery(query);
+
+        long lastNumber = 0;
+
+        while (reader.Read())
+        {
+            try
+            {
+                if (reader[0] != null)
+                {
+                    long.TryParse(reader[0].ToString(), out lastNumber);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Impossibile convertire l'ultimo numero di tessera disponibile. " + ex.Message);
+            }
+        }
+
+        long newNumber = lastNumber + 1;
+
+        return newNumber.ToString();
     }
 }
