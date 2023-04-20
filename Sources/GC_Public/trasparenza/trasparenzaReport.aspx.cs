@@ -1460,7 +1460,7 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
             else
                 qryStrutt = Regex.Replace(QUERY_REPORT_ASSESSORI, "^select", "select distinct ", RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
-            return GetTable(DateTime.Now, DateTime.Now, null, qryStrutt);
+            return GetTable(DateTime.Now, DateTime.Now, idLegislatura, qryStrutt);
 
         }
 
