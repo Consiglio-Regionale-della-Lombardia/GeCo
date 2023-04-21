@@ -21,7 +21,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -371,7 +373,7 @@ public partial class dettaglio : System.Web.UI.Page
     protected void ButtonVediChiusureConferma_Click(object sender, EventArgs e)
     {
 
-        DateTime dataChiusura = DateTime.Parse(TextBoxAggiornaDataChiusura.Text);
+        DateTime dataChiusura = DateTime.Parse(TextBoxAggiornaDataChiusura.Text, new CultureInfo("it-IT"));
 
         string query = "EXECUTE dbo.spAggiornaDataFinePersona @idPersona = " + id +
             ", @idLegislatura = " + sel_leg_id +
@@ -464,7 +466,7 @@ public partial class dettaglio : System.Web.UI.Page
         }
 
         long idCausaFine = long.Parse(chiusuraCausaFine.SelectedItem.Value);
-        DateTime dataChiusura = DateTime.Parse(TextBoxDataChiusura.Text);
+        DateTime dataChiusura = DateTime.Parse(TextBoxDataChiusura.Text, new CultureInfo("it-IT"));
 
         string query = "EXECUTE dbo.spChiusuraPersona @idPersona = " + id +
             ", @idLegislatura = " + sel_leg_id +

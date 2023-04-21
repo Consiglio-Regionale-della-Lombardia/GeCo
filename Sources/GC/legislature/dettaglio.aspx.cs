@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -133,7 +134,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
     protected void ButtonVediChiusureConferma_Click(object sender, EventArgs e)
     {
 
-        DateTime dataChiusura = DateTime.Parse(TextBoxAggiornaDataChiusura.Text);
+        DateTime dataChiusura = DateTime.Parse(TextBoxAggiornaDataChiusura.Text, new CultureInfo("it-IT"));
 
         string queryAggiornaChiusura = "EXECUTE dbo.spAggiornaDataFineLegislatura @idLegislatura = " + id_leg +
             ", @dataChiusura = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
@@ -254,7 +255,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
 
     protected void ButtonConfirmChiusura_Click(object sender, EventArgs e)
     {
-        DateTime dataChiusura = DateTime.Parse(TextBoxDataChiusura.Text);
+        DateTime dataChiusura = DateTime.Parse(TextBoxDataChiusura.Text, new CultureInfo("it-IT"));
         List<int> idPersoneLegislatura = new List<int>();
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString);
