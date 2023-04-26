@@ -631,15 +631,15 @@
 </tr>
 </table>
 	<script type="text/javascript">
+   
+        function showPanelVediChiusure() {
+            console.log("click");
 
-		function showPanelVediChiusure() {
-			console.log("click");
+            objPanel = document.getElementById("ctl00_ContentPlaceHolder1_PanelVediChiusure");
+            console.log(objPanel);
 
-			objPanel = document.getElementById("ctl00_ContentPlaceHolder1_PanelVediChiusure");
-			console.log(objPanel);
-
-			objPanel.style.display = 'block';
-		}
+            objPanel.style.display = 'block';
+        }
 
         function showPanelChiusura() {
             console.log("click");
@@ -648,7 +648,12 @@
             console.log(objPanel);
 
             objPanel.style.display = 'block';
+		}
+<%--        function DisableButton() {
+            document.getElementById("<%=Button4.ClientID %>").disabled = true;
+            document.getElementById("<%=Button3.ClientID %>").disabled = true;
         }
 
+        window.onbeforeunload = DisableButton;--%>
     </script>
 </asp:Content>

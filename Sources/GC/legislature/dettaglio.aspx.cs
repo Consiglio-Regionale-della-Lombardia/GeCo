@@ -133,7 +133,6 @@ public partial class legislature_dettaglio : System.Web.UI.Page
 
     protected void ButtonVediChiusureConferma_Click(object sender, EventArgs e)
     {
-
         DateTime dataChiusura = DateTime.Parse(TextBoxAggiornaDataChiusura.Text, new CultureInfo("it-IT"));
 
         string queryAggiornaChiusura = "EXECUTE dbo.spAggiornaDataFineLegislatura @idLegislatura = " + id_leg +
@@ -145,7 +144,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
         cmd.Connection = con;
         cmd.Connection.Open();
         cmd.CommandText = queryAggiornaChiusura;
-        int id_rec = Convert.ToInt32(cmd.ExecuteScalar());
+        cmd.ExecuteScalar();
         cmd.Connection.Close();
 
         string query = "select distinct p.id_persona from dbo.persona p inner join dbo.join_persona_organo_carica jpoc on jpoc.id_persona = p.id_persona and jpoc.deleted = 0 inner join dbo.organi o on o.id_organo = jpoc.id_organo and jpoc.id_legislatura = o.id_legislatura and o.deleted = 0 inner join dbo.legislature l on l.id_legislatura = o.id_legislatura left outer join dbo.join_persona_gruppi_politici_incarica_view jpgpiv on jpgpiv.id_persona = p.id_persona and jpgpiv.id_legislatura = o.id_legislatura and jpgpiv.deleted = 0 where p.deleted = 0 and l.id_legislatura = " + id_leg;
@@ -159,7 +158,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
         {
             var idPersona = Convert.ToInt32(row["id_persona"]);
 
-            string queryCarica = "SELECT id_rec FROM join_persona_organo_carica WHERE deleted = 0 AND id_legislatura = " + id_leg + " AND id_persona = " + idPersona;
+            string queryCarica = "SELECT id_rec FROM join_persona_organo_carica WHERE deleted = 0 AND id_legislatura = " + id_leg + " AND id_persona = " + idPersona + " AND data_fine = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
 
             DataTableReader readerCarica = Utility.ExecuteQuery(queryCarica);
 
@@ -175,7 +174,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
                 objCarica.SendToOpenData("U");
             }
 
-            string queryGruppo = "SELECT id_rec FROM join_persona_gruppi_politici WHERE deleted = 0 AND id_legislatura = " + id_leg + " AND id_persona = " + idPersona;
+            string queryGruppo = "SELECT id_rec FROM join_persona_gruppi_politici WHERE deleted = 0 AND id_legislatura = " + id_leg + " AND id_persona = " + idPersona + " AND data_fine = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
 
             DataTableReader readerGruppo = Utility.ExecuteQuery(queryGruppo);
 
@@ -225,6 +224,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
         }
 
         PanelVediChiusure.Visible = false;
+        Button4.Enabled = true;
     }
 
     /// <summary>
@@ -274,7 +274,11 @@ public partial class legislature_dettaglio : System.Web.UI.Page
 
         Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), id_rec, "join_legislature_chiusura");
 
-        string query = "select distinct p.id_persona from dbo.persona p inner join dbo.join_persona_organo_carica jpoc on jpoc.id_persona = p.id_persona and jpoc.deleted = 0 inner join dbo.organi o on o.id_organo = jpoc.id_organo and jpoc.id_legislatura = o.id_legislatura and o.deleted = 0 inner join dbo.legislature l on l.id_legislatura = o.id_legislatura left outer join dbo.join_persona_gruppi_politici_incarica_view jpgpiv on jpgpiv.id_persona = p.id_persona and jpgpiv.id_legislatura = o.id_legislatura and jpgpiv.deleted = 0 where p.deleted = 0 and l.id_legislatura = " + id_leg;
+        string query = @"select distinct p.id_persona from dbo.persona p 
+                        inner join dbo.join_persona_organo_carica jpoc on jpoc.id_persona = p.id_persona and jpoc.deleted = 0 inner join dbo.organi o on o.id_organo = jpoc.id_organo and jpoc.id_legislatura = o.id_legislatura and o.deleted = 0 
+                        inner join dbo.legislature l on l.id_legislatura = o.id_legislatura 
+                        left outer join dbo.join_persona_gruppi_politici_incarica_view jpgpiv on jpgpiv.id_persona = p.id_persona and jpgpiv.id_legislatura = o.id_legislatura and jpgpiv.deleted = 0 
+                        where p.deleted = 0 and l.id_legislatura = " + id_leg;
 
         DataTableReader reader = Utility.ExecuteQuery(query);
 
@@ -285,7 +289,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
         {
             var idPersona = Convert.ToInt32(row["id_persona"]);
 
-            string queryCarica = "SELECT id_rec FROM join_persona_organo_carica WHERE deleted = 0 AND id_legislatura = " + id_leg + " AND id_persona = " + idPersona;
+            string queryCarica = "SELECT id_rec FROM join_persona_organo_carica WHERE deleted = 0 AND id_legislatura = " + id_leg + " AND id_persona = " + idPersona + " AND data_fine = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
 
             DataTableReader readerCarica = Utility.ExecuteQuery(queryCarica);
 
@@ -301,7 +305,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
                 objCarica.SendToOpenData("U");
             }
 
-            string queryGruppo = "SELECT id_rec FROM join_persona_gruppi_politici WHERE deleted = 0 AND id_legislatura = " + id_leg + " AND id_persona = " + idPersona;
+            string queryGruppo = "SELECT id_rec FROM join_persona_gruppi_politici WHERE deleted = 0 AND id_legislatura = " + id_leg + " AND id_persona = " + idPersona + " AND data_fine = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
 
             DataTableReader readerGruppo = Utility.ExecuteQuery(queryGruppo);
 
@@ -349,7 +353,7 @@ public partial class legislature_dettaglio : System.Web.UI.Page
 
             objOrgani.SendToOpenData("U");
         }
-
+        Button3.Enabled = true;
         Response.Redirect("gestisciLegislature.aspx");
     }
 

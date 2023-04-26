@@ -303,12 +303,11 @@ public partial class dettaglio_assessori : System.Web.UI.Page
 
     protected void ButtonVediChiusureConferma_Click(object sender, EventArgs e)
     {
-
         DateTime dataChiusura = DateTime.Parse(TextBoxAggiornaDataChiusura.Text);
 
         string query = "EXECUTE dbo.spAggiornaDataFinePersona @idPersona = " + id +
             ", @idLegislatura = " + sel_leg_id +
-            ", @dataChiusura = '" + dataChiusura.ToString("yyyy-MM-dd") + "'";
+            ", @dataChiusura = '" + dataChiusura.ToString("yyyy-MM-dd") + "', @isChiusuraLegislatura = 0";
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["GestioneConsiglieriConnectionString"].ConnectionString);
         SqlCommand cmd = new SqlCommand();
@@ -352,6 +351,16 @@ public partial class dettaglio_assessori : System.Web.UI.Page
             objGruppo.SendToOpenData("U");
         }
 
+        //VERIFICO CHE NON CI SIANO CARICHE CON DATA APERTURA SUPERIORE A QUELLA DI FINE 
+        if (
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica WHERE data_inizio > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_gruppi_politici WHERE data_inizio > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica_priorita WHERE data_inizio > '" + dataChiusura.ToString("yyyy-MM-dd") + "'AND id_join_persona_organo_carica IN (SELECT id_rec FROM join_persona_organo_carica WHERE id_persona = " + id + " AND id_legislatura = " + sel_leg_id + ") AND chiuso = 1").HasRows
+            )
+        {
+            throw new Exception("Chiusura eseguita. Esistono cariche con data apertura maggiore della data selezionata. Verificare");
+        }
+
         //VERIFICO CHE NON CI SIANO CARICHE CON DATA CHIUSRA SUPERIORE A QUELLA DI FINE
         if (
             Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica WHERE data_fine > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
@@ -361,6 +370,8 @@ public partial class dettaglio_assessori : System.Web.UI.Page
         {
             throw new Exception("Chiusura eseguita. Esistono cariche con data chiusura maggiore della data selezionata. Verificare");
         }
+
+       
         PanelVediChiusure.Visible = false;
     }
 
@@ -443,6 +454,16 @@ public partial class dettaglio_assessori : System.Web.UI.Page
             objGruppo.SendToOpenData("U");
         }
 
+        //VERIFICO CHE NON CI SIANO CARICHE CON DATA APERTURA SUPERIORE A QUELLA DI FINE 
+        if (
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica WHERE data_inizio > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_gruppi_politici WHERE data_inizio > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
+            Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica_priorita WHERE data_inizio > '" + dataChiusura.ToString("yyyy-MM-dd") + "'AND id_join_persona_organo_carica IN (SELECT id_rec FROM join_persona_organo_carica WHERE id_persona = " + id + " AND id_legislatura = " + sel_leg_id + ") AND chiuso = 1").HasRows
+            )
+        {
+            throw new Exception("Chiusura eseguita. Esistono cariche con data apertura maggiore della data selezionata. Verificare");
+        }
+
         //VERIFICO CHE NON CI SIANO CARICHE CON DATA CHIUSRA SUPERIORE A QUELLA DI FINE
         if (
             Utility.ExecuteQuery("SELECT id_rec FROM join_persona_organo_carica WHERE data_fine > '" + dataChiusura.ToString("yyyy-MM-dd") + "' and deleted = 0 AND id_legislatura = " + sel_leg_id + " AND id_persona = " + id).HasRows ||
@@ -452,7 +473,7 @@ public partial class dettaglio_assessori : System.Web.UI.Page
         {
             throw new Exception("Chiusura eseguita. Esistono cariche con data chiusura maggiore della data selezionata. Verificare");
         }
-
+        
         Response.Redirect("persona_assessori.aspx");
     }
 

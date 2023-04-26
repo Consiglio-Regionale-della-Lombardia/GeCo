@@ -683,22 +683,28 @@ public partial class cariche_cariche : System.Web.UI.Page
         if (e.Exception == null)
         {
             Audit.LogInsert(Convert.ToInt32(Session.Contents["user_id"]), Convert.ToInt32(e.Command.Parameters["@id_rec"].Value), "join_persona_organo_carica");
-        }
+        } 
 
         var idRec = e.Command.Parameters["@id_rec"].Value;
-        var numero_tessera = GetLastCardNumber(int.Parse(legislatura_corrente));
 
-        string query = @"UPDATE PERSONA SET NUMERO_TESSERA = "+ numero_tessera + " WHERE ID_PERSONA = (SELECT TOP 1 ID_PERSONA FROM join_persona_organo_carica WHERE ID_REC = " + idRec+")";
+        //qunado inserisco una carica se per quella persona non è stato generato un numero di tessera per questa legilsatura allora lo genero
+        if(!ExistsNumeroTesseraFromCarica(int.Parse(sel_leg_id), (int) idRec))
+        {
+            var numero_tessera = GetLastCardNumber(int.Parse(legislatura_corrente));
 
-        DataTableReader reader = Utility.ExecuteQuery(query);
+            string query = @"UPDATE PERSONA SET NUMERO_TESSERA = " + numero_tessera + " WHERE ID_PERSONA = (SELECT TOP 1 ID_PERSONA FROM join_persona_organo_carica WHERE ID_REC = " + idRec + ")";
 
-        var _params = new Dictionary<string, object>();
-        _params.Add("@numero_tessera", numero_tessera);
-        _params.Add("@id_legislatura", legislatura_corrente);
+            DataTableReader reader = Utility.ExecuteQuery(query);
 
-        var sqlInsertTessera = "INSERT INTO join_persona_tessere VALUES(@numero_tessera,@id_legislatura,(SELECT TOP 1 ID_PERSONA FROM join_persona_organo_carica WHERE ID_REC = " + idRec+ "),0)";
+            var _params = new Dictionary<string, object>();
+            _params.Add("@numero_tessera", numero_tessera);
+            _params.Add("@id_legislatura", legislatura_corrente);
 
-        Utility.ExecuteQuery(sqlInsertTessera, CommandType.Text, _params);
+            var sqlInsertTessera = "INSERT INTO join_persona_tessere VALUES(@numero_tessera,@id_legislatura,(SELECT TOP 1 ID_PERSONA FROM join_persona_organo_carica WHERE ID_REC = " + idRec + "),0)";
+
+            Utility.ExecuteQuery(sqlInsertTessera, CommandType.Text, _params);
+
+        }
 
 
         UpdatePanelDetails.Update();
@@ -1000,4 +1006,23 @@ public partial class cariche_cariche : System.Web.UI.Page
 
         return newNumber.ToString();
     }
+    public bool ExistsNumeroTesseraFromCarica(int idLegislatura, int idCarica)
+    {
+        bool exists = false;
+
+        string query = @"select  top 1 * from join_persona_tessere jpt
+                        inner join join_persona_organo_carica  jpoc on jpoc.id_persona = jpt.id_persona
+                        where  jpoc.id_rec = " + idCarica + " AND jpt.id_legislatura = " + idLegislatura;
+
+        DataTableReader reader = Utility.ExecuteQuery(query);
+
+        while (reader.Read())
+        {
+            exists = true;
+        }
+
+        return exists;
+    }
+  
+
 }

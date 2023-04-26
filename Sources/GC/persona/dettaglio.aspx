@@ -144,11 +144,11 @@
                         <br />
                             <br />
 
-                            <asp:Button ID="Button3" 
+                            <asp:Button ID="Button8" 
                                         runat="server" 
                                         CausesValidation="False" 
                                         Text="Conferma" 
-                                        OnClientClick="return confirm ('Confermare la chiusura?');"
+                                        OnClientClick="return confirm ('Confermare la chiusura?')"
                                         OnClick="ButtonConfirmChiusura_Click"/>
                                     
                         <br />
@@ -196,7 +196,8 @@
                             <p>Aggiorna l'ultima data di chiusura</p>
                           <InsertItemTemplate>
 					            <asp:TextBox ID="TextBoxAggiornaDataChiusura" 
-					                         runat="server" >
+					                          runat="server" 
+					                         Text='<%# Eval("data_chiusura", "{0:dd/MM/yyyy}") %>'>
 					            </asp:TextBox>
 					            <img alt="calendar" src="../img/calendar_month.png" id="Img1" runat="server" />
 					            <cc1:CalendarExtender ID="CalendarExtender4" 
@@ -223,8 +224,9 @@
                                         runat="server" 
                                         CausesValidation="False" 
                                         Text="Conferma" 
-                                        OnClientClick="return confirm ('Confermare la modifica della chiusura?');"
+                                        OnClientClick="return confirm ('Confermare la modifica della chiusura?')"
                                         OnClick="ButtonVediChiusureConferma_Click"/>
+
                         </div>
                                     
                         <br />
@@ -1967,6 +1969,6 @@
             $('input[id$=_TextBoxComuneResidenzaId').val(id);
         }
 
-  </script>
+       </script>
 
 </asp:Content>
