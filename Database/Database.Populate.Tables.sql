@@ -333,7 +333,8 @@ GO
 
 INSERT [dbo].[tbl_cause_fine] ([id_causa], [descrizione_causa], [tipo_causa], [readonly]) VALUES (26, N'Scioglimento', N'Legislature', 0)
 GO
-
+INSERT [dbo].[tbl_cause_fine] ([id_causa], [descrizione_causa], [tipo_causa], [readonly]) VALUES (27, N'Fine Legislatura', N'Legislature', 0)
+GO
 SET IDENTITY_INSERT [dbo].[tbl_cause_fine] OFF
 
 /**	Tabella tbl_cause_fine:	FINE */

@@ -1,48 +1,4 @@
-CREATE TABLE [dbo].[join_persona_chisura](
-	[id_rec] [int] IDENTITY(1,1) NOT NULL,
-	[id_persona] [int] NOT NULL,
-	[id_causa_fine] [int] NOT NULL,
-	[data_chiusura] [datetime] NOT NULL,
- CONSTRAINT [id_rec] PRIMARY KEY CLUSTERED 
-(
-	[id_rec] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
 
-ALTER TABLE [dbo].[join_persona_chisura]  WITH CHECK ADD  CONSTRAINT [id_causa_fine] FOREIGN KEY([id_causa_fine])
-REFERENCES [dbo].[tbl_cause_fine] ([id_causa])
-GO
-
-ALTER TABLE [dbo].[join_persona_chisura] CHECK CONSTRAINT [id_causa_fine]
-GO
-
-ALTER TABLE [dbo].[join_persona_chisura]  WITH CHECK ADD  CONSTRAINT [id_persona] FOREIGN KEY([id_persona])
-REFERENCES [dbo].[persona] ([id_persona])
-GO
-
-ALTER TABLE [dbo].[join_persona_chisura] CHECK CONSTRAINT [id_persona]
-GO
-
-CREATE TABLE [dbo].[join_legislature_chiusura](
-	[id_rec] [int] IDENTITY(1,1) NOT NULL,
-	[id_legislatura] [int] NOT NULL,
-	[id_causa_fine] [int] NOT NULL,
-	[data_chiusura] [datetime] NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[id_rec] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[join_legislature_chiusura]  WITH CHECK ADD FOREIGN KEY([id_causa_fine])
-REFERENCES [dbo].[tbl_cause_fine] ([id_causa])
-GO
-
-ALTER TABLE [dbo].[join_legislature_chiusura]  WITH CHECK ADD FOREIGN KEY([id_legislatura])
-REFERENCES [dbo].[legislature] ([id_legislatura])
-GO
 
 ALTER TABLE persona
 ADD chiuso bit not null default 0
@@ -141,7 +97,7 @@ BEGIN
 		and chiuso = 1
 		and id_legislatura = @idLegislatura
 
-	INSERT INTO join_legislature_chiusura (id_legislatura, id_causa_fine, data_chiusura) VALUES (@idLegislatura, 23, @dataChiusura);
+	INSERT INTO join_legislature_chiusura (id_legislatura, id_causa_fine, data_chiusura) VALUES (@idLegislatura, 27, @dataChiusura);
 
 END
 GO
@@ -220,7 +176,7 @@ BEGIN
 			@currentId int = 0,
 			@currentNumeroTessera varchar = ''
 
-	INSERT INTO join_legislature_chiusura (id_legislatura, id_causa_fine, data_chiusura) VALUES (@idLegislatura, 23, @dataChiusura);
+	INSERT INTO join_legislature_chiusura (id_legislatura, id_causa_fine, data_chiusura) VALUES (@idLegislatura, 27, @dataChiusura);
 
 	SELECT SCOPE_IDENTITY() AS Id;
 
@@ -257,7 +213,7 @@ BEGIN
 	update legislature
 	set
 		durata_legislatura_a = @dataChiusura,
-		id_causa_fine = 23,
+		id_causa_fine = 27,
 		attiva = 0
 	where id_legislatura = @idLegislatura
 
@@ -265,7 +221,7 @@ BEGIN
 	set
 		chiuso = 1,
 		data_fine = @dataChiusura,
-		id_causa_fine = 23
+		id_causa_fine = 27
 	where deleted = 0
 		and data_fine is null
 		and id_gruppo in
@@ -294,10 +250,6 @@ BEGIN
         RETURN ERROR_MESSAGE()
 	END CATCH
 END
-GO
-
-
-USE [dbConsiglieri_test]
 GO
 
 /****** Object:  StoredProcedure [dbo].[spChiusuraPersona]    Script Date: 27/04/2023 13:57:21 ******/
@@ -389,32 +341,10 @@ WHERE  (gg.deleted = 0) AND (jpgp.deleted = 0) AND (jpgp.chiuso = 0)
 GO
 
 
-CREATE TABLE join_persona_tessere(
-
-	[id_rec] [int] IDENTITY(1,1) NOT NULL,
-	[numero_tessera] INT NULL,
-	[id_legislatura] [int] NOT NULL,
-	[id_persona] [int] NOT NULL,
-	[deleted] [bit] NOT NULL,
-)
 
 
-ALTER TABLE [dbo].[join_persona_tessere]  WITH CHECK ADD  CONSTRAINT [FK_join_persona_tessere_legislature] FOREIGN KEY([id_legislatura])
-REFERENCES [dbo].[legislature] ([id_legislatura])
-GO
-
-ALTER TABLE [dbo].[join_persona_tessere] CHECK CONSTRAINT [FK_join_persona_tessere_legislature]
-GO
-
-ALTER TABLE [dbo].join_persona_tessere  WITH CHECK ADD  CONSTRAINT [FK_join_persona_tessere_persona] FOREIGN KEY([id_persona])
-REFERENCES [dbo].[persona] ([id_persona])
-GO
-
-ALTER TABLE [dbo].join_persona_tessere CHECK CONSTRAINT [FK_join_persona_tessere_persona]
-GO
-
-
-
+/*aggiunta causa fine legislatura*/
+INSERT INTO TBL_CAUSE_FINE VALUES ('Fine Legislatura','Legislature',0)
 
 /*inizializzo contatore numero tessere legislatura corrente con il massimo*/
 declare @maxNum int = (select max(CASE WHEN ISNUMERIC(numero_tessera) = 1 THEN CAST(numero_tessera AS INT) ELSE NULL END) from persona)
