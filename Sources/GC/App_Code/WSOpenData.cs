@@ -43,7 +43,7 @@ public class WSOpenData
     {
 
         // token per accesso
-        this.PRIVATE_TOKEN = "o90eid-oekmfi-0dki0d";
+        this.PRIVATE_TOKEN = System.Configuration.ConfigurationManager.AppSettings["OPEN_DATA_PRIVATE_TOKEN"];
 
         WSOpenDataRef.UpsertOpenDataSoapClient wsOD = new WSOpenDataRef.UpsertOpenDataSoapClient();
 

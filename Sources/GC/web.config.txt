@@ -16,6 +16,8 @@
     <add key="PATH_ALLEGATI" value="/filesAllegati"/>
     <!-- Parametro per abilitare invio dati a Open Data - Valori possibili={true|false} -->
     <add key="ENABLE_SEND_OPEN_DATA" value="false"/>
+    <!-- Token di autenticazione servizio OpenData-->  
+	<add key="OPEN_DATA_PRIVATE_TOKEN" value="[TOKEN]"/>
     <!-- Percorso della cartella di salvataggio dichiarazioni dei redditi  -->
     <add key="AMM_TRASP_PATH_DICHREDDITI" value="/filesAllegatiAmmTrasp"/>
     <!-- URL Dichiarazione redditi e situazione patrimoniale (salvati nella cartella sopra) 
