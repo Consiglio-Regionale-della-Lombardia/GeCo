@@ -97,7 +97,7 @@ BEGIN
 		and chiuso = 1
 		and id_legislatura = @idLegislatura
 
-	INSERT INTO join_legislature_chiusura (id_legislatura, id_causa_fine, data_chiusura) VALUES (@idLegislatura, 27, @dataChiusura);
+	INSERT INTO join_legislature_chiusura (id_legislatura, id_causa_fine, data_chiusura) VALUES (@idLegislatura, 29, @dataChiusura);
 
 END
 GO
@@ -176,7 +176,7 @@ BEGIN
 			@currentId int = 0,
 			@currentNumeroTessera varchar = ''
 
-	INSERT INTO join_legislature_chiusura (id_legislatura, id_causa_fine, data_chiusura) VALUES (@idLegislatura, 27, @dataChiusura);
+	INSERT INTO join_legislature_chiusura (id_legislatura, id_causa_fine, data_chiusura) VALUES (@idLegislatura, 29, @dataChiusura);
 
 	SELECT SCOPE_IDENTITY() AS Id;
 
@@ -213,7 +213,7 @@ BEGIN
 	update legislature
 	set
 		durata_legislatura_a = @dataChiusura,
-		id_causa_fine = 27,
+		id_causa_fine = 29,
 		attiva = 0
 	where id_legislatura = @idLegislatura
 
@@ -221,7 +221,7 @@ BEGIN
 	set
 		chiuso = 1,
 		data_fine = @dataChiusura,
-		id_causa_fine = 27
+		id_causa_fine = 23
 	where deleted = 0
 		and data_fine is null
 		and id_gruppo in
