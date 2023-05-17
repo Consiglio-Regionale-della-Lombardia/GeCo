@@ -794,8 +794,18 @@ public partial class dettaglio : System.Web.UI.Page
 
 
             CheckBox chkbox_supplente = DetailsView1.FindControl("chkbox_supplente_insert") as CheckBox;
-
-            ExecuteUpdateJPOC(id_persona, chkbox_supplente.Checked);
+            try
+            {
+                ExecuteUpdateJPOC(id_persona, chkbox_supplente.Checked);
+            }
+            catch(Exception ex)
+            {
+                string delete_tessera_query = "DELETE FROM join_persona_tessere WHERE ID_PERSONA = " + id_persona + " AND ID_LEGISLATURA = " + sel_leg_id;
+                Utility.ExecuteQuery(delete_tessera_query);
+                string delete_persona_query = "DELETE FROM PERSONA WHERE ID_PERSONA = " + id_persona;
+                Utility.ExecuteQuery(delete_persona_query);
+                throw new Exception("Non è stato possibile inserire la persona.");
+            }
 
             CPersona obj = new CPersona();
 
@@ -903,11 +913,7 @@ public partial class dettaglio : System.Web.UI.Page
             reader.Close();
 
             if (string.IsNullOrEmpty(info_carica[1]))
-            {
-                string delete_tessera_query = "DELETE FROM join_persona_tessere WHERE ID_PERSONA = " + id_persona +" AND ID_LEGISLATURA = "+idLeg;     
-                Utility.ExecuteQuery(delete_tessera_query);
-                string delete_persona_query = "DELETE FROM PERSONA WHERE ID_PERSONA = " + id_persona;
-                Utility.ExecuteQuery(delete_persona_query);
+            {              
                 throw new Exception("Carica Consigliere regionale non presente per la legislatura indicata. Inserimento NON effettuato");
             }
 
