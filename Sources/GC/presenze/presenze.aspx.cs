@@ -18,6 +18,7 @@
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -171,7 +172,7 @@ public partial class presenze_presenze : System.Web.UI.Page
 
         if (!TextBoxFiltroData.Text.Equals(""))
         {
-            cond += " AND ss.data_seduta = '" + TextBoxFiltroData.Text + "'";
+            cond += " AND ss.data_seduta = '" + DateTime.Parse(TextBoxFiltroData.Text, new CultureInfo("it-IT")).ToString("yyyyMMdd") + "'";
         }
         else
         {
