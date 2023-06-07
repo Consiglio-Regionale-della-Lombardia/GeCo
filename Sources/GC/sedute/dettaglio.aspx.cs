@@ -424,6 +424,7 @@ WHERE ss.deleted = 0
                                                    ,1
                                                    ,1
                                                    ,1)";
+    private int i;
 
 
     #endregion
@@ -2137,10 +2138,69 @@ WHERE ss.deleted = 0
                 Utility.ExecuteNonQuery(query.Replace("@copia_comm", "2"));
                 break;
         }
+        AggiornaFoglioPresenzeDinamico();
+    }
+    protected void button_dynamic_add_Presidenti_Click(object sender, EventArgs e)
+    {
+        //questa funzionalità aggiunge tutti i presidenti di commissione permanente e commissione speciale alla seduta
+
+        if (!seduta_salvata)
+            Salva_Righe_FoglioPresenze();
+
+        var queryPersone = @"select jpo.id_persona  from join_persona_organo_carica jpo
+inner join cariche cc on jpo.id_carica = cc.id_carica
+where (nome_carica like 'Presidente Commissione speciale' or nome_carica like 'Presidente Commissione permanente')
+and jpo.data_inizio < '@seduta_data' and jpo.data_fine is null and jpo.id_legislatura =  @id_legislatura";
+
+        queryPersone = queryPersone.Replace("@seduta_data", seduta_data.ToString("MM/dd/yyyy"));
+        queryPersone = queryPersone.Replace("@id_legislatura", seduta_legislatura_id.ToString());
+        var persone = Utility.ExecuteQuery(queryPersone);
+
+        if (persone.HasRows)
+        {
+            while (persone.Read())
+            {
+                var id_persona = persone[0].ToString();
+                var query = query_insert_foglio_dinamico.Replace("@id_seduta", seduta_id);
+                query = query.Replace("@id_persona", id_persona);
+
+                switch (user_role)
+                {
+                    // aggiorno la versione per UOPrerogative (e admin)
+                    case 1:
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "2"));
+                        break;
+
+                    // aggiorno la versione per UOPrerogative (e admin)
+                    case 2:
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "2"));
+                        break;
+
+                    // aggiorno le versioni per ServComm e UOPrerogative
+                    case 4:
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "1"));
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "2"));
+                        break;
+
+                    // aggiorno le versioni per Comm, ServComm e UOPrerogative
+                    case 5:
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "0"));
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "1"));
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "2"));
+                        break;
+
+                    // aggiorno le versioni per SegrCons e UOPrerogative
+                    case 6:
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "0"));
+                        Utility.ExecuteNonQuery(query.Replace("@copia_comm", "2"));
+                        break;
+                }
+            }
+        }
+     
 
         AggiornaFoglioPresenzeDinamico();
     }
-
     /// <summary>
     /// Inizializza ContextKey
     /// </summary>

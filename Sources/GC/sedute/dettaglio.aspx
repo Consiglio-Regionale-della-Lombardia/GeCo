@@ -1259,6 +1259,7 @@
                                         <asp:Button ID="button_dynamic_add" runat="server" Text="Conferma"
                                             OnClick="button_dynamic_add_Click" CssClass="button" CausesValidation="false" />
                                         <% } %>
+                                        <asp:Button ID="button_dynamic_add_Presidenti0" runat="server" CausesValidation="false" CssClass="button" OnClick="button_dynamic_add_Presidenti_Click" Text="Inserisci Presidenti Commissioni" Width="223px" />
                                     </asp:Panel>
                                     <asp:GridView ID="GridView_dynamic" runat="server" CssClass="tab_gen" AutoGenerateColumns="False"
                                         DataSourceID="SqlDataSource_Dynamic" DataKeyNames="persona_id"
