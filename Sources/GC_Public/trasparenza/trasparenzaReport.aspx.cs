@@ -404,7 +404,8 @@ public partial class trasparenza_trasparenzaReport : System.Web.UI.Page
                                 if (Mode == MODE_ASSESSORI && id_tipo_doc_trasparenza == 7 && anno >= 2018 && legislaturaNum == "XI")
                                 {
                                     //Use url from config
-                                    temp = TEMPLATE_CELL_LINK.Replace("#URL#", System.Configuration.ConfigurationManager.AppSettings["AMM_TRASP_URL_TOTALE_COMPENSO"]);
+                                    //temp = TEMPLATE_CELL_LINK.Replace("#URL#", System.Configuration.ConfigurationManager.AppSettings["AMM_TRASP_URL_TOTALE_COMPENSO"]);
+                                    temp = TEMPLATE_CELL_LINK.Replace("#URL#", System.Configuration.ConfigurationManager.AppSettings["AMM_TRASP_URL_TOTALE_COMPENSO"].Replace("{ANNO}", anno.ToString()));
 
                                     linkTxt = "Totale compenso @ANNO – @LEGISLATURA Legislatura";
                                     linkTxt = linkTxt.Replace("@ANNO", anno.ToString());
