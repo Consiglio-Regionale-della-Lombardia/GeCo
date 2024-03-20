@@ -47,7 +47,7 @@ public class DetailsViewExport
     public static void toPdf(DetailsView DetailsView1, string FileName)
     {
         HttpContext.Current.Response.ContentType = "application/pdf";
-        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=" + FileName + ".pdf");
+        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=\"" + FileName + "\".pdf");
         HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
         StringWriter sw = new StringWriter();
@@ -107,7 +107,7 @@ public class DetailsViewExport
         HttpContext.Current.Response.Clear();
         HttpContext.Current.Response.Buffer = true;
 
-        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=" + FileName + ".xls");
+        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=\"" + FileName + "\".xls");
         HttpContext.Current.Response.Charset = "";
         HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
         StringWriter sw = new StringWriter();
@@ -371,7 +371,7 @@ public class DetailsViewExport
 
         response.Charset = "text/html";
         response.ContentType = "application/pdf";
-        response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         response.End();
     }
 
@@ -549,7 +549,7 @@ public class DetailsViewExport
 
         response.Charset = "text/html";
         response.ContentType = "application/pdf";
-        response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         response.End();
     }
 
@@ -745,7 +745,7 @@ public class DetailsViewExport
 
         response.Charset = "text/html";
         response.ContentType = "application/pdf";
-        response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         response.End();
     }
 
@@ -1006,7 +1006,7 @@ public class DetailsViewExport
 
         p_response.Charset = "text/html";
         p_response.ContentType = "application/pdf";
-        p_response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        p_response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         p_response.End();
     }
 

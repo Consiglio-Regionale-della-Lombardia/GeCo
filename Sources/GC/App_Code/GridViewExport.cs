@@ -71,7 +71,7 @@ public class GridViewExport
         }
 
         HttpContext.Current.Response.ContentType = "application/pdf";
-        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=" + FileName + ".pdf");
+        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=\"" + FileName + "\".pdf");
         HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
         StringWriter sw = new StringWriter();
@@ -163,7 +163,7 @@ public class GridViewExport
         HttpContext.Current.Response.Clear();
         HttpContext.Current.Response.Buffer = true;
 
-        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=" + FileName + ".xls");
+        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=\"" + FileName + "\".xls");
         HttpContext.Current.Response.Charset = "";
         HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
         StringWriter sw = new StringWriter();
@@ -301,7 +301,7 @@ public class GridViewExport
         Response.Clear();
         Response.Buffer = true;
 
-        Response.AddHeader("content-disposition", "attachment;filename=" + filename + ".xls");
+        Response.AddHeader("content-disposition", "attachment;filename=\"" + filename + "\".xls");
         Response.Charset = "text/html";
         Response.ContentType = "application/vnd.ms-excel";
 
@@ -871,7 +871,7 @@ public class GridViewExport
 
         Response.Charset = "text/html";
         Response.ContentType = "application/pdf";
-        Response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         Response.End();
     }
 
@@ -909,7 +909,7 @@ public class GridViewExport
 
         Response.ClearContent();
 
-        Response.AddHeader("content-disposition", "attachment;filename=" + filename + ".xls");
+        Response.AddHeader("content-disposition", "attachment;filename=\"" + filename + "\".xls");
         Response.Charset = "text/html";
         Response.ContentType = "application/excel";
 
@@ -1639,7 +1639,7 @@ public class GridViewExport
 
         Response.Charset = "text/html";
         Response.ContentType = "application/pdf";
-        Response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         Response.End();
     }
 
@@ -1861,7 +1861,7 @@ public class GridViewExport
 
         Response.Charset = "text/html";
         Response.ContentType = "application/pdf";
-        Response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         Response.End();
 
     }
@@ -1890,7 +1890,7 @@ public class GridViewExport
         Response.Clear();
         Response.Buffer = true;
 
-        Response.AddHeader("content-disposition", "attachment;filename=" + filename + ".xls");
+        Response.AddHeader("content-disposition", "attachment;filename=\"" + filename + "\".xls");
         Response.Charset = "text/html";
         Response.ContentType = "application/vnd.ms-excel";
 
@@ -2558,7 +2558,7 @@ public class GridViewExport
 
         Response.Charset = "text/html";
         Response.ContentType = "application/pdf";
-        Response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         Response.End();
     }
 
@@ -2587,7 +2587,7 @@ public class GridViewExport
         Response.Clear();
         Response.Buffer = true;
 
-        Response.AddHeader("content-disposition", "attachment;filename=" + filename + ".xls");
+        Response.AddHeader("content-disposition", "attachment;filename=\"" + filename + "\".xls");
         Response.Charset = "text/html";
         Response.ContentType = "application/vnd.ms-excel";
         StringWriter sw = new StringWriter();
@@ -3250,7 +3250,7 @@ public class GridViewExport
 
         Response.Charset = "text/html";
         Response.ContentType = "application/pdf";
-        Response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         Response.End();
     }
 
@@ -3343,7 +3343,7 @@ public class GridViewExport
         Response.Clear();
         Response.Buffer = true;
 
-        Response.AddHeader("content-disposition", "attachment;filename=" + filename + ".xls");
+        Response.AddHeader("content-disposition", "attachment;filename=\"" + filename + "\".xls");
         Response.Charset = "text/html";
         Response.ContentType = "application/vnd.ms-excel";
         StringWriter sw = new StringWriter();
@@ -4179,7 +4179,7 @@ public class GridViewExport
 
         Response.Charset = "text/html";
         Response.ContentType = "application/pdf";
-        Response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         Response.End();
     }
     #endregion
@@ -4296,7 +4296,7 @@ public class GridViewExport
 
         p_response.Charset = "text/html";
         p_response.ContentType = "application/pdf";
-        p_response.AddHeader("content-disposition", "attachment; filename=" + p_filename + ".pdf");
+        p_response.AddHeader("content-disposition", "attachment; filename=\"" + p_filename + "\".pdf");
         p_response.End();
     }
 
@@ -5218,7 +5218,7 @@ public class GridViewExport
 
         Response.Charset = "text/html";
         Response.ContentType = "application/pdf";
-        Response.AddHeader("content-disposition", "attachment; filename=" + filename + ".pdf");
+        Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + "\".pdf");
         Response.End();
     }
 
@@ -5247,7 +5247,7 @@ public class GridViewExport
         Response.Clear();
         Response.Buffer = true;
 
-        Response.AddHeader("content-disposition", "attachment;filename=" + filename + ".xls");
+        Response.AddHeader("content-disposition", "attachment;filename=\"" + filename + "\".xls");
         Response.Charset = "text/html";
         Response.ContentType = "application/vnd.ms-excel";
         StringWriter sw = new StringWriter();
@@ -5736,7 +5736,7 @@ public class GridViewExport
         pdfDoc.Close();
 
         Response.ContentType = "application/pdf";
-        Response.AddHeader("content-disposition", "attachment;filename=" + filename + ".pdf");
+        Response.AddHeader("content-disposition", "attachment;filename=\"" + filename + "\".pdf");
         Response.Cache.SetCacheability(HttpCacheability.NoCache);
         Response.Write(pdfDoc);
         Response.End();
