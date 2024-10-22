@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="ctl00_Head1">
+	<title>Anagrafica Consiglieri</title>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+	<meta content="no-cache" http-equiv="Cache-Control" />
+	<meta content="no-cache" http-equiv="Pragma" />
+	<meta content="0" http-equiv="Expires" />
+	<link href="../css/theme.css" rel="stylesheet" type="text/css" />
+	<link href="../css/tabs.css" rel="stylesheet" type="text/css" media="screen" />
+
+	<style>
+		.barra_verde a {
+			color: #FFF;
+			font-weight: bold;
+			text-decoration: underline;
+		}
+	</style>
+
+</head>
+<body>
+	<form name="aspnetForm" method="post" action="./persona.aspx" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm">
+		<div>
+		</div>
+
+
+
+
+
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+			<!--testata-->
+			<tr>
+				<td valign="top" style="width: 224px; height: 100px; text-align: center;" class="testata" colspan="2">
+					<img id="ctl00_Image1" src="../loghi/Logo_CRL.gif" style="border-width:0px;" />
+				</td>
+			</tr>
+
+			<!--barra login-->
+
+			<tr>
+				<td valign="top" class="testata" colspan="2" style="height:22px;">
+
+
+
+					<div style="margin: 2px; padding: 2px 10px 2px 10px; background-color: #FFFFFF; color: #006600; vertical-align: middle;">
+						&nbsp;
+
+					</div>
+
+
+
+
+				</td>
+			</tr>
+
+
+			<!--barra verde-->
+			<tr>
+
+				<td colspan="2" id="barra_verde" style="text-align: left;">
+
+					<div style="position: relative;">
+
+
+					</div>
+
+				</td>
+
+			</tr>
+
+			<!--contenuti-->
+			<tr>
+				<td class="contenuti" style="height: 500px;">
+					<div>
+
+						<div id="content">
+
+
+							<div align="center" style="padding-top:16px;">
+
+								<span style="font-size:2em;">Spiacenti, non riusciamo a trovare la pagina che stai cercando...</span>
+								<div align="center" style="padding-top:16px;"><img src="https://gecolombardia.lansystems.it/img/404-1.png" style="border-width:0px;" /></div>
+								<br>
+								<span style="font-size:1.2em;">Forse uno dei link sottostanti ti porterà nella giusta direzione:</span>
+								<br><br>
+								<!--	background-color: #006600; -->
+
+							</div>
+							<div class="barra_verde" style="height: 32px;line-height: 32px;text-align: center; ">
+
+								<span style="text-align: center;background-color: #006600; padding: 8px 8px 8px 8px;">
+									<a href="../persona/persona.aspx">Consiglieri</a>
+									-
+									-
+									<a href="../persona/persona_assessori.aspx" visible="true">Assessori</a>
+									-
+									-
+									<a href="../gruppi_politici/gestisciGruppiPolitici.aspx">Gruppi Politici</a>
+								</span>
+							</div>
+
+
+				</td>
+
+
+			</tr>
+
+
+
+			<!--footer-->
+			<tr>
+				<td colspan="2" class="footer">
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+
+		<script type="text/javascript">
+			//<![CDATA[
+			var Page_Validators = new Array(document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio"), document.getElementById("ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio"), document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine"), document.getElementById("ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine"));
+			//]]>
+		</script>
+
+		<script type="text/javascript">
+			//<![CDATA[
+			var ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio");
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio.controltovalidate = "ctl00_ContentPlaceHolder1_TextBox_DataInizio";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio.errormessage = "Campo obbligatorio.";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio.display = "Dynamic";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio.validationGroup = "FiltroSearch";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio.initialvalue = "";
+			var ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio = document.all ? document.all["ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio"] : document.getElementById("ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio");
+			ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio.controltovalidate = "ctl00_ContentPlaceHolder1_TextBox_DataInizio";
+			ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio.errormessage = "Ammessi solo valori GG/MM/AAAA.";
+			ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio.display = "Dynamic";
+			ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio.validationGroup = "FiltroSearch";
+			ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+			ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio.validationexpression = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$";
+			var ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine = document.all ? document.all["ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine"] : document.getElementById("ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine");
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine.controltovalidate = "ctl00_ContentPlaceHolder1_TextBox_DataFine";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine.errormessage = "Campo obbligatorio.";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine.display = "Dynamic";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine.validationGroup = "FiltroSearch";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+			ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine.initialvalue = "";
+			var ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine = document.all ? document.all["ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine"] : document.getElementById("ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine");
+			ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine.controltovalidate = "ctl00_ContentPlaceHolder1_TextBox_DataFine";
+			ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine.errormessage = "Ammessi solo valori GG/MM/AAAA.";
+			ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine.display = "Dynamic";
+			ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine.validationGroup = "FiltroSearch";
+			ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+			ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine.validationexpression = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$";
+			//]]>
+		</script>
+
+
+		<script type="text/javascript">
+			//<![CDATA[
+
+			var Page_ValidationActive = false;
+			if (typeof (ValidatorOnLoad) == "function") {
+				ValidatorOnLoad();
+			}
+
+			function ValidatorOnSubmit() {
+				if (Page_ValidationActive) {
+					return ValidatorCommonOnSubmit();
+				}
+				else {
+					return true;
+				}
+			}
+
+			theForm.oldSubmit = theForm.submit;
+			theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+			theForm.oldOnSubmit = theForm.onsubmit;
+			theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+			Sys.Application.add_init(function () {
+				$create(AjaxControlToolkit.CalendarBehavior, { "button": $get("ctl00_ContentPlaceHolder1_Image_DataInizio"), "format": "dd/MM/yyyy", "id": "ctl00_ContentPlaceHolder1_CalendarExtender_DataInizio" }, null, null, $get("ctl00_ContentPlaceHolder1_TextBox_DataInizio"));
+			});
+
+			document.getElementById('ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio').dispose = function () {
+				Array.remove(Page_Validators, document.getElementById('ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataInizio'));
+			}
+
+			document.getElementById('ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio').dispose = function () {
+				Array.remove(Page_Validators, document.getElementById('ctl00_ContentPlaceHolder1_RegexFieldValidator_DataInizio'));
+			}
+			Sys.Application.add_init(function () {
+				$create(AjaxControlToolkit.CalendarBehavior, { "button": $get("ctl00_ContentPlaceHolder1_Image_DataFine"), "format": "dd/MM/yyyy", "id": "ctl00_ContentPlaceHolder1_CalendarExtender_DataFine" }, null, null, $get("ctl00_ContentPlaceHolder1_TextBox_DataFine"));
+			});
+
+			document.getElementById('ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine').dispose = function () {
+				Array.remove(Page_Validators, document.getElementById('ctl00_ContentPlaceHolder1_RequiredFieldValidator_DataFine'));
+			}
+
+			document.getElementById('ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine').dispose = function () {
+				Array.remove(Page_Validators, document.getElementById('ctl00_ContentPlaceHolder1_RegularExpressionValidator_DataFine'));
+			}
+			Sys.Application.add_init(function () {
+				$create(AjaxControlToolkit.CollapsiblePanelBehavior, { "ClientStateFieldID": "ctl00_ContentPlaceHolder1_cpe_ClientState", "CollapseControlID": "ctl00_ContentPlaceHolder1_ImageButtonRicerca", "Collapsed": true, "CollapsedSize": 0, "CollapsedText": "Apri Ricerca", "ExpandControlID": "ctl00_ContentPlaceHolder1_ImageButtonRicerca", "ExpandedText": "Nascondi Ricerca", "TextLabelID": "ctl00_ContentPlaceHolder1_LabelRicerca", "id": "ctl00_ContentPlaceHolder1_cpe" }, null, null, $get("ctl00_ContentPlaceHolder1_PanelRicerca"));
+			});
+//]]>
+		</script>
+	</form>
+
+
+
+</body>
+</html>
