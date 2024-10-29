@@ -70,7 +70,7 @@ Browser web supportati: IE11 e Chrome
 
 ## Istruzioni per l'installazione
 
-Per l'installazione del sistema operativo, si rimanda al link [Installazione Windows Server 2012 R2](https://learn.microsoft.com/it-it/windows-server/get-started/install-upgrade-migrate).
+Per l'installazione del sistema operativo, si rimanda al link [Installazione Windows Server 2019](https://learn.microsoft.com/it-it/windows-server/get-started/install-upgrade-migrate).
 
 Analogamente, per quanto concerne l'installazione del DBMS, si rimanada al link [Installzione SQL Server 2014 Step by Step](https://social.technet.microsoft.com/wiki/contents/articles/23878.sql-server-2014-step-by-step-installation.aspx).
 
