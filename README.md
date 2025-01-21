@@ -4,7 +4,7 @@
 
 * Copyright: Consiglio regionale della Lombardia
 * Stato del progetto: Stable
-* Mantenimento in carico a [Nposistemi S.r.l.](https://www.nposistemi.it)
+* Mantenimento in carico a Lansystem S.r.l.
 * Per segnalare CVE e problemi di sicurezza scrivere a helpdesk.software@nposistemi.it
 
 Il logo del Consiglio regionale della Lombardia è di proprietà esclusiva del [Consiglio regionale della Lombardia](https://www.consiglio.regione.lombardia.it/), pertanto dovrà essere sostituito qualora si esegua il download e l'installazione del software.
