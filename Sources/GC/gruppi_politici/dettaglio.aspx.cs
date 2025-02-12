@@ -567,7 +567,8 @@ public partial class gruppi_politici_dettaglio : System.Web.UI.Page
                                  id_legislatura,
                                  data_inizio,
                                  data_fine,
-                                 deleted
+                                 deleted,
+                                 chiuso
                           FROM join_gruppi_politici_legislature
                           WHERE id_gruppo = " + new_id_gruppo;
 
