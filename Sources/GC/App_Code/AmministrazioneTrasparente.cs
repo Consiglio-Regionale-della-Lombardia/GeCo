@@ -695,7 +695,7 @@ public class AmministrazioneTrasparente
                 else
                     qry.Replace("@mancato_consenso", "0");
 
-                qry.Replace("@dich_redditi_filename", filename);
+                qry.Replace("@dich_redditi_filename", filename.Replace("'", "''"));
                 qry.Replace("@dich_redditi_filesize", fileBytes.Length.ToString());
                 qry.Replace("@dich_redditi_filehash", hash);
 
