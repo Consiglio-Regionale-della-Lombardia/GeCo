@@ -3,7 +3,7 @@
          AutoEventWireup="true" 
          CodeFile="errore.aspx.cs" 
          Inherits="errore" 
-         Title="Errore" %>
+         Title="Errore" %> 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div align="center" style="padding-top: 30px;">
