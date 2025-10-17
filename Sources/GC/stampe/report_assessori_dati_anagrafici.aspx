@@ -66,6 +66,21 @@
                     <asp:ListItem Text="Non in carica" Value="2"></asp:ListItem>
                 </asp:DropDownList>
             </td>
+
+            <td width="18%" align="right">
+                <asp:Label ID="lblCarica" 
+                           runat="server"
+                           Text="Carica: ">
+                </asp:Label> 
+                
+                <asp:DropDownList ID="ddlCarica" 
+                                  runat="server" >
+                                     
+                    <asp:ListItem Text="Giunta regionale" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="Assessore" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Sottosegretario" Value="2"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
             
             <td>
             </td>
@@ -121,7 +136,18 @@
 	            <asp:CheckBox ID="chkVis_LuogoDataNascita" 
 	                          runat="server" 
 	                          Checked="true" />
-	        </td>	        
+	        </td>
+	        
+	        <td width="25%" align="right">
+	            <asp:Label ID="lblChkCarica" 
+                           runat="server"
+                           Text="Carica">
+                </asp:Label>
+                
+	            <asp:CheckBox ID="chkVis_Carica" 
+	                          runat="server" 
+	                          Checked="true" />
+	        </td>
 	        
 	        <td align="right">
 	            <asp:Button ID="btnVisualization" 
@@ -235,6 +261,21 @@
 			        </ItemTemplate>
 			        <ItemStyle HorizontalAlign="Left" />
 			    </asp:TemplateField>
+			                    
+                <asp:BoundField DataField="nome_carica"	
+		                        HeaderText="CARICA" 
+			                    SortExpression="nome_carica" 
+			                    ItemStyle-HorizontalAlign="left"/>	
+			                    
+                <asp:BoundField DataField="data_inizio"	
+		                        HeaderText="DATA INIZIO" 
+			                    SortExpression="data_inizio" 
+			                    ItemStyle-HorizontalAlign="center"/>	
+			                    
+                <asp:BoundField DataField="data_fine"	
+		                        HeaderText="DATA FINE" 
+			                    SortExpression="data_fine" 
+			                    ItemStyle-HorizontalAlign="center"/>
 		    </Columns>
 	    </asp:GridView>
 	
