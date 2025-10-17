@@ -45,18 +45,31 @@ public partial class gestisciGruppiPolitici : System.Web.UI.Page
                                                gg.data_fine, 
                                                gg.attivo, 
                                                tcf.descrizione_causa,
-                                               ll.num_legislatura 
+                                               ll.num_legislatura,
+											   COUNT(*) as numero_componenti
                                FROM gruppi_politici AS gg
                                LEFT OUTER JOIN join_gruppi_politici_legislature AS jgpl
                                  ON gg.id_gruppo = jgpl.id_gruppo
                                INNER JOIN legislature AS ll 
-                                 ON jgpl.id_legislatura = ll.id_legislatura 
+                                 ON jgpl.id_legislatura = ll.id_legislatura
+                               INNER JOIN join_persona_gruppi_politici AS jpgp
+                                 ON gg.id_gruppo = jpgp.id_gruppo  
                                LEFT OUTER JOIN tbl_cause_fine AS tcf 
                                  ON gg.id_causa_fine = tcf.id_causa 
                                WHERE gg.deleted = 0  
-                                 AND jgpl.deleted = 0";
+                                 AND jgpl.deleted = 0
+								 AND jpgp.deleted = 0
+                                 AND jpgp.data_fine IS NULL";
 
     string select_orderby = @" ORDER BY nome_gruppo";
+    string select_groupby = @" GROUP BY gg.id_gruppo, 
+                                               gg.codice_gruppo, 
+                                               LTRIM(RTRIM(gg.nome_gruppo)), 
+                                               gg.data_inizio, 
+                                               gg.data_fine, 
+                                               gg.attivo, 
+                                               tcf.descrizione_causa,
+                                               ll.num_legislatura ";
 
     string select_scission_idcausa = @"SELECT id_causa
                                        FROM tbl_cause_fine
@@ -203,7 +216,7 @@ public partial class gestisciGruppiPolitici : System.Web.UI.Page
                 break;
         }
 
-        string select = select_template + filters + select_orderby;
+        string select = select_template + filters + select_groupby + select_orderby;
 
         SqlDataSource1.SelectCommand = select;
         GridView1.DataBind();

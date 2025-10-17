@@ -103,7 +103,8 @@ public partial class persona_assessori : System.Web.UI.Page
 				                         pp.cognome, 
 				                         pp.nome, 
 				                         pp.data_nascita, 
-				                         tc.comune + ' (' + tc.provincia + ')' AS nome_comune
+				                         tc.comune + ' (' + tc.provincia + ')' AS nome_comune,
+                                         cc.nome_carica
                          FROM persona AS pp
                          INNER JOIN join_persona_organo_carica AS jpoc
                            ON pp.id_persona = jpoc.id_persona

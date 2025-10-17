@@ -163,6 +163,12 @@
 			    <asp:BoundField DataField="nome_organo_breve" 
 			                    HeaderText="Nome abbreviato" 
 			                    SortExpression="nome_organo_breve" />
+
+			    <asp:BoundField DataField="numero_componenti" 
+			                    HeaderText="N° componenti" 
+			                    SortExpression="numero_componenti"
+			                    ItemStyle-HorizontalAlign="center" 
+			                    ItemStyle-Width="80px" />
 			    
 			    <asp:BoundField DataField="data_inizio" 
 			                    HeaderText="Data inizio" 
@@ -206,9 +212,17 @@
 		                   runat="server" 
 		                   ConnectionString="<%$ ConnectionStrings:GestioneConsiglieriConnectionString %>"
 		                   
-		                   SelectCommand="SELECT * 
-		                                  FROM organi AS oo 
-		                                  WHERE oo.deleted = 0">
+		                   SelectCommand="SELECT *, (
+										  SELECT COUNT(*) 
+										  FROM join_persona_organo_carica jpoc 
+										  WHERE jpoc.id_legislatura = 33 
+									 		  AND jpoc.id_organo = oo.id_organo 
+											  AND jpoc.deleted = 0
+											  AND jpoc.data_fine is null
+											  ) as numero_componenti
+										  FROM organi AS oo 
+										  WHERE oo.deleted = 0
+											AND oo.id_legislatura = 33">
 		</asp:SqlDataSource>
 	    </ContentTemplate>
 	</asp:UpdatePanel>

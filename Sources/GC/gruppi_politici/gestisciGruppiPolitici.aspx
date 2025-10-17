@@ -206,6 +206,12 @@
 	                        HeaderText="Nome gruppo" 
 	                        SortExpression="nome_gruppo" />
 			
+	        <asp:BoundField DataField="numero_componenti" 
+	                        HeaderText="N° componenti" 
+	                        SortExpression="numero_componenti"
+	                        ItemStyle-HorizontalAlign="center" 
+	                        ItemStyle-Width="80px" />
+			
 	        <asp:BoundField DataField="data_inizio" 
 	                        HeaderText="Data inizio" 
 	                        SortExpression="data_inizio"

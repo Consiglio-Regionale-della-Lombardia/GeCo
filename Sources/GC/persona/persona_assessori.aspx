@@ -167,6 +167,12 @@
 	                    ItemStyle-Width="120px" 
 	                    ItemStyle-VerticalAlign="Middle" />
 	    
+	    <asp:BoundField DataField="nome_carica" 
+	                    HeaderText="Carica" 
+	                    SortExpression="nome_carica" 
+	                    ItemStyle-Width="220px" 
+	                    ItemStyle-VerticalAlign="Middle" />
+	    
 	    <asp:BoundField DataField="data_nascita" 
 	                    HeaderText="Data Nascita" 
 	                    SortExpression="data_nascita"
