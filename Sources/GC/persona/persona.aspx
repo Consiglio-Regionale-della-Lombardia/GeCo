@@ -246,13 +246,15 @@
 	<asp:GridView ID="GridView1" 
 	              runat="server" 
 	              AllowPaging="True" 
+				  PageSize="20"
 	              AllowSorting="True" 
 	              PagerStyle-HorizontalAlign="Center"
 	              AutoGenerateColumns="False"		             
 	              CssClass="tab_gen" 
 	              GridLines="None" 
-	              DataSourceID="SqlDataSource1"         		                
-	              OnRowDataBound="GridView1_RowDataBound" >
+	              DataSourceID="SqlDataSource1"
+	              OnRowDataBound="GridView1_RowDataBound"
+				  ShowFooter="true">
 	              
 	    <EmptyDataTemplate>
 		    <table width="100%" class="tab_gen">

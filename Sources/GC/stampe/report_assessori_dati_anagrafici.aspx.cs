@@ -160,12 +160,19 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
         if (chkVis_Carica.Checked)
         {
             GridView1.Columns[7].Visible = true;
+        }
+        else
+		{
+			GridView1.Columns[7].Visible = false;
+		}
+
+        if (chkVis_DalAl.Checked)
+        {
             GridView1.Columns[8].Visible = true;
             GridView1.Columns[9].Visible = true;
         }
         else
 		{
-			GridView1.Columns[7].Visible = false;
 			GridView1.Columns[8].Visible = false;
 			GridView1.Columns[9].Visible = false;
 		}

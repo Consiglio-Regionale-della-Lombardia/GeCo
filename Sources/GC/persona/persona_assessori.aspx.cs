@@ -204,16 +204,35 @@ public partial class persona_assessori : System.Web.UI.Page
 
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+        if (e.Row.RowType == DataControlRowType.Footer)
+		{
+			LinkButton btnTutti = new LinkButton();
+			btnTutti.Text = "Tutti i dati";
+			btnTutti.CommandName = "ShowAll";
+			btnTutti.Click += BtnTutti_Click;
 
-    }
+			// Aggiungiamo la cella con il bottone nel footer
+			TableCell cell = new TableCell();
+			cell.ColumnSpan = GridView1.Columns.Count;
+			cell.HorizontalAlign = HorizontalAlign.Center;
+			cell.Controls.Add(btnTutti);
+			e.Row.Cells.Clear();
+			e.Row.Cells.Add(cell);
+		}
+	}
+	protected void BtnTutti_Click(object sender, EventArgs e)
+	{
+		GridView1.AllowPaging = false; // Disattiva la paginazione
+		EseguiRicerca();
+	}
 
-    /// <summary>
-    /// Esporta come Excel
-    /// </summary>
-    /// <param name="sender">Oggetto che ha generato l'evento</param>
-    /// <param name="e">Argomenti</param>
+	/// <summary>
+	/// Esporta come Excel
+	/// </summary>
+	/// <param name="sender">Oggetto che ha generato l'evento</param>
+	/// <param name="e">Argomenti</param>
 
-    protected void LinkButtonExcel_Click(object sender, EventArgs e)
+	protected void LinkButtonExcel_Click(object sender, EventArgs e)
     {
         EseguiRicerca();
 

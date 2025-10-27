@@ -124,7 +124,8 @@
 		              CellPadding="5" 
 		              CssClass="tab_gen" 
 		              GridLines="None" 
-		              
+					  ShowFooter="true" 
+					  PageSize="20"
 		              OnPageIndexChanging="ButtonFiltri_Click"
 		              OnSorting="ButtonFiltri_Click"
 		              OnRowDataBound="GridView1_RowDataBound" >

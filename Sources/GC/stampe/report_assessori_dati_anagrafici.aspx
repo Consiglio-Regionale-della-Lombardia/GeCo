@@ -127,7 +127,7 @@
 	                          Checked="true" />
 	        </td>
 	        
-	        <td width="25%" align="right">
+	        <td width="15%" align="right">
 	            <asp:Label ID="lblChkLuogoDataNascita" 
                            runat="server"
                            Text="Luogo e Data di Nascita">
@@ -138,13 +138,24 @@
 	                          Checked="true" />
 	        </td>
 	        
-	        <td width="25%" align="right">
+	        <td width="15%" align="right">
 	            <asp:Label ID="lblChkCarica" 
                            runat="server"
                            Text="Carica">
                 </asp:Label>
                 
 	            <asp:CheckBox ID="chkVis_Carica" 
+	                          runat="server" 
+	                          Checked="true" />
+	        </td>
+	        
+	        <td width="15%" align="right">
+	            <asp:Label ID="lblChkDalAl" 
+                           runat="server"
+                           Text="Data inizio/fine">
+                </asp:Label>
+                
+	            <asp:CheckBox ID="chkVis_DalAl" 
 	                          runat="server" 
 	                          Checked="true" />
 	        </td>

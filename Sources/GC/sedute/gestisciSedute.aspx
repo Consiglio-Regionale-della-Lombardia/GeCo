@@ -341,6 +341,9 @@
 		                  GridLines="None" 
 		                  DataKeyNames="id_seduta"
 		                  CellPadding="5" 
+						  ShowFooter="true" 
+						  PageSize="20"
+						  OnRowDataBound="GridViewSedute_RowDataBound"
 		                  OnPageIndexChanging="ButtonFiltri_Click">
     		    
 		        <EmptyDataTemplate>

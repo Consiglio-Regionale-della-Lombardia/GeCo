@@ -115,7 +115,8 @@
               CssClass="tab_gen" 
               GridLines="None" 
               DataSourceID="SqlDataSource1" 
-              		                
+			  ShowFooter="true" 
+			  PageSize="20"
               OnRowDataBound="GridView1_RowDataBound" >
               
     <EmptyDataTemplate>
