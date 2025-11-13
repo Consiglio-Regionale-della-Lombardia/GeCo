@@ -1211,6 +1211,8 @@ BEGIN
 						        on cc.id_carica = jpg.id_carica
 					        where 
 						        isnull(cc.presidente_gruppo,0) = 1
+								and (jps.tipo_partecipazione in ('A1','A2')
+								     or ti.consultazione != 1)
 						        and jpg.id_legislatura = @idLegislatura
 						        and jpg.id_persona = @idPersona
 						        and jpg.deleted = 0
