@@ -5,8 +5,18 @@
          Inherits="report_consiglieri_sostituiti" 
          Title="STAMPE > Consiglieri Dimessi o Sospesi" %>
 
+<%@ Register Assembly="AjaxControlToolkit"
+    Namespace="AjaxControlToolkit"
+    TagPrefix="cc1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 <div id="content">
+
+    <asp:ScriptManager ID="ScriptManager2"
+        runat="server"
+        EnableScriptGlobalization="True">
+    </asp:ScriptManager>
+
     <asp:Label ID="lblTitle" 
                runat="server"
                Text="Report Consiglieri Dimessi o Sospesi"
@@ -49,7 +59,91 @@
                                                   FROM legislature
                                                   ORDER BY durata_legislatura_da DESC">
                 </asp:SqlDataSource>
-            </td>     
+            </td>    
+            
+
+            <td align="left">
+                <asp:Label ID="lbl_data_inizio"
+                    runat="server"
+                    Text="Dal:">
+                </asp:Label>
+
+                <asp:TextBox ID="txt_data_inizio"
+                    runat="server"
+                    Width="70px">
+                </asp:TextBox>
+
+                <img alt="calendar"
+                    src="../img/calendar_month.png"
+                    id="img_data_inizio"
+                    runat="server" />
+
+                <cc1:CalendarExtender ID="CalendarExtender_DataInizio"
+                    runat="server"
+                    TargetControlID="txt_data_inizio"
+                    PopupButtonID="img_data_inizio"
+                    Format="dd/MM/yyyy">
+                </cc1:CalendarExtender>
+
+                <asp:RequiredFieldValidator ID="RFV_DataInizio"
+                    runat="server"
+                    ControlToValidate="txt_data_inizio"
+                    ErrorMessage="*"
+                    Display="Dynamic"
+                    ValidationGroup="FilterGroup">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator ID="REV_DataInizio"
+                    ControlToValidate="txt_data_inizio"
+                    runat="server"
+                    ErrorMessage="Ammessi solo valori GG/MM/AAAA."
+                    Display="Dynamic"
+                    ValidationExpression="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$"
+                    ValidationGroup="FilterGroup">
+                </asp:RegularExpressionValidator>
+            </td>
+
+            <td align="left">
+                <asp:Label ID="lbl_data_fine"
+                    runat="server"
+                    Text="Al:">
+                </asp:Label>
+
+                <asp:TextBox ID="txt_data_fine"
+                    runat="server"
+                    Width="70px">
+                </asp:TextBox>
+
+                <img alt="calendar"
+                    src="../img/calendar_month.png"
+                    id="img_data_fine"
+                    runat="server" />
+
+                <cc1:CalendarExtender ID="CalendarExtender_DataFine"
+                    runat="server"
+                    TargetControlID="txt_data_fine"
+                    PopupButtonID="img_data_fine"
+                    Format="dd/MM/yyyy">
+                </cc1:CalendarExtender>
+
+                <asp:RequiredFieldValidator ID="RFV_DataFine"
+                    runat="server"
+                    ControlToValidate="txt_data_fine"
+                    ErrorMessage="*"
+                    Display="Dynamic"
+                    ValidationGroup="FilterGroup">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator ID="REV_DataFine"
+                    ControlToValidate="txt_data_fine"
+                    runat="server"
+                    ErrorMessage="Ammessi solo valori GG/MM/AAAA."
+                    Display="Dynamic"
+                    ValidationExpression="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$"
+                    ValidationGroup="FilterGroup">
+                </asp:RegularExpressionValidator>
+            </td>
+
     	                          
             <td align="right">
                 <asp:Button ID="btnApplicaFiltro" 
@@ -58,6 +152,67 @@
                             Width="102"
                             OnClick="ApplyFilter" />
             </td>
+        </tr>
+        </table>
+        
+        <br />
+
+        <asp:Label ID="lblVisibilityTitle" 
+                   runat="server"
+                   Text="VISUALIZZA:"
+                   Font-Bold="true" >
+        </asp:Label>
+
+        <table width="100%">
+        <tr align="left">
+   
+            <td align="right" width="15%">
+                <asp:Label ID="lblChkDelibera" 
+                           runat="server"
+                           Text="Delibera">
+                </asp:Label>
+
+                <asp:CheckBox ID="chkVis_Delibera" 
+                              runat="server" 
+                              Checked="true" />
+            </td>
+    
+           <%-- <td width="30"></td>--%>
+    
+            <td align="right" width="17%">
+        
+                <asp:Label ID="lblChkCausa" 
+                           runat="server"
+                           Text="Causa">
+                </asp:Label>
+        
+                <asp:CheckBox ID="chkVis_Causa" 
+                              runat="server" 
+                              Checked="true" />
+            </td>
+    
+            <%--<td width="30"></td>--%>
+    
+            <td align="right" width="15%">
+                <asp:Label ID="lblChkNote" 
+                           runat="server"
+                           Text="Note">
+                </asp:Label>
+        
+                <asp:CheckBox ID="chkVis_Note" 
+                              runat="server" 
+                              Checked="true" />
+            </td>
+    
+            <%--<td width="150"></td>--%>
+    
+            <td align="right">
+                <asp:Button ID="btnVisualization" 
+                            runat="server" 
+                            Text="Applica Vis."
+                            Width="102"
+                            OnClick="ApplyVisualization" />
+            </td>	        
         </tr>
         </table>
         
@@ -125,22 +280,37 @@
 		    </EmptyDataTemplate>
 		    		    
 		    <Columns>
+		        <asp:BoundField DataField="nome_completo_sost" 
+		                        HeaderText="CONSIGLIERE SOSTITUTO" 
+			                    SortExpression="nome_completo_sost" 
+			                    ItemStyle-HorizontalAlign="left"/>	
+
 		        <asp:BoundField DataField="nome_completo" 
-		                        HeaderText="CONSIGLIERI DIMESSI O SOSPESI" 
+		                        HeaderText="CONSIGLIERE SOSTITUITO" 
 			                    SortExpression="nome_completo" 
 			                    ItemStyle-HorizontalAlign="left"/>	
 			    
-			    <asp:TemplateField ShowHeader="false">
+			    <asp:TemplateField HeaderText="DATA INIZIO SOSTITUZIONE" >
 			        <ItemTemplate>			            
 				        <asp:Label ID="lblColonna2" 
 				                   runat="server" 
-				                   Text='<%# GetColumnString2(Eval("data_procl"), Eval("tipo_delib_procl"), Eval("numero_pratica_procl"), Eval("anno_delib_procl"), Eval("circoscrizione")) %>' >
+				                   Text='<%# Eval("data_inizio") %>' >
 				        </asp:Label>
 			        </ItemTemplate>
 			        <ItemStyle HorizontalAlign="Left" Width="200px"/>
 			    </asp:TemplateField>
 			    
-			    <asp:TemplateField ShowHeader="false">
+			    <asp:TemplateField HeaderText="DATA FINE SOSTITUZIONE">
+			        <ItemTemplate>			            
+				        <asp:Label ID="lblColonna3" 
+				                   runat="server" 
+				                   Text='<%# Eval("data_fine") %>' >
+				        </asp:Label>
+			        </ItemTemplate>
+			        <ItemStyle HorizontalAlign="Left" Width="200px"/>
+			    </asp:TemplateField>
+			    
+			    <asp:TemplateField HeaderText="Delibera">
 			        <ItemTemplate>			            
 				        <asp:Label ID="lblColonna3" 
 				                   runat="server" 
@@ -150,36 +320,17 @@
 			        
 			        <ItemStyle HorizontalAlign="Left" Width="200px"/>
 			    </asp:TemplateField>
-			                  
-		        <asp:BoundField DataField="nome_gruppo" 
-		                        ShowHeader="false"
-		                        SortExpression="nome_gruppo" 
-		                        ItemStyle-HorizontalAlign="left"/>	
-		                        
-		        <asp:BoundField DataField="nome_completo_sost" 
-		                        HeaderText="CONSIGLIERI SUBENTRATI" 
-			                    SortExpression="nome_completo_sost" 
-			                    ItemStyle-HorizontalAlign="left" />
-			                    
-			    <asp:TemplateField ShowHeader="false">
-			        <ItemTemplate>			            
-				        <asp:Label ID="lblColonna2" 
-				                   runat="server" 
-				                   Text='<%# GetColumnString2(Eval("data_procl_sost"), Eval("tipo_delib_procl_sost"), Eval("numero_pratica_procl_sost"), Eval("anno_delib_procl_sost"), Eval("circoscrizione_sost")) %>' >
-				        </asp:Label>
-			        </ItemTemplate>
-			        <ItemStyle HorizontalAlign="Left" Width="200px"/>
-			    </asp:TemplateField>
-			    
-			    <asp:TemplateField ShowHeader="false">
-			        <ItemTemplate>			            
-				        <asp:Label ID="lblColonna2" 
-				                   runat="server" 
-				                   Text='<%# GetColumnStringGruppoSost(Eval("nome_completo_sost"), Eval("nome_gruppo_sost")) %>' >
-				        </asp:Label>
-			        </ItemTemplate>
-			        <ItemStyle HorizontalAlign="Left" Width="200px"/>
-			    </asp:TemplateField>                                  		        		        		       			    			    
+
+		        <asp:BoundField DataField="descrizione_causa" 
+		                        HeaderText="Causa" 
+			                    SortExpression="descrizione_causa" 
+			                    ItemStyle-HorizontalAlign="left"/>	
+
+		        <asp:BoundField DataField="note" 
+		                        HeaderText="Note" 
+			                    SortExpression="note" 
+			                    ItemStyle-HorizontalAlign="left"/>	
+			                               		        		        		       			    			    
 		    </Columns>
 	    </asp:GridView>
 	
