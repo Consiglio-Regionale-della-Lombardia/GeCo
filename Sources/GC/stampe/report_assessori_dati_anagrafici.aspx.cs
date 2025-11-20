@@ -46,7 +46,10 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
                                      ,pp.data_nascita AS data
                                      ,COALESCE(tc.comune, 'N/A') AS comune
                                      ,COALESCE(jpr.indirizzo_residenza, 'N/A') AS ind1
-                                     ,COALESCE(tc2.comune,'N/A')  + ' (' + COALESCE(tc2.provincia, 'N/A') + ')' AS ind2                                     
+                                     ,COALESCE(tc2.comune,'N/A')  + ' (' + COALESCE(tc2.provincia, 'N/A') + ')' AS ind2
+				                     ,cc.nome_carica
+				                     ,jpoc.data_inizio
+				                     ,jpoc.data_fine
                       FROM persona AS pp
                       INNER JOIN join_persona_organo_carica AS jpoc
                         ON pp.id_persona = jpoc.id_persona
@@ -153,6 +156,27 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
             GridView1.Columns[3].Visible = false;
         }
 
+        // opzione di visualizzazione carica e date dal al
+        if (chkVis_Carica.Checked)
+        {
+            GridView1.Columns[7].Visible = true;
+        }
+        else
+		{
+			GridView1.Columns[7].Visible = false;
+		}
+
+        if (chkVis_DalAl.Checked)
+        {
+            GridView1.Columns[8].Visible = true;
+            GridView1.Columns[9].Visible = true;
+        }
+        else
+		{
+			GridView1.Columns[8].Visible = false;
+			GridView1.Columns[9].Visible = false;
+		}
+
         EseguiRicerca();
     }
     /// <summary>
@@ -213,6 +237,21 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
 
             case "2":
                 other_condition += " AND jpoc.data_fine IS NOT NULL";
+                break;
+
+            default:
+                break;
+        }
+
+
+        switch (ddlCarica.SelectedValue)
+        {
+            case "1":
+				other_condition += " AND cc.nome_carica LIKE 'Assessore%'";
+				break;
+
+            case "2":
+                other_condition += " AND cc.nome_carica LIKE 'Sottosegretario%'";
                 break;
 
             default:
@@ -302,7 +341,15 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
             conn.Close();
 
             lblRecapiti.Text = lblText;
-        }
+
+			
+            bool attivo = (bool)(DataBinder.Eval(e.Row.DataItem, "data_fine").ToString().Equals(""));
+
+			if (!attivo)
+			{
+				e.Row.CssClass = "inactive";
+			}
+		}
         else if (e.Row.RowType == DataControlRowType.Header)
         {
             e.Row.Cells[4].ColumnSpan = 2;

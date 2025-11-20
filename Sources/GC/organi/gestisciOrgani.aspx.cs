@@ -52,7 +52,7 @@ public partial class organi_gestisciOrgani : System.Web.UI.Page
         {
             DropDownListLegislatura.SelectedValue = legislatura_corrente;
 
-            string query = SqlDataSource1.SelectCommand;
+		    string query = SqlDataSource1.SelectCommand;
 
             query += " AND oo.id_legislatura = " + legislatura_corrente;
 
@@ -64,8 +64,10 @@ public partial class organi_gestisciOrgani : System.Web.UI.Page
             query += " order by oo.id_legislatura, oo.ordinamento";
 
             SqlDataSource1.SelectCommand = query;
-            GridView1.DataBind();
-        }
+		}
+
+		GridView1.DataBind();
+
     }
     /// <summary>
     /// Metodo per la gestione della pagina di errore
@@ -228,6 +230,27 @@ public partial class organi_gestisciOrgani : System.Web.UI.Page
             {
                 e.Row.CssClass = "inactive";
             }
-        }
-    }
+		}
+		else if (e.Row.RowType == DataControlRowType.Footer)
+		{
+			LinkButton btnTutti = new LinkButton();
+			btnTutti.Text = "Tutti i dati";
+			btnTutti.CommandName = "ShowAll";
+			btnTutti.Click += BtnTutti_Click;
+
+			// Aggiungiamo la cella con il bottone nel footer
+			TableCell cell = new TableCell();
+			cell.ColumnSpan = GridView1.Columns.Count;
+			cell.HorizontalAlign = HorizontalAlign.Center;
+			cell.Controls.Add(btnTutti);
+			e.Row.Cells.Clear();
+			e.Row.Cells.Add(cell);
+		}
+	}
+
+	protected void BtnTutti_Click(object sender, EventArgs e)
+	{
+		GridView1.AllowPaging = false; // Disattiva la paginazione
+		EseguiRicerca();
+	}
 }

@@ -42,6 +42,14 @@
 		    Report Consiglieri Dimessi o Sospesi
 		</asp:HyperLink>
 	    </li>
+	    
+	    <li>
+		<asp:HyperLink ID="HyperLink13" 
+		               runat="server" 
+		               NavigateUrl="~/stampe/report_consiglieri_sostituiti.aspx">
+		    Report Consiglieri Sostituiti
+		</asp:HyperLink>
+	    </li>
 	      	    
 	    
 	    <br />

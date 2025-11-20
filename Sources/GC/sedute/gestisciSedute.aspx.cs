@@ -20,6 +20,8 @@ using System.Configuration;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Controls;
+
 
 /// <summary>
 /// Classe per la gestione Sedute
@@ -95,6 +97,10 @@ public partial class sedute_gestisciSedute : System.Web.UI.Page
             LoadFilters();
             EseguiRicerca(false);
         }
+        else
+        {
+            EseguiRicerca();
+		}
     }
 
     /// <summary>
@@ -113,14 +119,45 @@ public partial class sedute_gestisciSedute : System.Web.UI.Page
 
     protected void DropDownListLegislatura_DataBound(object sender, EventArgs e)
     {
-    }
+	}
 
-    /// <summary>
-    /// Imposta il dropdown
-    /// </summary>
-    /// <param name="sender">Oggetto che ha generato l'evento</param>
-    /// <param name="e">Argomenti</param>
-    protected void DropDownListOrgano_DataBound(object sender, EventArgs e)
+	/// <summary>
+	/// Refresh della Grid quando cambia il contenuto
+	/// </summary>
+	/// <param name="sender">Oggetto che ha generato l'evento</param>
+	/// <param name="e">Argomenti</param>
+
+	protected void GridViewSedute_RowDataBound(object sender, GridViewRowEventArgs e)
+	{
+        
+        if (e.Row.RowType == DataControlRowType.Footer)
+		{
+			LinkButton btnTutti = new LinkButton();
+			btnTutti.Text = "Tutti i dati";
+			btnTutti.CommandName = "ShowAll";
+			btnTutti.Click += BtnTutti_Click;
+
+			// Aggiungiamo la cella con il bottone nel footer
+			TableCell cell = new TableCell();
+			cell.ColumnSpan = GridViewSedute.Columns.Count;
+			cell.HorizontalAlign = HorizontalAlign.Center;
+			cell.Controls.Add(btnTutti);
+			e.Row.Cells.Clear();
+			e.Row.Cells.Add(cell);
+		}
+	}
+	protected void BtnTutti_Click(object sender, EventArgs e)
+	{
+		GridViewSedute.AllowPaging = false; // Disattiva la paginazione
+		EseguiRicerca();
+	}
+
+	/// <summary>
+	/// Imposta il dropdown
+	/// </summary>
+	/// <param name="sender">Oggetto che ha generato l'evento</param>
+	/// <param name="e">Argomenti</param>
+	protected void DropDownListOrgano_DataBound(object sender, EventArgs e)
     {
         DropDownList ddl = (DropDownList)sender;
         FilterSedute filter = Session.GetFilterSedute();
@@ -435,7 +472,7 @@ public partial class sedute_gestisciSedute : System.Web.UI.Page
     /// </summary>
     /// <param name="control">controllo di riferimento</param>
 
-    public override void VerifyRenderingInServerForm(Control control)
+    public override void VerifyRenderingInServerForm(System.Web.UI.Control control)
     {
         // Verifies that the control is rendered
         return;
@@ -475,7 +512,7 @@ public partial class sedute_gestisciSedute : System.Web.UI.Page
         // Sblocca le sedute del mese
         if ((DropDownListOrganoRiepilogo.SelectedValue == "") || (DropDownListMeseRiepilogo.SelectedValue == ""))
         {
-            Label lblSbloccaErrore = Panel_SbloccaSedute.FindControl("Label_ErrorSbloccaSedute") as Label;
+			System.Web.UI.WebControls.Label lblSbloccaErrore = Panel_SbloccaSedute.FindControl("Label_ErrorSbloccaSedute") as System.Web.UI.WebControls.Label;
             lblSbloccaErrore.Visible = true;
             return;
         }
@@ -491,7 +528,7 @@ public partial class sedute_gestisciSedute : System.Web.UI.Page
 
             Utility.ExecuteNonQuery(query);
 
-            Label lblSbloccaErrore = Panel_SbloccaSedute.FindControl("Label_ErrorSbloccaSedute") as Label;
+			System.Web.UI.WebControls.Label lblSbloccaErrore = Panel_SbloccaSedute.FindControl("Label_ErrorSbloccaSedute") as System.Web.UI.WebControls.Label;
             lblSbloccaErrore.Visible = false;
 
             EseguiRicerca();

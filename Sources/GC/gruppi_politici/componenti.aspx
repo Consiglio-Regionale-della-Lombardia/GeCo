@@ -195,6 +195,12 @@
 				            </ItemTemplate>
 				            <ItemStyle Font-Bold="True" />
 				        </asp:TemplateField>
+
+				        <asp:BoundField DataField="nome_carica" 
+				                        HeaderText="Carica" 
+				                        SortExpression="nome_carica" 
+				                        ItemStyle-HorizontalAlign="left" 
+				                        ItemStyle-Width="220px" />
         				
 				        <asp:BoundField DataField="data_inizio" 
 				                        HeaderText="Membro dal" 
@@ -247,7 +253,8 @@
 		                                                 jpgp.data_fine, 
 		                                                 pp.nome, 
 		                                                 pp.cognome,
-		                                                 ll.id_legislatura
+		                                                 ll.id_legislatura,
+														 c.nome_carica
 			                                      FROM gruppi_politici AS gg
 			                                      INNER JOIN join_gruppi_politici_legislature AS jgpl
 			                                        ON gg.id_gruppo = jgpl.id_gruppo
@@ -257,7 +264,9 @@
 			                                        ON (jgpl.id_legislatura = ll.id_legislatura 
 			                                            AND jpgp.id_legislatura = ll.id_legislatura)
 			                                      INNER JOIN persona AS pp 
-			                                        ON jpgp.id_persona = pp.id_persona 
+			                                        ON jpgp.id_persona = pp.id_persona
+												  INNER JOIN cariche AS c
+													ON jpgp.id_carica = c.id_carica
 			                                      WHERE gg.deleted = 0  
 			                                        AND jgpl.deleted = 0  
 			                                        AND jpgp.deleted = 0 

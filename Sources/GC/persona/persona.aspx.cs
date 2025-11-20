@@ -195,15 +195,41 @@ public partial class persona : System.Web.UI.Page
                 e.Row.BackColor = System.Drawing.Color.FromArgb(225, 255, 225); //System.Drawing.Color.Orange;
             }*/
         }
-    }
+		else if (e.Row.RowType == DataControlRowType.Footer)
+		{
+			LinkButton btnTutti = new LinkButton();
+			btnTutti.Text = "Tutti i dati";
+			btnTutti.CommandName = "ShowAll";
+			btnTutti.Click += BtnTutti_Click;
 
-    /// <summary>
-    /// Esporta come Excel
-    /// </summary>
-    /// <param name="sender">Oggetto che ha generato l'evento</param>
-    /// <param name="e">Argomenti</param>
+			// Aggiungiamo la cella con il bottone nel footer
+			TableCell cell = new TableCell();
+			cell.ColumnSpan = GridView1.Columns.Count;
+            cell.HorizontalAlign = HorizontalAlign.Center;
+			cell.Controls.Add(btnTutti);
+			e.Row.Cells.Clear();
+			e.Row.Cells.Add(cell);
+		}
+	}
 
-    protected void LinkButtonExcel_Click(object sender, EventArgs e)
+	/// <summary>
+	/// Disattiva paginazione e mostra tutte le righe
+	/// </summary>
+	/// <param name="sender">Oggetto che ha generato l'evento</param>
+	/// <param name="e">Argomenti</param>
+	protected void BtnTutti_Click(object sender, EventArgs e)
+	{
+		GridView1.AllowPaging = false; // Disattiva la paginazione
+		EseguiRicerca();
+	}
+
+	/// <summary>
+	/// Esporta come Excel
+	/// </summary>
+	/// <param name="sender">Oggetto che ha generato l'evento</param>
+	/// <param name="e">Argomenti</param>
+
+	protected void LinkButtonExcel_Click(object sender, EventArgs e)
     {
 
         AmministrazioneTrasparente.Export_FileConsiglieri(Page.Response, DateTime.Now, DateTime.Now);

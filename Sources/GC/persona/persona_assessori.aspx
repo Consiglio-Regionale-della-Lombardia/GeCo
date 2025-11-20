@@ -115,7 +115,8 @@
               CssClass="tab_gen" 
               GridLines="None" 
               DataSourceID="SqlDataSource1" 
-              		                
+			  ShowFooter="true" 
+			  PageSize="20"
               OnRowDataBound="GridView1_RowDataBound" >
               
     <EmptyDataTemplate>
@@ -165,6 +166,12 @@
 	                    HeaderText="Nome" 
 	                    SortExpression="nome" 
 	                    ItemStyle-Width="120px" 
+	                    ItemStyle-VerticalAlign="Middle" />
+	    
+	    <asp:BoundField DataField="nome_carica" 
+	                    HeaderText="Carica" 
+	                    SortExpression="nome_carica" 
+	                    ItemStyle-Width="220px" 
 	                    ItemStyle-VerticalAlign="Middle" />
 	    
 	    <asp:BoundField DataField="data_nascita" 
