@@ -33,7 +33,7 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
     string title = "Report Assessori (Dati Anagrafici)";
     string tab = "Report: Assessori - Dati Anagrafici";
     string filename = "Report_Assessori_Dati_Anagrafici";
-    string[] filters = new string[2];
+    string[] filters = new string[4];
     bool landscape;
     bool[] criteriOrdinamento = new bool[4];
 
@@ -431,6 +431,9 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
     {
         filters[0] = "Legislatura";
         filters[1] = ddlLegislatura.SelectedItem.Text;
+
+        filters[2] = "Carica";
+        filters[3] = ddlCarica.SelectedItem.Text;
     }
     /// <summary>
     /// Verifies that the control is rendered

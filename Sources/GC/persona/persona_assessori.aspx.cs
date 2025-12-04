@@ -37,7 +37,9 @@ public partial class persona_assessori : System.Web.UI.Page
     string tab = "Assessori";
     string filename = "Elenco_Assessori_non_Consiglieri";
     string[] filters = new string[2];
-    bool landscape = false;
+	bool no_last_col = true;
+	bool no_first_col = false;
+	bool landscape = false;
 
     /// <summary>
     /// Evento per il caricamento della pagina - Inizializzazione dati e caricamento dati
@@ -266,13 +268,15 @@ public partial class persona_assessori : System.Web.UI.Page
 
         SetExportFilters();
         GridView1.Columns[GridView1.Columns.Count - 1].Visible = false;
-        GridViewExport.ExportReportToPDF(Page.Response, GridView1, id_user, tab, title, filters, landscape, filename);
-    }
+        //GridViewExport.ExportReportToPDF(Page.Response, GridView1, id_user, tab, title, filters, landscape, filename);
+		GridViewExport.ExportToPDF(Page.Response, GridView1, id_user, tab, title, no_first_col, no_last_col, landscape, filename, filters);
 
-    /// <summary>
-    /// Metodo per export filtri
-    /// </summary>
-    protected void SetExportFilters()
+	}
+
+	/// <summary>
+	/// Metodo per export filtri
+	/// </summary>
+	protected void SetExportFilters()
     {
         filters[0] = "Legislatura";
         filters[1] = DropDownListRicLeg.SelectedItem.Text;
