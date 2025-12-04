@@ -280,11 +280,13 @@
 			                    
                 <asp:BoundField DataField="data_inizio"	
 		                        HeaderText="DATA INIZIO" 
+				                DataFormatString="{0:dd/MM/yyyy}" 
 			                    SortExpression="data_inizio" 
 			                    ItemStyle-HorizontalAlign="center"/>	
 			                    
                 <asp:BoundField DataField="data_fine"	
 		                        HeaderText="DATA FINE" 
+				                DataFormatString="{0:dd/MM/yyyy}" 
 			                    SortExpression="data_fine" 
 			                    ItemStyle-HorizontalAlign="center"/>
 		    </Columns>

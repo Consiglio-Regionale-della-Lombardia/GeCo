@@ -38,7 +38,9 @@ public partial class persona : System.Web.UI.Page
     string tab = "Consiglieri";
     string filename = "Elenco_Consiglieri";
     string[] filters = new string[2];
-    bool landscape = false;
+	bool no_last_col = true;
+	bool no_first_col = false;
+	bool landscape = false;
 
     /// <summary>
     /// Evento per il caricamento della pagina - Inizializzazione dati e visibilità
@@ -197,18 +199,21 @@ public partial class persona : System.Web.UI.Page
         }
 		else if (e.Row.RowType == DataControlRowType.Footer)
 		{
-			LinkButton btnTutti = new LinkButton();
-			btnTutti.Text = "Tutti i dati";
-			btnTutti.CommandName = "ShowAll";
-			btnTutti.Click += BtnTutti_Click;
+            if (GridView1.AllowPaging)
+            { 
+			    LinkButton btnTutti = new LinkButton();
+			    btnTutti.Text = "Tutti i dati";
+			    btnTutti.CommandName = "ShowAll";
+			    btnTutti.Click += BtnTutti_Click;
 
-			// Aggiungiamo la cella con il bottone nel footer
-			TableCell cell = new TableCell();
-			cell.ColumnSpan = GridView1.Columns.Count;
-            cell.HorizontalAlign = HorizontalAlign.Center;
-			cell.Controls.Add(btnTutti);
-			e.Row.Cells.Clear();
-			e.Row.Cells.Add(cell);
+			    // Aggiungiamo la cella con il bottone nel footer
+			    TableCell cell = new TableCell();
+			    cell.ColumnSpan = GridView1.Columns.Count;
+                cell.HorizontalAlign = HorizontalAlign.Center;
+			    cell.Controls.Add(btnTutti);
+			    e.Row.Cells.Clear();
+			    e.Row.Cells.Add(cell);
+			}
 		}
 	}
 
@@ -271,13 +276,15 @@ public partial class persona : System.Web.UI.Page
 
         GridView1.Columns[GridView1.Columns.Count - 1].Visible = false;
 
-        GridViewExport.ExportReportToPDF(Page.Response, GridView1, id_user, tab, title, filters, landscape, filename);
-    }
+        //GridViewExport.ExportReportToPDF(Page.Response, GridView1, id_user, tab, title, filters, landscape, filename);
+		GridViewExport.ExportToPDF(Page.Response, GridView1, id_user, tab, title, no_first_col, no_last_col, landscape, filename, filters);
 
-    /// <summary>
-    /// Metodo per Exoprt filtri
-    /// </summary>
-    protected void SetExportFilters()
+	}
+
+	/// <summary>
+	/// Metodo per Exoprt filtri
+	/// </summary>
+	protected void SetExportFilters()
     {
         filters[0] = "Legislatura";
         filters[1] = DropDownListRicLeg.SelectedItem.Text;

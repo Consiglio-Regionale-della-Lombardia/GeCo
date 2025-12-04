@@ -247,7 +247,7 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
         switch (ddlCarica.SelectedValue)
         {
             case "1":
-				other_condition += " AND cc.nome_carica LIKE 'Assessore%'";
+				other_condition += " AND cc.nome_carica LIKE 'Assessore%' AND cc.nome_carica <> 'Assessore non consigliere'";
 				break;
 
             case "2":
@@ -406,7 +406,22 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
         else
             landscape = false;
 
-        GridViewExport.ExportReportToPDF(Page.Response, GridView1, id_user, tab, title, filters, landscape, filename);
+        /*
+         * 03/12/2025
+         * 
+         * Da richiesta modifico il nome file e titolo
+         * a seconda del filtro impostato
+         */
+        string _filename = filename;
+        string _title = title;
+
+		if (ddlCarica.SelectedValue == "2")
+        {
+            _filename = "Report_Sottosegretari_Dati_Anagrafici";
+			_title = "Report Sottosegretari (Dati Anagrafici)";
+		}
+
+        GridViewExport.ExportReportToPDF(Page.Response, GridView1, id_user, tab, _title, filters, landscape, _filename);
     }
     /// <summary>
     /// Metodo per impostazione filtri export
