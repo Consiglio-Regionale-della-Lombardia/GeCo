@@ -48,7 +48,7 @@ namespace GC_Auth_2
 
 			// Qui siamo autenticati OWIN/Azure AD
 			ClaimsIdentity identity = User.Identity as ClaimsIdentity;
-			string username = null;
+			string username = null, role = null, name = null, surname = null;
 
 			if (identity != null)
 			{
@@ -56,6 +56,24 @@ namespace GC_Auth_2
 				if (nameClaim != null)
 				{
 					username = nameClaim.Value;
+				}
+
+				Claim givenNameClaim = identity.FindFirst(ClaimTypes.GivenName);
+				if (givenNameClaim != null)
+				{
+					name = givenNameClaim.Value;
+				}
+
+				Claim surnameClaim = identity.FindFirst(ClaimTypes.Surname);
+				if (surnameClaim != null)
+				{
+					surname = surnameClaim.Value;
+				}
+
+				Claim roleClaim = identity.FindFirst(ClaimTypes.Role);
+				if (roleClaim != null)
+				{
+					role = roleClaim.Value;
 				}
 			}
 
@@ -70,7 +88,7 @@ namespace GC_Auth_2
 
 			// Genera token SSO: username|ticks|hmac
 			string ticksStr = DateTime.UtcNow.Ticks.ToString();
-			string payload = username + "|" + ticksStr;
+			string payload = username + "|" + role + "|" + name + "|" + surname + "|" + ticksStr;
 			string hmac = ComputeHmac(payload, SharedSecret);
 
 			string tokenString = payload + "|" + hmac;

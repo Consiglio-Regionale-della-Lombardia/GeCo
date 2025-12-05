@@ -7,6 +7,9 @@ using System.Web;
 public class AuthUser
 {
 	public string Username { get; set; }
+	public string Nome { get; set; }
+	public string Cognome { get; set; }
+	public string Ruolo { get; set; }
 }
 
 public static class AuthHelper
@@ -94,12 +97,15 @@ public static class AuthHelper
 
 			// formato: username|ticks|hmac
 			string[] parts = token.Split('|');
-			if (parts.Length != 3)
+			if (parts.Length != 6)
 				return null;
 
 			string username = parts[0];
-			string ticksStr = parts[1];
-			string sentHmac = parts[2];
+			string role = parts[1];
+			string name = parts[2];
+			string surname = parts[3];
+			string ticksStr = parts[4];
+			string sentHmac = parts[5];
 
 			long ticks;
 			if (!long.TryParse(ticksStr, out ticks))
@@ -111,7 +117,7 @@ public static class AuthHelper
 			if (DateTime.UtcNow - ts > TimeSpan.FromMinutes(5))
 				return null;
 
-			string payload = username + "|" + ticksStr;
+			string payload = username + "|" + role + "|" + name + "|" + surname + "|" + ticksStr;
 			string expectedHmac = ComputeHmac(payload, SharedSecret);
 
 			if (!SlowEquals(sentHmac, expectedHmac))
@@ -119,6 +125,9 @@ public static class AuthHelper
 
 			AuthUser user = new AuthUser();
 			user.Username = username;
+			user.Ruolo = role;
+			user.Nome = name;
+			user.Cognome = surname;
 			return user;
 		}
 		catch

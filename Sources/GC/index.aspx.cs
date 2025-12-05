@@ -152,6 +152,9 @@ public partial class _Default : System.Web.UI.Page
 			return;
 
 		string username = user.Username;
+		string nome = user.Nome;
+		string cognome = user.Cognome;
+
 		if (string.IsNullOrEmpty(username))
 			return;
 
@@ -184,11 +187,13 @@ public partial class _Default : System.Web.UI.Page
                 LEFT OUTER JOIN legislature AS ll
                     ON oo.id_legislatura = ll.id_legislatura
                 WHERE uu.attivo = 1
-                  AND LOWER(uu.nome_utente) = @username
+                  AND LOWER(uu.nome) = @nome
+                  AND LOWER(uu.cognome) = @cognome
                 ORDER BY ll.durata_legislatura_da DESC";
 
 			SqlCommand cmd = new SqlCommand(query_info, conn);
-			cmd.Parameters.AddWithValue("@username", username);
+			cmd.Parameters.AddWithValue("@nome", nome.ToLower());
+			cmd.Parameters.AddWithValue("@cognome", cognome.ToLower());
 
 			reader = cmd.ExecuteReader();
 
