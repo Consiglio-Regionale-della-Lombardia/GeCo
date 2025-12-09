@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30225.117
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GC", "GC\", "{9A1558FB-E719-4F61-A7BA-F58BF7383B2D}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -45,6 +45,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GC_Public", "GC_Public\", "
 		SlnRelativePath = "GC_Public\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GC_Auth_2", "GC_Auth_2\GC_Auth_2.csproj", "{5A664701-C9B3-40D3-BE54-12535E3189FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{48F64D95-14A0-444F-AE5C-67E200D21599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48F64D95-14A0-444F-AE5C-67E200D21599}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{48F64D95-14A0-444F-AE5C-67E200D21599}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{5A664701-C9B3-40D3-BE54-12535E3189FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A664701-C9B3-40D3-BE54-12535E3189FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A664701-C9B3-40D3-BE54-12535E3189FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A664701-C9B3-40D3-BE54-12535E3189FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
