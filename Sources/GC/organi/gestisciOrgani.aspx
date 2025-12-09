@@ -214,16 +214,15 @@
 		                   ConnectionString="<%$ ConnectionStrings:GestioneConsiglieriConnectionString %>"
 		                   
 		                   SelectCommand="SELECT *, (
-										  SELECT COUNT(*) 
+										  SELECT COUNT(distinct id_persona) 
 										  FROM join_persona_organo_carica jpoc 
-										  WHERE jpoc.id_legislatura = 33 
+										  WHERE jpoc.id_legislatura = oo.id_legislatura 
 									 		  AND jpoc.id_organo = oo.id_organo 
 											  AND jpoc.deleted = 0
 											  AND jpoc.data_fine is null
 											  ) as numero_componenti
 										  FROM organi AS oo 
-										  WHERE oo.deleted = 0
-											AND oo.id_legislatura = 33">
+										  WHERE oo.deleted = 0">
 		</asp:SqlDataSource>
 	    </ContentTemplate>
 	</asp:UpdatePanel>
