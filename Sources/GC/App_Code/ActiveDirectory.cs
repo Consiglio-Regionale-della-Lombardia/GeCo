@@ -140,7 +140,7 @@ public class ActiveDirectoryUser
 {
     #region COSTANTI
 
-    const string QUERY_GET_ROLES = @"
+    public const string QUERY_GET_ROLES = @"
         if exists(select nome_ruolo from tbl_ruoli where grado = 1 and rete_gruppo in (@GRUPPO_RETE))
 	        begin
 		        SELECT   

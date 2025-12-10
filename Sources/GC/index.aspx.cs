@@ -16,8 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 /// <summary>
@@ -157,6 +159,9 @@ public partial class _Default : System.Web.UI.Page
 
 		if (string.IsNullOrEmpty(username))
 			return;
+
+		List<string> roles = new List<string>() { string.Concat("CONSIGLIO\\",user.Ruolo) };
+		EntraId.EntraIdUser userEntraId = new EntraId.EntraIdUser(username, roles);
 
 		// Se dall'SSO arriva "nome.cognome@dominio", qui puoi fare il mapping
 		// a "nome.cognome" se è questo che hai in uu.nome_utente
