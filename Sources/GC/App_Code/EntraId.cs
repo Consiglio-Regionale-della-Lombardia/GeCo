@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 
 /// <summary>
@@ -70,6 +71,56 @@ public class EntraId
 
 
 
+	/// <summary>
+	/// Metodo di verifica su parametro di configurazione per login di rete
+	/// </summary>
+	public static bool IsEnabled
+	{
+		get
+		{
+			return (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ENABLE_ENTRA_ID"]).ToLower() == "true");
+		}
+	}
+
+	/// <summary>
+	/// Prorietà gestione utente loggato
+	/// </summary>
+	public static bool LoggedIn
+	{
+		get { return (System.Web.HttpContext.Current.Session.Contents["logged_in"] as string) == "1"; }
+		set { System.Web.HttpContext.Current.Session.Contents["logged_in"] = value ? "1" : "0"; }
+	}
+
+	/// <summary>
+	/// Prorietà utente corrente
+	/// </summary>
+	public static string UserName
+	{
+		get
+		{
+			var session = System.Web.HttpContext.Current.Session;
+			return session.Contents["user_name"] as string;
+		}
+	}
+
+	/// <summary>
+	/// Proprietà utento loggato
+	/// </summary>
+	public static EntraIdUser LoggedUser
+	{
+		get
+		{
+			if (System.Web.HttpContext.Current.Session.Contents["logged_user_EID"] == null)
+			{
+				return null;// System.Web.HttpContext.Current.Session.Contents["logged_user_EID"] = new ActiveDirectoryUser(_identity);
+			}
+			return (EntraIdUser)System.Web.HttpContext.Current.Session.Contents["logged_user_EID"];
+		}
+		set
+		{
+			System.Web.HttpContext.Current.Session.Contents["logged_user_EID"] = value;
+		}
+	}
 
 
 	/// <summary>

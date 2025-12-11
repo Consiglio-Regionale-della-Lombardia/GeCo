@@ -27,16 +27,16 @@ public partial class LoggedUserPanel : System.Web.UI.UserControl
 {
     public event Delegate_PopupRuoliToggle PopupRuoliToggle;
 
-    public ActiveDirectoryUser adUser = null;
+    public EntraId.EntraIdUser adUser = null;
 
     /// <summary>
     /// Metodo per refresh Lista
     /// </summary>
     public void Refresh()
     {
-        if (ActiveDirectory.IsEnabled)
+        if (EntraId.IsEnabled)
         {
-            adUser = ActiveDirectory.LoggedUser;
+            adUser = EntraId.LoggedUser;
 
             if (adUser != null)
             {

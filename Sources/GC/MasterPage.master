@@ -48,7 +48,7 @@ width="1000px"
 </tr>
 
 <!--barra login-->
-<% if (loggedin.Equals("1") && ActiveDirectory.IsEnabled) { %>
+<% if (loggedin.Equals("1") && EntraId.IsEnabled) { %>
 <tr>
     <td valign="top" class="testata" colspan="2" style="height:22px;">
         <lup:LoggedUserPanel runat="server" ID="panel_loggeruser" />	    
@@ -235,7 +235,7 @@ width="1000px"
 	                - 
 	            <%-- Nella definizione tolgo la definizione onclick="toggle_visibility('menu1') --%>
                     
-                    <% if (ActiveDirectory.IsEnabled) { %>
+                    <% if (EntraId.IsEnabled) { %>
 	                    <a href="../utenti/gestisciRuoli.aspx">
 	                        Admin
 	                    </a>
@@ -249,7 +249,7 @@ width="1000px"
                 }
 	            %>
 	            
-                <% if (!ActiveDirectory.IsEnabled) { %>
+                <% if (!EntraId.IsEnabled) { %>
                     <a href="../index.aspx?logout=true" >
                         Esci
                     </a>

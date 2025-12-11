@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Web.SessionState;
 using System.Web.UI.WebControls;
 
 /// <summary>
@@ -160,16 +161,28 @@ public partial class _Default : System.Web.UI.Page
 		if (string.IsNullOrEmpty(username))
 			return;
 
-		List<string> roles = new List<string>() { string.Concat("CONSIGLIO\\",user.Ruolo) };
+
+		List<string> roles = new List<string>();
+		if (!string.IsNullOrEmpty(user.Ruolo))
+		{
+			roles.Add(string.Concat("CONSIGLIO\\", user.Ruolo));
+		}
+
 		EntraId.EntraIdUser userEntraId = new EntraId.EntraIdUser(username, roles);
 
-		// Se dall'SSO arriva "nome.cognome@dominio", qui puoi fare il mapping
-		// a "nome.cognome" se è questo che hai in uu.nome_utente
-		username = username.ToLower();
+		var session = System.Web.HttpContext.Current.Session;
+		EntraId.LoggedUser = userEntraId;
 
-		SqlConnection conn = null;
-		SqlDataReader reader = null;
+		Legislatura.setLegislaturaCorrente();
 
+		//// Se dall'SSO arriva "nome.cognome@dominio", qui puoi fare il mapping
+		//// a "nome.cognome" se è questo che hai in uu.nome_utente
+		//username = username.ToLower();
+		//
+		//SqlConnection conn = null;
+		//SqlDataReader reader = null;
+
+		/*
 		try
 		{
 			conn = new SqlConnection(conn_string);
@@ -177,24 +190,24 @@ public partial class _Default : System.Web.UI.Page
 
 			// Query simile alla vecchia query_info_login, ma SENZA password
 			string query_info = @"
-                SELECT  uu.id_utente,
-                        uu.nome_utente,
-                        tr.grado,
-                        oo.id_organo,
-                        LTRIM(RTRIM(oo.nome_organo)) AS nome_organo,
-                        oo.vis_serv_comm,
-                        uu.id_ruolo
-                FROM utenti AS uu 
-                INNER JOIN tbl_ruoli AS tr 
-                    ON uu.id_ruolo = tr.id_ruolo
-                LEFT OUTER JOIN organi AS oo
-                    ON tr.id_organo = oo.id_organo
-                LEFT OUTER JOIN legislature AS ll
-                    ON oo.id_legislatura = ll.id_legislatura
-                WHERE uu.attivo = 1
-                  AND LOWER(uu.nome) = @nome
-                  AND LOWER(uu.cognome) = @cognome
-                ORDER BY ll.durata_legislatura_da DESC";
+				SELECT  uu.id_utente,
+						uu.nome_utente,
+						tr.grado,
+						oo.id_organo,
+						LTRIM(RTRIM(oo.nome_organo)) AS nome_organo,
+						oo.vis_serv_comm,
+						uu.id_ruolo
+				FROM utenti AS uu 
+				INNER JOIN tbl_ruoli AS tr 
+					ON uu.id_ruolo = tr.id_ruolo
+				LEFT OUTER JOIN organi AS oo
+					ON tr.id_organo = oo.id_organo
+				LEFT OUTER JOIN legislature AS ll
+					ON oo.id_legislatura = ll.id_legislatura
+				WHERE uu.attivo = 1
+				  AND LOWER(uu.nome) = @nome
+				  AND LOWER(uu.cognome) = @cognome
+				ORDER BY ll.durata_legislatura_da DESC";
 
 			SqlCommand cmd = new SqlCommand(query_info, conn);
 			cmd.Parameters.AddWithValue("@nome", nome.ToLower());
@@ -239,6 +252,7 @@ public partial class _Default : System.Web.UI.Page
 				conn.Dispose();
 			}
 		}
+		*/
 	}
 
 
