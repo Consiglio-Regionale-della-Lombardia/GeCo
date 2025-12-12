@@ -70,7 +70,8 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
                         AND oo.deleted = 0
                         AND oo.id_categoria_organo = 4 -- 'giunta regionale'
                         AND (jpr.residenza_attuale = 1 OR jpr.residenza_attuale IS NULL)
-                        AND ll.id_legislatura = @id_leg";
+                        AND ll.id_legislatura = @id_leg
+                        AND cc.nome_carica <> 'Assessore non consigliere'";
 
     string query_where = @" AND (jpoc.data_fine IS NULL)";
     /// <summary>
@@ -247,7 +248,7 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
         switch (ddlCarica.SelectedValue)
         {
             case "1":
-				other_condition += " AND cc.nome_carica LIKE 'Assessore%' AND cc.nome_carica <> 'Assessore non consigliere'";
+				other_condition += " AND cc.nome_carica LIKE 'Assessore%'";
 				break;
 
             case "2":
