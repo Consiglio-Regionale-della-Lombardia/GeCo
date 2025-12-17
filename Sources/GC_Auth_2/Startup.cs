@@ -50,6 +50,16 @@ namespace GC_Auth_2
 
 				Notifications = new OpenIdConnectAuthenticationNotifications
 				{
+					RedirectToIdentityProvider = context =>
+					{
+						if (context.ProtocolMessage.RequestType == Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectRequestType.Authentication)
+						{
+							context.ProtocolMessage.Prompt = "login";
+						}
+
+						return Task.FromResult(0);
+					},
+
 					SecurityTokenValidated = context =>
 					{
 						var identity = (ClaimsIdentity)context.AuthenticationTicket.Identity;

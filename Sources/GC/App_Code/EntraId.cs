@@ -87,8 +87,8 @@ public class EntraId
 	/// </summary>
 	public static bool LoggedIn
 	{
-		get { return (System.Web.HttpContext.Current.Session.Contents["logged_in"] as string) == "1"; }
-		set { System.Web.HttpContext.Current.Session.Contents["logged_in"] = value ? "1" : "0"; }
+		get { return (System.Web.HttpContext.Current.Session.Contents["logged_in_entra"] as string) == "1"; }
+		set { System.Web.HttpContext.Current.Session.Contents["logged_in_entra"] = value ? "1" : "0"; }
 	}
 
 	/// <summary>

@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.UI.WebControls;
 
 public class AuthUser
 {
@@ -16,6 +17,7 @@ public static class AuthHelper
 {
 	private const string SessionUserKey = "CurrentUser";
 	private const string SsoParam = "sso";
+	private const int LOGIN_TIMEOUT_MINUTES = 60;
 
 	// Chiave segreta condivisa fra legacy e app Auth
 	private const string SharedSecret = "CAMBIA-QUESTA-CHIAVE-LUNGA-E-SEGRETA";
@@ -27,21 +29,44 @@ public static class AuthHelper
 	public static AuthUser EnsureAuthenticated()
 	{
 		HttpContext ctx = HttpContext.Current;
+		
+		
+		if (EntraId.LoggedIn && ctx.Session["LoginTime"] != null)
+		{
+			DateTime loginTime = (DateTime)ctx.Session["LoginTime"];
+
+			// Se è passata più di 1 ora → logout forzato
+			if (DateTime.Now - loginTime > TimeSpan.FromMinutes(LOGIN_TIMEOUT_MINUTES))
+			{
+				EntraId.LoggedIn = false;
+				ForceReLogin(ctx);
+				return null;
+			}
+		}
+		
 
 		// 1) Utente già in Session?
 		object sessionValue = ctx.Session[SessionUserKey];
-		if (sessionValue != null && sessionValue is AuthUser)
+		if (/*EntraId.LoggedIn && */sessionValue != null && sessionValue is AuthUser)
 		{
 			return (AuthUser)sessionValue;
 		}
 
-		// 2) Sto tornando dall'app Auth con ?sso=...
+		// Sto tornando dall'app Auth con ?sso=...
 		string ssoToken = ctx.Request.QueryString[SsoParam];
 		if (!string.IsNullOrEmpty(ssoToken))
 		{
 			AuthUser user = ValidateSsoToken(ssoToken);
 			if (user != null)
 			{
+				EntraId.LoggedIn = true;
+
+				// Se non ho ancora il LoginTime, lo imposto ora
+				if (ctx.Session["LoginTime"] == null)
+				{
+					ctx.Session["LoginTime"] = DateTime.Now;
+				}
+
 				// Salvo in Session
 				ctx.Session[SessionUserKey] = user;
 
@@ -165,5 +190,27 @@ public static class AuthHelper
 			diff |= ba[i] ^ bb[i];
 		}
 		return diff == 0;
+	}
+
+	private static void ForceReLogin(HttpContext ctx)
+	{
+		ctx.Session.Clear();
+		ctx.Session.Abandon();
+
+		//string returnUrl = ctx.Server.UrlEncode(ctx.Request.RawUrl);
+
+		// redireziono sempre a index.aspx
+		string currentUrl = ctx.Request.Url.AbsoluteUri.Replace(ctx.Request.Url.AbsolutePath, "");
+		string encodedReturnUrl = HttpUtility.UrlEncode(currentUrl);
+
+		// URL dell'app Auth con pagina SsoLogin.aspx
+		string authBaseUrl = ConfigurationManager.AppSettings["AuthBaseUrl"];
+		string authLoginUrl = authBaseUrl + "/SsoLogin.aspx?forceLogin=1&returnUrl=" + encodedReturnUrl;
+
+		ctx.Response.Redirect(authLoginUrl, true);
+
+
+
+		ctx.Response.Redirect("/", true);
 	}
 }

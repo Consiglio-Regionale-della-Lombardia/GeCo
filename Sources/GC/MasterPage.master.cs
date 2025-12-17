@@ -40,7 +40,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         base.OnInit(e);
 
-        try
+        AuthHelper.EnsureAuthenticated();
+
+		try
         {
             if (!Request.Url.ToString().ToLower().Contains("errore.aspx"))
             {

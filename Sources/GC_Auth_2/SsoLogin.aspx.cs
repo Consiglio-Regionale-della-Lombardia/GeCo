@@ -30,12 +30,15 @@ namespace GC_Auth_2
 				return;
 			}
 
-			if (!Request.IsAuthenticated)
+			string forceLogin = Request.QueryString["forceLogin"];
+
+			if (forceLogin == "1" || !Request.IsAuthenticated)
 			{
 				// Non autenticato con OWIN/Azure → avvia Challenge
 				AuthenticationProperties props = new AuthenticationProperties();
+				props.RedirectUri = RemoveQueryParam(Request.Url, "forceLogin");
 				// Dopo OIDC, vogliamo tornare di nuovo su questa pagina (SsoLogin)
-				props.RedirectUri = Request.Url.AbsoluteUri;
+				//props.RedirectUri = Request.Url.AbsoluteUri;
 
 				HttpContext.Current
 					.GetOwinContext()
@@ -113,10 +116,17 @@ namespace GC_Auth_2
 				return Convert.ToBase64String(hash);
 			}
 		}
+		private static string RemoveQueryParam(Uri url, string key)
+		{
+			var uri = new UriBuilder(url);
+
+			var qs = System.Web.HttpUtility.ParseQueryString(uri.Query);
+			qs.Remove(key);
+
+			uri.Query = qs.ToString(); // ricostruisce la query senza quel parametro
+			return uri.Uri.AbsoluteUri;
+		}
 	}
-
-
-
 }
 
 

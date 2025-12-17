@@ -318,6 +318,7 @@ public partial class _Default : System.Web.UI.Page
             if (reader.HasRows)
             {
                 loggedin = true;
+				//EntraId.LoggedIn = true;
 
                 while (reader.Read())
                 {
