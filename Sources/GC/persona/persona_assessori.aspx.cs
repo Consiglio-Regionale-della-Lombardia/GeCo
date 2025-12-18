@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 using System;
+using System.Activities.Expressions;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -122,9 +123,11 @@ public partial class persona_assessori : System.Web.UI.Page
                            AND jpoc.deleted = 0 
                            AND oo.deleted = 0 
                            AND oo.id_categoria_organo = 4 -- 'giunta regionale'
-                           AND ll.id_legislatura = @id";
+                           AND ll.id_legislatura = @id
+		                   AND cc.nome_carica <> 'Assessore non consigliere'";
 
-        /*
+
+		/*
         if (Page.IsPostBack == false) // legislatura corrente selezionata
         {
             query = query.Replace("@id", legislatura_corrente);
@@ -138,14 +141,14 @@ public partial class persona_assessori : System.Web.UI.Page
             query = query.Replace("AND ll.id_legislatura = @id", "");          
         }
         */
-        /*
+		/*
         if (legislatura_corrente == "")
             query = query.Replace("AND ll.id_legislatura = @id", "");
         else
             query = query.Replace("@id", legislatura_corrente);
         */
 
-        if (Session.Contents["id_legislatura_search"] == null || Session.Contents["id_legislatura_search"].ToString() == "")
+		if (Session.Contents["id_legislatura_search"] == null || Session.Contents["id_legislatura_search"].ToString() == "")
             query = query.Replace("AND ll.id_legislatura = @id", "");
         else
             query = query.Replace("@id", Session.Contents["id_legislatura_search"].ToString());
