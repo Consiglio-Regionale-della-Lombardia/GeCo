@@ -776,7 +776,7 @@
 									                              INNER JOIN tbl_comuni cc 
 									                                ON jj.id_comune_residenza = cc.id_comune
 									                              WHERE jj.id_persona = @id_persona
-									                                AND jj.residenza_attuale = 1">
+									                                AND jj.residenza_attuale = 1 and jj.data_a is null">
 							        <SelectParameters>
 							            <asp:SessionParameter Name="id_persona" SessionField="id_persona" Type="Int32" />
 							        </SelectParameters>
