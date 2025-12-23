@@ -69,7 +69,7 @@ public partial class report_assessori_dati_anagrafici : System.Web.UI.Page
                         AND jpoc.deleted = 0
                         AND oo.deleted = 0
                         AND oo.id_categoria_organo = 4 -- 'giunta regionale'
-                        AND (jpr.residenza_attuale = 1 OR jpr.residenza_attuale IS NULL)
+                        AND (jpr.residenza_attuale = 1 OR jpr.residenza_attuale IS NULL) and jpr.data_a is null
                         AND ll.id_legislatura = @id_leg
                         AND cc.nome_carica <> 'Assessore non consigliere'";
 
