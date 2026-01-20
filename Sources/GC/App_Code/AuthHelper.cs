@@ -80,8 +80,10 @@ public static class AuthHelper
 
 		// 3) Non autenticato → redirect all'app Auth per SSO
 		Uri current = ctx.Request.Url;
-		string currentUrl = current.AbsoluteUri;
-		string encodedReturnUrl = HttpUtility.UrlEncode(currentUrl);
+		//string currentUrl = current.AbsoluteUri;
+
+		string baseUrl = current.AbsoluteUri.Replace(current.AbsolutePath, "");
+		string encodedReturnUrl = HttpUtility.UrlEncode(baseUrl);
 
 		// URL dell'app Auth con pagina SsoLogin.aspx
 		string authBaseUrl = ConfigurationManager.AppSettings["AuthBaseUrl"];

@@ -73,10 +73,16 @@ namespace GC_Auth_2
 					surname = surnameClaim.Value;
 				}
 
-				Claim roleClaim = identity.FindFirst(ClaimTypes.Role);
-				if (roleClaim != null)
+				List<string> roleClaimlist = identity
+							.FindAll(ClaimTypes.Role)
+							.Select(c => c.Value)
+							.ToList();
+				
+				//Claim roleClaim = identity.FindFirst(ClaimTypes.Role);
+				
+				if (roleClaimlist != null && roleClaimlist.Count > 0)
 				{
-					role = roleClaim.Value;
+					role = string.Join(", ",roleClaimlist);
 				}
 			}
 

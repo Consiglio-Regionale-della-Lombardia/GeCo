@@ -165,7 +165,12 @@ public partial class _Default : System.Web.UI.Page
 		List<string> roles = new List<string>();
 		if (!string.IsNullOrEmpty(user.Ruolo))
 		{
-			roles.Add(string.Concat("CONSIGLIO\\", user.Ruolo));
+			//roles.Add(string.Concat("CONSIGLIO\\", user.Ruolo));
+			
+			foreach (string ruolo in user.Ruolo.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+			{
+				roles.Add(@"CONSIGLIO\" + ruolo.Trim());
+			}
 		}
 
 		EntraId.EntraIdUser userEntraId = new EntraId.EntraIdUser(username, roles);
