@@ -46,6 +46,8 @@ GeCo è un'applicazione web sviluppata utilizzando la tecnologia Microsoft ASP.n
 
 * **Integrazione con sistema di autenticazione**: Sistema di autenticazione basato su Active Directory e gestito tramite sistema operativo Windows
 
+* **Integrazione con sistema di autenticazione**: Sistema di autenticazione EntraID.
+
 GeCo è sviluppato in ASP.net utilizzanto il linguaggio di programmazione C# mediante il [Framework .NET 4.0](https://docs.microsoft.com/it-it/dotnet/).<br />
 Si tratta pertanto di una applicazione web [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) che comunica con la base dati in modalità ADO.Net tramite la libreria [System.Data.SqlClient](https://docs.microsoft.com/it-it/dotnet/api/system.data.sqlclient?view=netframework-4.0).
 
@@ -53,6 +55,9 @@ La parte di autenticazione all'applicazione web e la gestione dei ruoli/permessi
 Il software GeCo è inoltre dotato di un sistema di autenticazione nativo con utenze, password e ruoli memorizzati sul proprio database. Tale autenticazione è attivabile attraverso parametro di configurazione presente nel web.config dell'applicazione.
 Il parametro **ENABLE_LOGIN_RETE** se impostato su true imposta l'autenticazione integrata di Windows: viene prelevato l'utente connesso e confrontato con il valore presente sulla tabella dei ruoli e qundi impostare tale ruolo che servirà per l'intera sessione.
 Se il parametro **ENABLE_LOGIN_RETE** viene mpostato su false l'autenticazione avverrà con inserimento di utente e password.
+
+Edit 01-2026: l'autenticazione non viene piu fatta tramite Active Directory; è stata sostituita da EntraID. Una nuova applicazione è stata creata per questo scopo: GC_Auth.
+Descrivo in breve cosa accade: quando l'utente cerca di accedere all'applicativo GeCo, viene redirezionato sulla applicazione GC_Auth e gli viene chiesto di autenticarsi. GC_Auth ottiene i dati dell'utente (username e ruoli) e, con le nuove informazioni, ridireziona di nuovo la navigazione su GeCo. GeCo quindi è in possesso di ruoli e utente con i quali interrogare il db e garantire all'utente i permessi (in modo identico ad Active Directory). 
 
 I dati anagrafici dei Consiglieri/Assessori, i gruppi politici, gli organi e la loro composizione vengono trasferiti in automatico, utilizzando un webservice di interfaccia, sulla piattaforma opendata utilizzata da Regione Lombardia. Tale opzione è disattivata sulla versione pubblicata per il riuso attraverso l'apposito parametro di configurazione **ENABLE_SEND_OPEN_DATA** che se impostato su true invia i dati al Sistema OpenData.
 
