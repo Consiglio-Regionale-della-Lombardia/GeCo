@@ -72,7 +72,7 @@ https://support.microsoft.com/it-it/help/323972/how-to-set-up-your-first-iis-web
 
 #### 3.3 Attivazione e configurazione modalità autenticazione di Windows
 
-Il sito web GC richiede l'utilizzo dell'autenticazione di Windows, che è già configurata nel relativo web.config:
+Il sito web GC richiede alternativamente l'utilizzo dell'autenticazione di Windows o EntraID, che è già configurata nel relativo web.config:
 
 > &lt;authentication mode="Windows"/&gt;
 
@@ -80,6 +80,20 @@ Per l'attivazione e configurazione della Windows authentication in IIS, fare rif
 
 https://docs.microsoft.com/en-us/iis/configuration/system.webserver/security/authentication/windowsauthentication/
 
+#### 3.4 Attivazione e configurazione modalità autenticazione di EntraID
+
+Con l'introduzione del login EntraID è stato necessario creare una applicazione GC_Auth che si occupasse solo dell'autenticazione.
+
+Per attivare l'autenticazione con EntraID sono necessari i parametri/configurazioni:
+	
+>	&lt;add key="ENABLE_ENTRA_ID" value="true" /&gt;
+	
+>	&lt;authentication mode="None" /&gt;
+>	&lt;identity impersonate="true" /&gt;
+
+E' necessario inoltre aggiungere l'indirizzo (url) dell'applicazione GC_Auth:
+
+>	&lt;add key="AuthBaseUrl" value="https://localhost:44374" /&gt;
 
 ### 4. Compilazione sorgenti e pubblicazione su IIS
 
@@ -90,6 +104,7 @@ Compilato il codice sorgente, si potrà pubblicare l'applicazione sul sito web c
 La procedura manuale prevede i seguenti passi:
 
 - Creare un file zip contenente i files dell'applicativo - **ATTENZIONE: assicurarsi di aver escluso il file web.config, per non rischiare di sovrascrivere le configurazioni dell'ambiente di produzione**;
+- Creare un file zip contenente l'applicazione GC_Auth (se necessario) - **ATTENZIONE: assicurarsi di aver escluso il file web.config, per non rischiare di sovrascrivere le configurazioni dell'ambiente di produzione**;
 - Accedere in desktop remoto, con utenza amminsitrativa, al server che ospita l'applicativo e copiarvi lo zip;
 - Stoppare il sito web su IIS, per evitare perdite di dati durante il deploy;
 - Se si tratta di un aggiornamento di installazione già esistente, creare uno zip dell'intera root dell'applicativo attualmente presente sul server, in modo da averne il backup cpompleto pre-rilascio;
