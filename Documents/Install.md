@@ -72,7 +72,7 @@ https://support.microsoft.com/it-it/help/323972/how-to-set-up-your-first-iis-web
 
 #### 3.3 Attivazione e configurazione modalità autenticazione di Windows
 
-Il sito web GC richiede l'utilizzo dell'autenticazione di Windows, che è già configurata nel relativo web.config:
+Il sito web GC richiede alternativamente l'utilizzo dell'autenticazione di Windows o EntraID, che è già configurata nel relativo web.config:
 
 > &lt;authentication mode="Windows"/&gt;
 
@@ -80,6 +80,14 @@ Per l'attivazione e configurazione della Windows authentication in IIS, fare rif
 
 https://docs.microsoft.com/en-us/iis/configuration/system.webserver/security/authentication/windowsauthentication/
 
+#### 3.4 Attivazione e configurazione modalità autenticazione di EntraID
+
+Per attivare l'autenticazione con EntraID sono necessari i parametri/configurazioni:
+	
+	&lt;add key="ENABLE_ENTRA_ID" value="true" /&gt;
+	
+	&lt;authentication mode="None" /&gt;
+	&lt;identity impersonate="true" /&gt;
 
 ### 4. Compilazione sorgenti e pubblicazione su IIS
 
