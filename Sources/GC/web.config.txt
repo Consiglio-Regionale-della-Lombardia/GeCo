@@ -11,8 +11,17 @@
 -->
 <configuration>
   <appSettings>
+
+    <!-- Se ENABLE_ENTRA_ID == true, a questo url risponde app che esegue login su Entra ID -->
+	<add key="AuthBaseUrl" value="https://localhost:44374" />
+    <!-- AuthBaseUrl per produzione -->
+    <!-- <add key="AuthBaseUrl" value="https://auth.gecolombardia.lansystems.it" /> -->
+
+
     <!-- Parametro per abilitare la login di rete - Valori possibili={true|false} -->
-    <add key="ENABLE_LOGIN_RETE" value="true"/>
+	<add key="ENABLE_LOGIN_RETE" value="false"/>
+    <!-- Parametro per abilitare la login dda Entra ID  - Valori possibili={true|false} -->
+	<add key="ENABLE_ENTRA_ID" value="true"/>
     <add key="PATH_ALLEGATI" value="/filesAllegati"/>
     <!-- Parametro per abilitare invio dati a Open Data - Valori possibili={true|false} -->
     <add key="ENABLE_SEND_OPEN_DATA" value="false"/>
