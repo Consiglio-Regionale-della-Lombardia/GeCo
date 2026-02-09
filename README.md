@@ -51,6 +51,7 @@ GeCo è un'applicazione web sviluppata utilizzando la tecnologia Microsoft ASP.n
 GeCo è sviluppato in ASP.net utilizzanto il linguaggio di programmazione C# mediante il [Framework .NET 4.0](https://docs.microsoft.com/it-it/dotnet/).<br />
 Si tratta pertanto di una applicazione web [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) che comunica con la base dati in modalità ADO.Net tramite la libreria [System.Data.SqlClient](https://docs.microsoft.com/it-it/dotnet/api/system.data.sqlclient?view=netframework-4.0).
 
+Edit 01-2026 **ENABLE_LOGIN_RETE** è obsoleto.
 La parte di autenticazione all'applicazione web e la gestione dei ruoli/permessi utente è stata realizzata interfacciandosi con il repository Active Directory presente sul server di Dominio Microsoft Windows utilizzato dal Consiglio regionale della Lombardia per la gestione delle utenze di rete. Tutte regole per le password (regole per ottenere password sicure, scadenza della password, etc...) sono pertanto demandate a tale sistema. I profili di autorizzazione sono gestiti attraverso la creazione security groups Active Directory configurabili nel pannello di amministrazione di GeCo.
 Il software GeCo è inoltre dotato di un sistema di autenticazione nativo con utenze, password e ruoli memorizzati sul proprio database. Tale autenticazione è attivabile attraverso parametro di configurazione presente nel web.config dell'applicazione.
 Il parametro **ENABLE_LOGIN_RETE** se impostato su true imposta l'autenticazione integrata di Windows: viene prelevato l'utente connesso e confrontato con il valore presente sulla tabella dei ruoli e qundi impostare tale ruolo che servirà per l'intera sessione.
@@ -60,17 +61,22 @@ Edit 01-2026:
 Un parametro **ENABLE_ENTRA_ID** che puo essere true o false è stato aggiunto; se impostato a true l'autenticazione avviene tramite EntraID; una nuova applicazione è stata creata per questo scopo: GC_Auth.
 Descrivo in breve cosa accade: quando l'utente cerca di accedere all'applicativo GeCo, viene redirezionato sulla applicazione GC_Auth e gli viene chiesto di autenticarsi. GC_Auth ottiene i dati dell'utente (username e ruoli) e, con le nuove informazioni, ridireziona di nuovo la navigazione su GeCo. GeCo quindi è in possesso di ruoli e utente con i quali interrogare il db e garantire all'utente i permessi (in modo identico ad Active Directory). 
 
-I dati anagrafici dei Consiglieri/Assessori, i gruppi politici, gli organi e la loro composizione vengono trasferiti in automatico, utilizzando un webservice di interfaccia, sulla piattaforma opendata utilizzata da Regione Lombardia. Tale opzione è disattivata sulla versione pubblicata per il riuso attraverso l'apposito parametro di configurazione **ENABLE_SEND_OPEN_DATA** che se impostato su true invia i dati al Sistema OpenData.
+Un'altro parametro nel web.config è stato modificato, al fine di disabilitare l'autenticazione di Windows.
 
-Quando **ENABLE_ENTRA_ID**=true, è necessario disabilitare l'autenticazione di Windows nel web.config, modificando i seguenti parametri da:
-
+Da:
 >	&lt;authentication mode="Windows"/&gt;
 
 a:
-
 >	&lt;authentication mode="None"/&gt;
 
-Quando invece **ENABLE_ENTRA_ID** è false, la logica precedente è stata mantenuta, quindi viene valutato il parametro **ENABLE_LOGIN_RETE**. 
+Inoltre per effettuare correttamente l'autenticazione è fondamentale impostare correttamente i parametri:
+
+**AuthBaseUrl**: è l'url su cui viene fatto il redirect in fase di login, a cui risponde la nuova applicazione GC_Auth_
+**ida:ClientId** e **ida:TenantId**: questa coppia di valori si riferiscono all'istanza dell'applicazione creata su EntraID. Sono usati durante il redirect sul sito Microsoft che richiede l'autenticazione tramite app Autenticator.
+
+Quando **ENABLE_ENTRA_ID** è false, l'autenticazione avverrà con inserimento di utente e password.
+
+I dati anagrafici dei Consiglieri/Assessori, i gruppi politici, gli organi e la loro composizione vengono trasferiti in automatico, utilizzando un webservice di interfaccia, sulla piattaforma opendata utilizzata da Regione Lombardia. Tale opzione è disattivata sulla versione pubblicata per il riuso attraverso l'apposito parametro di configurazione **ENABLE_SEND_OPEN_DATA** che se impostato su true invia i dati al Sistema OpenData.
 
 ![Struttura](Struttura.PNG)
 
