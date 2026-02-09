@@ -58,7 +58,7 @@ Il parametro **ENABLE_LOGIN_RETE** se impostato su true imposta l'autenticazione
 Se il parametro **ENABLE_LOGIN_RETE** viene mpostato su false l'autenticazione avverrà con inserimento di utente e password.
 
 Edit 01-2026: 
-Un parametro **ENABLE_ENTRA_ID** che puo essere true o false è stato aggiunto; se impostato a true l'autenticazione avviene tramite EntraID; una nuova applicazione è stata creata per questo scopo: GC_Auth.
+Un parametro **ENABLE_ENTRA_ID** che puo essere true o false è stato aggiunto per gestire l'autenticazione con EntraID, che sostituisce la precendente autenticazione con il repository Active Directory; se impostato a true l'autenticazione avviene tramite EntraID; una nuova applicazione è stata creata per questo scopo: GC_Auth.
 Descrivo in breve cosa accade: quando l'utente cerca di accedere all'applicativo GeCo, viene redirezionato sulla applicazione GC_Auth e gli viene chiesto di autenticarsi. GC_Auth ottiene i dati dell'utente (username e ruoli) e, con le nuove informazioni, ridireziona di nuovo la navigazione su GeCo. GeCo quindi è in possesso di ruoli e utente con i quali interrogare il db e garantire all'utente i permessi (in modo identico ad Active Directory). 
 
 Un'altro parametro nel web.config è stato modificato, al fine di disabilitare l'autenticazione di Windows.
@@ -75,6 +75,8 @@ Inoltre per effettuare correttamente l'autenticazione è fondamentale impostare 
 **ida:ClientId** e **ida:TenantId**: questa coppia di valori si riferiscono all'istanza dell'applicazione creata su EntraID. Sono usati durante il redirect sul sito Microsoft che richiede l'autenticazione tramite app Autenticator.
 
 Quando **ENABLE_ENTRA_ID** è false, l'autenticazione avverrà con inserimento di utente e password.
+
+**NOTA:** con l'attivazione dell'autenticazione attraverso EntraID non è più riattivabile la precedente modalità di autenticazione con Active Directory. Il parametro **ENABLE_LOGIN_RETE**, lasciato nelle variabili di configurazione per retrocompatibilità, non ha quindi più nessun effetto sul comportamento del codice.
 
 I dati anagrafici dei Consiglieri/Assessori, i gruppi politici, gli organi e la loro composizione vengono trasferiti in automatico, utilizzando un webservice di interfaccia, sulla piattaforma opendata utilizzata da Regione Lombardia. Tale opzione è disattivata sulla versione pubblicata per il riuso attraverso l'apposito parametro di configurazione **ENABLE_SEND_OPEN_DATA** che se impostato su true invia i dati al Sistema OpenData.
 
@@ -127,3 +129,4 @@ Di seguito una tabella riassuntiva di tutte le componenti (DLL) utilizzate con l
 ## Screenshot
 
 Per poter visionare i vari screenshot applicativi, si rimanda al link [Screenshots](Screenshots/Readme.md).
+
