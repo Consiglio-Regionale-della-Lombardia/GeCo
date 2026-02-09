@@ -56,11 +56,21 @@ Il software GeCo è inoltre dotato di un sistema di autenticazione nativo con ut
 Il parametro **ENABLE_LOGIN_RETE** se impostato su true imposta l'autenticazione integrata di Windows: viene prelevato l'utente connesso e confrontato con il valore presente sulla tabella dei ruoli e qundi impostare tale ruolo che servirà per l'intera sessione.
 Se il parametro **ENABLE_LOGIN_RETE** viene mpostato su false l'autenticazione avverrà con inserimento di utente e password.
 
-Edit 01-2026: l'autenticazione non viene piu fatta tramite Active Directory; è stata sostituita da EntraID. Una nuova applicazione è stata creata per questo scopo: GC_Auth.
+Edit 01-2026: 
+Un parametro **ENABLE_ENTRA_ID** che puo essere true o false è stato aggiunto; se impostato a true l'autenticazione avviene tramite EntraID; una nuova applicazione è stata creata per questo scopo: GC_Auth.
 Descrivo in breve cosa accade: quando l'utente cerca di accedere all'applicativo GeCo, viene redirezionato sulla applicazione GC_Auth e gli viene chiesto di autenticarsi. GC_Auth ottiene i dati dell'utente (username e ruoli) e, con le nuove informazioni, ridireziona di nuovo la navigazione su GeCo. GeCo quindi è in possesso di ruoli e utente con i quali interrogare il db e garantire all'utente i permessi (in modo identico ad Active Directory). 
 
 I dati anagrafici dei Consiglieri/Assessori, i gruppi politici, gli organi e la loro composizione vengono trasferiti in automatico, utilizzando un webservice di interfaccia, sulla piattaforma opendata utilizzata da Regione Lombardia. Tale opzione è disattivata sulla versione pubblicata per il riuso attraverso l'apposito parametro di configurazione **ENABLE_SEND_OPEN_DATA** che se impostato su true invia i dati al Sistema OpenData.
 
+Quando **ENABLE_ENTRA_ID**=true, è necessario disabilitare l'autenticazione di Windows nel web.config, modificando i seguenti parametri da:
+
+>	&lt;authentication mode="Windows"/&gt;
+
+a:
+
+>	&lt;authentication mode="None"/&gt;
+
+Quando invece **ENABLE_ENTRA_ID** è false, la logica precedente è stata mantenuta, quindi viene valutato il parametro **ENABLE_LOGIN_RETE**. 
 
 ![Struttura](Struttura.PNG)
 
