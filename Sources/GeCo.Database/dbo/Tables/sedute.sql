@@ -59,38 +59,6 @@ CREATE STATISTICS [_dta_stat_2004202190_12_1_2_3_7]
 
 
 GO
-CREATE TRIGGER trigger_delete_sedute
-ON dbo.sedute
-FOR UPDATE
-AS
-
-IF @@ROWCOUNT = 0
-    RETURN
-
-DECLARE @id int
-
-SELECT @id = id_seduta FROM deleted
-
-IF (UPDATE(deleted))
-BEGIN
-
-    BEGIN TRAN
-
-    UPDATE join_persona_sedute SET deleted = 1 WHERE id_seduta = @id
-    UPDATE sedute SET deleted = 1 WHERE id_seduta = @id
-
-    IF @@ERROR = 0
-    BEGIN
-	COMMIT TRAN
-    END
-    ELSE
-    BEGIN
-	ROLLBACK TRAN
-    END
-     
-END
-
-GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Tabella sedute', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'sedute';
 
 

@@ -63,6 +63,7 @@
     <Folder Include="dbo\Views\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Triggers\" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Old" />
   </ItemGroup>
@@ -117,6 +118,8 @@
     <Build Include="dbo\Tables\tbl_cause_fine.sql" />
     <Build Include="dbo\Tables\join_persona_sedute.sql" />
     <Build Include="dbo\Tables\sedute.sql" />
+    <Build Include="dbo\Triggers\trigger_delete_organi.sql" />
+    <Build Include="dbo\Triggers\trigger_delete_sedute.sql" />
     <Build Include="dbo\Tables\join_persona_risultati_elettorali.sql" />
     <Build Include="dbo\Views\gruppo.sql" />
     <Build Include="dbo\Views\consigliere.sql" />
