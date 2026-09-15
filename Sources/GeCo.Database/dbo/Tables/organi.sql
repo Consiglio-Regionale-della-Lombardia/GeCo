@@ -42,41 +42,6 @@ CREATE NONCLUSTERED INDEX [IX_id_parent_organo]
 
 
 GO
-CREATE TRIGGER trigger_delete_organi
-ON dbo.organi
-FOR UPDATE
-AS
-
-IF @@ROWCOUNT = 0
-    RETURN
-
-DECLARE @id int
-
-SELECT @id = id_organo FROM deleted
-
-IF (UPDATE(deleted))
-BEGIN
-
-    BEGIN TRAN
-
-    UPDATE join_cariche_organi SET deleted = 1 WHERE id_organo = @id
-    UPDATE join_persona_organo_carica SET deleted = 1 WHERE id_organo = @id
-    UPDATE join_persona_sedute SET deleted = 1 WHERE id_seduta IN (SELECT id_seduta FROM sedute WHERE id_organo = @id)
-    UPDATE sedute SET deleted = 1 WHERE id_organo = @id
-    UPDATE organi SET deleted = 1 WHERE id_organo = @id
-
-    IF @@ERROR = 0
-    BEGIN
-	COMMIT TRAN
-    END
-    ELSE
-    BEGIN
-	ROLLBACK TRAN
-    END
-     
-END
-
-GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Tabella organi', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'organi';
 
 
